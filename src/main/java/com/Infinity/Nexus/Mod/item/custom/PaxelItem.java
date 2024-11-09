@@ -15,6 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.tags.BlockTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,12 +27,22 @@ import java.util.function.Function;
 public class PaxelItem extends ModPaxelItem {
     private final boolean drop;
     private final Component translation;
-    private final MobEffectInstance[] effects =new MobEffectInstance[]{new MobEffectInstance(MobEffects.LUCK, 1, 1, false, false)};
+    private final MobEffectInstance[] effects = new MobEffectInstance[]{new MobEffectInstance(MobEffects.LUCK, 1, 1, false, false)};
 
     public PaxelItem(Tier tier, float damage, float attackSpeed, Function<Item.Properties, Item.Properties> properties, Component translation, boolean drop) {
-        super(tier,damage,attackSpeed, properties);
+        super(tier, damage, attackSpeed, properties);
         this.translation = translation;
         this.drop = drop;
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, BlockState state) {
+        if (state.is(BlockTags.MINEABLE_WITH_PICKAXE) ||
+                state.is(BlockTags.MINEABLE_WITH_AXE) ||
+                state.is(BlockTags.MINEABLE_WITH_SHOVEL)) {
+            return 50.0F;
+        }
+        return super.getDestroySpeed(stack, state);
     }
 
     @Override
@@ -39,13 +51,12 @@ public class PaxelItem extends ModPaxelItem {
             Level level = player.level();
             ItemEntity itemEntity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ModItemsAdditions.INFINITY_NUGGET.get().getDefaultInstance());
             Random random = new Random();
-            int numeroAleatorio = random.nextInt(10000) + 1;
-            if(numeroAleatorio <= 1){
+            int randomInt = random.nextInt(10000) + 1;
+            if(randomInt <= 1){
                 level.addFreshEntity(itemEntity);
             }
         }
         return super.onBlockStartBreak(itemstack, pos, player);
-
     }
 
     @Override
@@ -63,12 +74,11 @@ public class PaxelItem extends ModPaxelItem {
         } else {
             components.add(Component.translatable("tooltip.infinity_nexus.pressShift"));
         }
-
         super.appendHoverText(stack, level, components, flag);
     }
+
     @Override
     public boolean isEnchantable(ItemStack stack) {
         return true;
     }
-
 }

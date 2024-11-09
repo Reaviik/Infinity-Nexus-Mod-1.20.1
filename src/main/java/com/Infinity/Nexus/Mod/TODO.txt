@@ -4,4 +4,4 @@
 [X] Algum sistema de craft magico ou mystico
 [X] Criar um mob para carda ORB
 [X] Arumar a animação dos mobs para nã ose sobrepor umas as outras
-[X] Fazer a paxel Funcionar como esperado
+[V] Fazer a paxel Funcionar como esperado

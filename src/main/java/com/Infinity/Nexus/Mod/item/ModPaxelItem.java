@@ -1,31 +1,46 @@
 package com.Infinity.Nexus.Mod.item;
 
 import com.Infinity.Nexus.Mod.utils.ModTags;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.item.DiggerItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.Vanishable;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
+import java.util.Map;
 import java.util.function.Function;
 
 public class ModPaxelItem extends DiggerItem implements Vanishable {
+
+    protected static final Map<Block, Block> BLOCK_STRIPPING_MAP = Axe.getStrippables();
+    protected static final Map<Block, BlockState> SHOVEL_LOOKUP = Shovel.getFlattenables();
 
     public ModPaxelItem(Tier tier, float damage, float attackSpeed, Function<Properties, Properties> properties) {
         super(damage, attackSpeed, tier, ModTags.Blocks.PAXEL_MINEABLE, properties.apply(new Properties()
                 .defaultDurability((int) (tier.getUses() * 1.5))
         ));
     }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, BlockState state) {
+        if (state.is(BlockTags.MINEABLE_WITH_PICKAXE) ||
+                state.is(BlockTags.MINEABLE_WITH_AXE) ||
+                state.is(BlockTags.MINEABLE_WITH_SHOVEL) ||
+                state.is(ModTags.Blocks.PAXEL_MINEABLE)) {
+            return speed;
+        }
+        return 1.0F;
+    }
+
     @Override
     public boolean canPerformAction(ItemStack stack, ToolAction action) {
         return ToolActions.DEFAULT_AXE_ACTIONS.contains(action)
@@ -35,98 +50,72 @@ public class ModPaxelItem extends DiggerItem implements Vanishable {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
-        var result = tryAxeUseOn(context);
-        if (result == InteractionResult.PASS) {
-            result = tryShovelUseOn(context);
-        }
-
-        return result;
+    public boolean isCorrectToolForDrops(@NotNull ItemStack stack, BlockState state) {
+        return state.is(BlockTags.MINEABLE_WITH_PICKAXE)
+                || state.is(BlockTags.MINEABLE_WITH_AXE)
+                || state.is(BlockTags.MINEABLE_WITH_SHOVEL)
+                || state.is(ModTags.Blocks.PAXEL_MINEABLE);
     }
 
-    private static InteractionResult tryAxeUseOn(UseOnContext context) {
+    @Override
+    public @NotNull InteractionResult useOn(UseOnContext context) {
         var level = context.getLevel();
         var pos = context.getClickedPos();
         var player = context.getPlayer();
-        var stack = context.getItemInHand();
-        var hand = context.getHand();
-        var state = level.getBlockState(pos);
+        var blockState = level.getBlockState(pos);
+        BlockState resultToSet = null;
 
-        var axeStripped = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_STRIP, false));
-        var axeScraped = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_SCRAPE, false));
-        var axeWaxedOff = Optional.ofNullable(state.getToolModifiedState(context, ToolActions.AXE_WAX_OFF, false));
-
-        Optional<BlockState> modifiedState = Optional.empty();
-
-        if (axeStripped.isPresent()) {
+        var strippedResult = BLOCK_STRIPPING_MAP.get(blockState.getBlock());
+        if (strippedResult != null) {
             level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-            modifiedState = axeStripped;
-        } else if (axeScraped.isPresent()) {
-            level.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.levelEvent(player, 3005, pos, 0);
-            modifiedState = axeScraped;
-        } else if (axeWaxedOff.isPresent()) {
-            level.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.levelEvent(player, 3004, pos, 0);
-            modifiedState = axeWaxedOff;
+            resultToSet = strippedResult.defaultBlockState().setValue(RotatedPillarBlock.AXIS, blockState.getValue(RotatedPillarBlock.AXIS));
+        }
+        else if (context.getClickedFace() != Direction.DOWN) {
+            var foundResult = SHOVEL_LOOKUP.get(blockState.getBlock());
+            if (foundResult != null && level.getBlockState(pos.above()).isAir()) {
+                level.playSound(player, pos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F);
+                resultToSet = foundResult;
+            }
+            else if (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(CampfireBlock.LIT)) {
+                if (!level.isClientSide()) {
+                    level.levelEvent(null, 1009, pos, 0);
+                }
+                resultToSet = blockState.setValue(CampfireBlock.LIT, false);
+            }
         }
 
-        if (modifiedState.isPresent()) {
-            if (player instanceof ServerPlayer serverPlayer) {
-                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, stack);
-            }
-
-            level.setBlock(pos, modifiedState.get(), 11);
-
-            if (player != null) {
-                stack.hurtAndBreak(1, player, (entity) -> {
-                    entity.broadcastBreakEvent(hand);
-                });
-            }
-
-            return InteractionResult.sidedSuccess(level.isClientSide());
-        }
-
-        return InteractionResult.PASS;
-    }
-    private static InteractionResult tryShovelUseOn(UseOnContext context) {
-        var level = context.getLevel();
-        var pos = context.getClickedPos();
-        var player = context.getPlayer();
-        var stack = context.getItemInHand();
-        var hand = context.getHand();
-        var state = level.getBlockState(pos);
-
-        var modifiedState = state.getToolModifiedState(context, ToolActions.SHOVEL_FLATTEN, false);
-        BlockState newState = null;
-
-        if (modifiedState != null && level.isEmptyBlock(pos.above())) {
-            level.playSound(player, pos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F);
-            newState = modifiedState;
-        } else if (state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT)) {
+        if (resultToSet != null) {
             if (!level.isClientSide()) {
-                level.levelEvent(null, 1009, pos, 0);
-            }
-
-            CampfireBlock.dowse(player, level, pos, state);
-
-            newState = state.setValue(CampfireBlock.LIT, Boolean.FALSE);
-        }
-
-        if (newState != null) {
-            if (!level.isClientSide()) {
-                level.setBlock(pos, newState, 11);
-
+                level.setBlock(pos, resultToSet, 11);
                 if (player != null) {
-                    stack.hurtAndBreak(1, player, (entity) -> {
-                        entity.broadcastBreakEvent(hand);
+                    context.getItemInHand().hurtAndBreak(1, player, (entity) -> {
+                        entity.broadcastBreakEvent(context.getHand());
                     });
                 }
             }
-
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;
+    }
+
+    private static final class Axe extends AxeItem {
+        public static Map<Block, Block> getStrippables() {
+            return AxeItem.STRIPPABLES;
+        }
+
+        private Axe(Tier tier, float attackDamage, float attackSpeed, Properties properties) {
+            super(tier, attackDamage, attackSpeed, properties);
+        }
+    }
+
+    private static final class Shovel extends ShovelItem {
+        public static Map<Block, BlockState> getFlattenables() {
+            return ShovelItem.FLATTENABLES;
+        }
+
+        private Shovel(Tier tier, float attackDamage, float attackSpeed, Properties properties) {
+            super(tier, attackDamage, attackSpeed, properties);
+        }
     }
 }
