@@ -67,6 +67,59 @@ public class FactoryBlockEntity extends BlockEntity implements MenuProvider {
                 default -> super.isItemValid(slot, stack);
             };
         }
+
+        //By gsoldera
+        @Override
+        public int getSlotLimit(int slot) {
+            if (slot >= 0 && slot <= 7) {
+                return 1;
+            }
+            return super.getSlotLimit(slot);
+        }
+
+        @Override
+        @NotNull
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (slot < 0 || slot > 15) {
+                return super.insertItem(slot, stack, simulate);
+            }
+
+            if (!isItemValid(slot, stack)) {
+                return stack;
+            }
+
+            if (simulate) {
+                ItemStack existing = getStackInSlot(slot);
+                if (existing.isEmpty()) {
+                    return ItemStack.EMPTY;
+                }
+                return stack;
+            }
+
+            // Procura o primeiro slot vazio
+            for (int i = 0; i <= 15; i++) {
+                ItemStack existingStack = getStackInSlot(i);
+                if (existingStack.isEmpty()) {
+                    ItemStack singleItem = stack.copy();
+                    singleItem.setCount(1);
+                    setStackInSlot(i, singleItem);
+
+                    ItemStack remainder = stack.copy();
+                    remainder.shrink(1);
+                    return remainder;
+                }
+            }
+
+            return stack;
+        }
+
+        @Override
+        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+            if (slot >= 0 && slot <= 15) {
+                return 1;
+            }
+            return super.getStackLimit(slot, stack);
+        }
     };
 
     private static final int INPUT_SLOT = 15;
