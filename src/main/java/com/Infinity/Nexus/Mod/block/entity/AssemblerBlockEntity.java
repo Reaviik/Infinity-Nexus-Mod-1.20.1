@@ -64,11 +64,63 @@ public class AssemblerBlockEntity extends BlockEntity implements MenuProvider {
                 case 9,10,11,12 -> ModUtils.isUpgrade(stack);
                 case 13 -> ModUtils.isComponent(stack);
                 case 14,15 -> stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
-
                 default -> super.isItemValid(slot, stack);
             };
         }
+        //By gsoldera
+        @Override
+        public int getSlotLimit(int slot) {
+            if (slot >= 0 && slot <= 7) {
+                return 1;
+            }
+            return super.getSlotLimit(slot);
+        }
+
+        @Override
+        @NotNull
+        public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+            if (slot < 0 || slot > 7) {
+                return super.insertItem(slot, stack, simulate);
+            }
+
+            if (!isItemValid(slot, stack)) {
+                return stack;
+            }
+
+            if (simulate) {
+                ItemStack existing = getStackInSlot(slot);
+                if (existing.isEmpty()) {
+                    return ItemStack.EMPTY;
+                }
+                return stack;
+            }
+
+            // Procura o primeiro slot vazio
+            for (int i = 0; i <= 7; i++) {
+                ItemStack existingStack = getStackInSlot(i);
+                if (existingStack.isEmpty()) {
+                    ItemStack singleItem = stack.copy();
+                    singleItem.setCount(1);
+                    setStackInSlot(i, singleItem);
+
+                    ItemStack remainder = stack.copy();
+                    remainder.shrink(1);
+                    return remainder;
+                }
+            }
+
+            return stack;
+        }
+
+        @Override
+        protected int getStackLimit(int slot, @NotNull ItemStack stack) {
+            if (slot >= 0 && slot <= 7) {
+                return 1;
+            }
+            return super.getStackLimit(slot, stack);
+        }
     };
+
     //Slots
     private static final int INPUT_SLOT = 7;
     private static final int OUTPUT_SLOT = 8;
@@ -140,7 +192,6 @@ public class AssemblerBlockEntity extends BlockEntity implements MenuProvider {
                     default -> 0;
                 };
             }
-
             @Override
             public void set(int pIndex, int pValue) {
                 switch (pIndex) {
@@ -148,7 +199,6 @@ public class AssemblerBlockEntity extends BlockEntity implements MenuProvider {
                     case 1 -> AssemblerBlockEntity.this.maxProgress = pValue;
                 }
             }
-
             @Override
             public int getCount() {
                 return 2;
