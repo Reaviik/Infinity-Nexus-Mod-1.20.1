@@ -9,8 +9,11 @@ import com.Infinity.Nexus.Core.utils.MouseUtil;
 import com.Infinity.Nexus.Mod.InfinityNexusMod;
 import com.Infinity.Nexus.Mod.block.entity.MobCrusherBlockEntity;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
+import com.Infinity.Nexus.Mod.networking.ModMessages;
+import com.Infinity.Nexus.Mod.networking.packet.ToggleAreaC2SPacket;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -26,37 +29,103 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents the graphical user interface for the Mob Crusher machine.
+ * Handles rendering, user interactions, and status display for the Mob Crusher block entity.
+ */
 public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> implements GuiEventListener {
+    /** Main GUI texture location */
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(InfinityNexusMod.MOD_ID, "textures/gui/mob_crusher_gui.png");
+    
+    /** GUI element position constants */
+    private static final int ENERGY_BAR_X_OFFSET = 159;
+    private static final int ENERGY_BAR_Y_OFFSET = 6;
+    private static final int FLUID_TANK_X_OFFSET = 146;
+    private static final int FLUID_TANK_Y_OFFSET = 6;
+    
+    /** GUI components */
     private EnergyInfoArea energyInfoArea;
     private FluidTankRenderer fluidRenderer;
+    private boolean showArea;
+    private Button areaButton;
+
+    /**
+     * Creates a new instance of the Mob Crusher screen.
+     * 
+     * @param pMenu The menu container that handles the screen's logic
+     * @param pPlayerInventory The player's inventory instance
+     * @param pTitle The title to display on the screen
+     */
     public MobCrusherScreen(MobCrusherMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
+    /**
+     * Initializes all GUI elements including energy display, fluid tank, and control buttons.
+     * Called when the screen is first opened or when game resources are reloaded.
+     */
     @Override
     protected void init() {
         super.init();
-        this.inventoryLabelY = 10000;
-        this.titleLabelY = 10000;
+        this.inventoryLabelY = 10000; // Hide default inventory label
+        this.titleLabelY = 10000;     // Hide default title label
+        
         assignEnergyInfoArea();
         assignFluidTank();
+        initializeAreaButton();
     }
+
+    /**
+     * Initializes the area toggle button.
+     */
+    private void initializeAreaButton() {
+        showArea = menu.blockEntity.shouldShowArea();
+        this.areaButton = addRenderableWidget(
+            new net.minecraft.client.gui.components.Button.Builder(
+                Component.translatable(showArea ? "gui.infinity_nexus_mod.mob_crusher.hide_area" : "gui.infinity_nexus_mod.mob_crusher.show_area"), 
+                this::onAreaButtonClick)
+                .pos((width - imageWidth) / 2 + 180, (height - imageHeight) / 2 + 140)
+                .size(80, 20)
+                .build()
+        );
+    }
+
+    /**
+     * Handles clicks on the area toggle button.
+     */
+    private void onAreaButtonClick(Button button) {
+        showArea = !showArea;
+        button.setMessage(Component.translatable(showArea ? 
+            "gui.infinity_nexus_mod.mob_crusher.hide_area" : 
+            "gui.infinity_nexus_mod.mob_crusher.show_area"));
+        ModMessages.sendToServer(new ToggleAreaC2SPacket(menu.blockEntity.getBlockPos(), showArea));
+    }
+
     private void assignFluidTank() {
         fluidRenderer = new FluidTankRenderer(MobCrusherBlockEntity.getFluidCapacity(), true, 6, 62);
     }
+
     private void assignEnergyInfoArea() {
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        energyInfoArea = new EnergyInfoArea(x + 159, y + 6, menu.getBlockEntity().getEnergyStorage());
+        energyInfoArea = new EnergyInfoArea(x + ENERGY_BAR_X_OFFSET, y + ENERGY_BAR_Y_OFFSET, menu.getBlockEntity().getEnergyStorage());
     }
+
+    /**
+     * Renders the screen's background including the main GUI texture, progress indicators,
+     * energy bar, and fluid tank.
+     * 
+     * @param guiGraphics The graphics context for rendering
+     * @param pPartialTick Partial tick time for smooth animations
+     * @param pMouseX Current mouse X position
+     * @param pMouseY Current mouse Y position
+     */
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        setupRenderSystem();
+        
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         if(Screen.hasShiftDown() || isMouseAboveArea(pMouseX, pMouseY, x, y, - 15, + 10, 17, 54)) {
@@ -65,12 +134,28 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
             RenderScreenTooltips.renderComponentSlotTooltip(guiGraphics, TEXTURE, x - 3, y + 10, 193, 84, 18, 131);
         }
 
-        guiGraphics.blit(TEXTURE, x + 2, y-14, 2, 167, 174, 64);
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        renderMainGui(guiGraphics, x, y);
 
         renderProgressArrow(guiGraphics, x, y);
         energyInfoArea.render(guiGraphics);
         fluidRenderer.render(guiGraphics, x+146, y+6, menu.blockEntity.getFluid());
+    }
+
+    /**
+     * Sets up the render system for GUI rendering.
+     */
+    private void setupRenderSystem() {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, TEXTURE);
+    }
+
+    /**
+     * Renders the main GUI elements.
+     */
+    private void renderMainGui(GuiGraphics guiGraphics, int x, int y) {
+        guiGraphics.blit(TEXTURE, x + 2, y-14, 2, 167, 174, 64);
+        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
@@ -79,6 +164,13 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
         }
     }
 
+    /**
+     * Renders the screen's foreground including status indicators, tooltips, and inventory labels.
+     * 
+     * @param guiGraphics The graphics context for rendering
+     * @param pMouseX Current mouse X position
+     * @param pMouseY Current mouse Y position
+     */
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         int x = (width - imageWidth) / 2;
@@ -98,15 +190,6 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
         super.render(guiGraphics, mouseX, mouseY, delta);
         renderTooltip(guiGraphics, mouseX, mouseY);
 
-        if (hasRedstoneSignal == 1) {
-            guiGraphics.drawString(this.font, "Redstone: [ON]", x + 196, index, 0XFF0000);
-            guiGraphics.renderFakeItem(new ItemStack(Items.REDSTONE), x + 178, index-4);
-            index += 15;
-        }else{
-            guiGraphics.drawString(this.font, "Redstone: [Ok]", x + 196, index, 0X00FF00);
-            guiGraphics.renderFakeItem(new ItemStack(Items.REDSTONE), x + 178, index - 4);
-            index += 15;
-        }
         if (hasComponent == 0){
             guiGraphics.drawString(this.font, "Component: [Missing]", x + 196, index, 0XFF0000);
             guiGraphics.renderFakeItem(new ItemStack(ModItems.REDSTONE_COMPONENT.get()), x + 178, index - 4);
@@ -114,24 +197,6 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
         }else {
             guiGraphics.drawString(this.font, "Component: [Ok]", x + 196, index, 0X00FF00);
             guiGraphics.renderFakeItem(new ItemStack(ModItems.REDSTONE_COMPONENT.get()), x + 178, index - 4);
-            index += 15;
-        }
-        if (hasEnoughEnergy == 0){
-            guiGraphics.drawString(this.font, "Energy: [Missing]", x + 196, index, 0XFF0000);
-            guiGraphics.renderFakeItem(new ItemStack(Items.REDSTONE), x + 178, index - 4);
-            index += 15;
-        }else {
-            guiGraphics.drawString(this.font, "Energy: [Ok]", x + 196, index, 0X00FF00);
-            guiGraphics.renderFakeItem(new ItemStack(Items.REDSTONE), x + 178, index - 4);
-            index += 15;
-        }
-        if (hasSlotFree == 0){
-            guiGraphics.drawString(this.font, "Slot: [Missing]", x + 196, index, 0XFF0000);
-            guiGraphics.renderFakeItem(new ItemStack(Items.CHEST), x + 178, index - 4);
-            index += 15;
-        }else {
-            guiGraphics.drawString(this.font, "Slot: [Ok]", x + 196, index, 0X00FF00);
-            guiGraphics.renderFakeItem(new ItemStack(Items.CHEST), x + 178, index - 4);
             index += 15;
         }
         if (hasRecipe == 1){
@@ -162,14 +227,6 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
             guiGraphics.renderFakeItem(new ItemStack(ModItems.LINKING_TOOL.get()), x + 178, index - 4);
             index += 15;
         }
-        if (hasRedstoneSignal == 0 && hasComponent == 1 && hasEnoughEnergy == 1
-                && hasSlotFree == 1){
-            guiGraphics.drawString(this.font, "Killing: [Ok]", x + 196, index, 0X00FF00);
-            guiGraphics.renderFakeItem(new ItemStack(Items.CRAFTING_TABLE), x + 178, index - 4);
-        }else {
-            guiGraphics.drawString(this.font, "Killing: [OFF]", x + 196, index, 0XFF0000);
-            guiGraphics.renderFakeItem(new ItemStack(Items.CRAFTING_TABLE), x + 178, index - 4);
-        }
     }
     private void renderFluidAreaTooltips(GuiGraphics guiGraphics, int pMouseX, int pMouseY, int x, int y,
                                          FluidStack stack, int offsetX, int offsetY, FluidTankRenderer renderer) {
@@ -179,7 +236,7 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
         }
     }
     private void renderEnergyAreaTooltips(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int x, int y) {
-        if(isMouseAboveArea(pMouseX, pMouseY, x, y, 159,  6, 6, 62)) {
+        if(isMouseAboveArea(pMouseX, pMouseY, x, y, ENERGY_BAR_X_OFFSET, ENERGY_BAR_Y_OFFSET, 6, 62)) {
             pGuiGraphics.renderTooltip(this.font, energyInfoArea.getTooltips(), Optional.empty(), pMouseX - x, pMouseY - y);
         }
     }
@@ -207,6 +264,13 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
             }
         }
     }
+    /**
+     * Renders the screen labels including inventory title and tooltips.
+     * 
+     * @param pGuiGraphics The graphics context for rendering
+     * @param pMouseX Current mouse X position
+     * @param pMouseY Current mouse Y position
+     */
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         int x = (width - imageWidth) / 2;
@@ -227,5 +291,16 @@ public class MobCrusherScreen extends AbstractContainerScreen<MobCrusherMenu> im
     }
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
+    }
+    /**
+     * Handles cleanup when the screen is closed, ensuring area visibility state
+     * is properly synchronized with the server.
+     */
+    @Override
+    public void removed() {
+        super.removed();
+        if (menu.blockEntity.shouldShowArea() != showArea) {
+            ModMessages.sendToServer(new ToggleAreaC2SPacket(menu.blockEntity.getBlockPos(), showArea));
+        }
     }
 }

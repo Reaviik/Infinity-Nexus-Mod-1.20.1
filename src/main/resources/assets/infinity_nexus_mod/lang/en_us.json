@@ -415,6 +415,8 @@
   "block.infinity_nexus_mod.catwalk_13": "Stair with Composite Left Side Railing",
   "block.infinity_nexus_mod.catwalk_14": "Stair with Composite Right Side Railing",
   "block.infinity_nexus_mod.catwalk_15": "Simple Stair",
-  "block.infinity_nexus_mod.catwalk_16": "Composite Stair"
+  "block.infinity_nexus_mod.catwalk_16": "Composite Stair",
 
+  "gui.infinity_nexus_mod.mob_crusher.show_area": "Show Area",
+  "gui.infinity_nexus_mod.mob_crusher.hide_area": "Hide Area"
 }

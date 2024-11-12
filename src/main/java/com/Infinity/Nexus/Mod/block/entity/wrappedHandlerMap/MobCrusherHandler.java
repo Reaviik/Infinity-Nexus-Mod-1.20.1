@@ -12,7 +12,7 @@ public class MobCrusherHandler {
     public static boolean extract(int slot, Direction direction) {
         return switch (slot) {
             case 0,1,2,3,4,5,6,7,8 -> true;
-            case 9,10,11,12,13 -> direction == Direction.UP; //Upgrade and Component
+            case 9,10,11,12,13 -> direction == Direction.UP; 
             default -> false;
         };
     }

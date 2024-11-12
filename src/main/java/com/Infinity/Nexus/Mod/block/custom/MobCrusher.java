@@ -32,43 +32,75 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+/**
+ * Represents the Mob Crusher block, a machine that automatically kills mobs in its working area
+ * and collects their drops. Supports upgrades, direction-based placement, and machine level indication.
+ */
 public class MobCrusher extends BaseEntityBlock {
-    public static IntegerProperty LIT = IntegerProperty.create("lit", 0, 17);
+    /** Block state properties for machine state and orientation */
+    public static final IntegerProperty LIT = IntegerProperty.create("lit", 0, 17);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
+    /**
+     * Creates a new Mob Crusher block with the specified properties
+     * 
+     * @param pProperties Block properties
+     */
     public MobCrusher(Properties pProperties) {
         super(pProperties);
     }
 
-
+    /**
+     * @return The collision and render shape of the block
+     */
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
+
+    /**
+     * Determines the block state when placed, considering player facing direction
+     */
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
+
+    /**
+     * Handles block rotation
+     */
     @Override
     public BlockState rotate(BlockState pState, Rotation pRotation) {
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
     }
 
+    /**
+     * Handles block mirroring
+     */
     @Override
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }
 
-
+    /**
+     * Defines block states used by this block
+     */
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING, LIT);
     }
+
+    /**
+     * @return The render type for the block
+     */
     @Override
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
 
+    /**
+     * Handles block removal, ensuring proper item drops
+     */
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
@@ -77,44 +109,55 @@ public class MobCrusher extends BaseEntityBlock {
                 ((MobCrusherBlockEntity) blockEntity).drops();
             }
         }
-
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
+    /**
+     * Handles player interaction with the block, managing upgrades and GUI access
+     */
     @Override
-    public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
+    public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, 
+            @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         pLevel.setBlock(pPos, ModBlocksAdditions.MOB_CRUSHER.get().defaultBlockState(), 1);
         CommonUpgrades.setUpgrades(pLevel, pPos, pPlayer);
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 
+    /**
+     * Creates a new block entity for this block
+     */
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new MobCrusherBlockEntity(pPos, pState);
     }
 
+    /**
+     * Provides the ticker for block entity updates
+     */
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        if(pLevel.isClientSide()) {
-            return null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, 
+            BlockEntityType<T> type) {
+        if (level.isClientSide()) {
+            return createTickerHelper(type, ModBlockEntities.MOBCRUSHER_BE.get(),
+                (level1, pos, state1, blockEntity) -> blockEntity.clientTick(level1, pos, state1));
         }
-
-
-        return createTickerHelper(pBlockEntityType, ModBlockEntities.MOBCRUSHER_BE.get(),
-                (pLevel1, pPos, pState1, pBlockEntity) -> pBlockEntity.tick(pLevel1, pPos, pState1));
+        return createTickerHelper(type, ModBlockEntities.MOBCRUSHER_BE.get(),
+            (level1, pos, state1, blockEntity) -> blockEntity.tick(level1, pos, state1));
     }
+
+    /**
+     * Adds tooltip information to the block item
+     */
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> components, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> components, 
+            TooltipFlag flag) {
         if (Screen.hasShiftDown()) {
-            //TODO Arumar area
             components.add(Component.translatable("item.infinity_nexus.mod_crusher_description"));
         } else {
             components.add(Component.translatable("tooltip.infinity_nexus.pressShift"));
         }
-
         super.appendHoverText(stack, level, components, flag);
-
     }
 }
