@@ -1,6 +1,6 @@
 [V] Duplicação de minérios no Crusher
 [X] Mostrar a area de ação do MobCrusher
-[X] Consertar o fly da armadura
+[V] Consertar o fly da armadura
 [X] Algum sistema de craft magico ou mystico
 [X] Criar um mob para carda ORB
 [X] Arumar a animação dos mobs para nã ose sobrepor umas as outras

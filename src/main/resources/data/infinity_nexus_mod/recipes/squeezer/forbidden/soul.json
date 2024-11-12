@@ -1,0 +1,20 @@
+{
+  "type": "infinity_nexus_mod:squeezing",
+  "energy": 1200,
+  "duration": 1200,
+  "fluidType": "minecraft:water",
+  "fluidAmount": 10,
+  "ingredients": [
+    {
+      "tag": "infinity_nexus_core:up_4"
+    },
+    {
+      "item": "minecraft:soul_sand",
+      "count": 2
+    }
+  ],
+  "output": {
+    "item": "forbidden_arcanus:soul",
+    "count": 1
+  }
+}

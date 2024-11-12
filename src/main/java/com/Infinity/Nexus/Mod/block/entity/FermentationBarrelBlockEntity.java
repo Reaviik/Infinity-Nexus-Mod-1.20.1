@@ -6,6 +6,7 @@ import com.Infinity.Nexus.Mod.block.custom.FermentationBarrel;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import com.Infinity.Nexus.Mod.recipe.FermentationBarrelRecipes;
 import com.Infinity.Nexus.Mod.screen.fermentation.FermentationBarrelMenu;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,6 +16,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -101,6 +103,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements MenuPr
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 0;
+    private double nextTarget = maxProgress * 0.025;
     public ItemStack recipeOutput = ItemStack.EMPTY;
 
 
@@ -242,7 +245,7 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements MenuPr
         }
 
         setMaxProgress();
-        increaseCraftingProgress();
+        increaseCraftingProgress(pPos);
         setChanged(pLevel, pPos, pState);
 
         if (hasProgressFinished()) {
@@ -390,8 +393,15 @@ public class FermentationBarrelBlockEntity extends BlockEntity implements MenuPr
     private boolean hasProgressFinished() {
         return progress >= maxProgress;
     }
-    private void increaseCraftingProgress() {
-        level.addAlwaysVisibleParticle(ParticleTypes.SMOKE, this.worldPosition.getX() + 0.5D, this.worldPosition.getY() + 1.5D, this.worldPosition.getZ() + 0.5D, 1.0D, 1.0D, 1.0D);
+    private void increaseCraftingProgress(BlockPos pPos) {
+        if (progress >= nextTarget) {
+        double x = pPos.getX() + 0.5;
+        double y = pPos.getY() + 1;
+        double z = pPos.getZ() + 0.5;
+        var level = (ServerLevel) this.getLevel();
+        level.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, x, y + 0.1, z, 1, 0, 0, 0, 0.01D);
+        nextTarget += maxProgress * 0.025;
+    }
         progress ++;
     }
 

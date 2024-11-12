@@ -1,21 +1,21 @@
 {
   "type": "infinity_nexus_mod:pressing",
-  "energy": 9600,
+  "energy": 1000,
   "duration": 130,
   "ingredients": [
     {
-      "tag": "infinity_nexus_core:up_4"
+      "tag": "infinity_nexus_core:up_3"
     },
     {
-      "item": "infinity_nexus_mod:bronze_sheet",
-      "count": 1
+      "item": "minecraft:blaze_powder",
+      "count": 4
     },
     {
       "item": "infinity_nexus_mod:gold_rod_cast"
     }
   ],
   "output": {
-    "item": "infinity_nexus_mod:bronze_rod",
+    "item": "minecraft:blaze_rod",
     "count": 1
   }
 }
