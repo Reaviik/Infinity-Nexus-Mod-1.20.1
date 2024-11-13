@@ -4,18 +4,18 @@ import com.Infinity.Nexus.Mod.InfinityNexusMod;
 import com.Infinity.Nexus.Mod.command.Teste;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import com.Infinity.Nexus.Mod.item.custom.HammerItem;
-import com.Infinity.Nexus.Mod.item.custom.InfinityArmorItem;
 import com.Infinity.Nexus.Mod.item.custom.ImperialInfinityArmorItem;
+import com.Infinity.Nexus.Mod.item.custom.InfinityArmorItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.server.command.ConfigCommand;
@@ -40,7 +40,8 @@ public class ModEvents {
         new Teste(event.getDispatcher());
         ConfigCommand.register(event.getDispatcher());
     }
-
+    // Done with the help of https://github.com/CoFH/CoFHCore/blob/1.19.x/src/main/java/cofh/core/event/AreaEffectEvents.java
+    // Don't be a jerk License
     /**
      * Handles the area-of-effect mining for hammer items.
      * @param event The block break event

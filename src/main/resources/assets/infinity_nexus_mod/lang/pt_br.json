@@ -404,5 +404,8 @@
   "block.infinity_nexus_mod.catwalk_13": "Escada com Grade Lateral Esquerda Composta",
   "block.infinity_nexus_mod.catwalk_14": "Escada com Grade Lateral Direita Composta",
   "block.infinity_nexus_mod.catwalk_15": "Escada Simples",
-  "block.infinity_nexus_mod.catwalk_16": "Escada Composta"
+  "block.infinity_nexus_mod.catwalk_16": "Escada Composta",
+
+  "gui.infinity_nexus_mod.mob_crusher.show_area": "Mostrar Área",
+  "gui.infinity_nexus_mod.mob_crusher.hide_area": "Ocultar Área"
 }

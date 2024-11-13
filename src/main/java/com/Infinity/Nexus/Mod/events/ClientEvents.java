@@ -1,5 +1,6 @@
 package com.Infinity.Nexus.Mod.events;
 
+import com.Infinity.Nexus.Mod.flight.FlightManager;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
@@ -9,7 +10,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import com.Infinity.Nexus.Mod.flight.FlightManager;
 
 @Mod.EventBusSubscriber(value = Dist.CLIENT)
 public class ClientEvents {

@@ -1,15 +1,10 @@
 package com.Infinity.Nexus.Mod.effect;
 
-import com.Infinity.Nexus.Mod.config.ConfigUtils;
-import net.minecraft.ChatFormatting;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public class FlyEffect extends MobEffect {
     protected FlyEffect(MobEffectCategory pCategory, int pColor) {

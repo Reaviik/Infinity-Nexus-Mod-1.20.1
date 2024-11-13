@@ -6,7 +6,6 @@ import com.Infinity.Nexus.Mod.block.custom.FermentationBarrel;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import com.Infinity.Nexus.Mod.recipe.FermentationBarrelRecipes;
 import com.Infinity.Nexus.Mod.screen.fermentation.FermentationBarrelMenu;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

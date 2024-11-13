@@ -2,15 +2,12 @@ package com.Infinity.Nexus.Mod.item.custom;
 
 import com.Infinity.Nexus.Mod.config.ConfigUtils;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
-import com.Infinity.Nexus.Mod.item.client.ImperialInfinityArmorRenderer;
 import com.Infinity.Nexus.Mod.item.client.InfinityArmorRenderer;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;

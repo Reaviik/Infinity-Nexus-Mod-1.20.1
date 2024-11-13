@@ -1,7 +1,6 @@
 package com.Infinity.Nexus.Mod.entity.client;
 
 import com.Infinity.Nexus.Mod.InfinityNexusMod;
-import com.Infinity.Nexus.Mod.entity.custom.Asgreon;
 import com.Infinity.Nexus.Mod.entity.custom.Flaron;
 import com.Infinity.Nexus.Mod.entity.layers.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;

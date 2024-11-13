@@ -6,7 +6,6 @@ import com.Infinity.Nexus.Core.block.entity.common.SetUpgradeLevel;
 import com.Infinity.Nexus.Core.utils.ModEnergyStorage;
 import com.Infinity.Nexus.Core.utils.ModUtils;
 import com.Infinity.Nexus.Mod.block.custom.Factory;
-import com.Infinity.Nexus.Mod.block.entity.wrappedHandlerMap.AssemblerHandler;
 import com.Infinity.Nexus.Mod.block.entity.wrappedHandlerMap.FactoryHandler;
 import com.Infinity.Nexus.Mod.config.ConfigUtils;
 import com.Infinity.Nexus.Mod.recipe.FactoryRecipes;

@@ -12,13 +12,12 @@ public class MobCrusherHandler {
     public static boolean extract(int slot, Direction direction) {
         return switch (slot) {
             case 0,1,2,3,4,5,6,7,8 -> true;
-            case 9,10,11,12,13 -> direction == Direction.UP; //Upgrade and Component
+            case 9,10,11,12,13 -> direction == Direction.UP;
             default -> false;
         };
     }
     public static boolean insert(int slot, @NotNull ItemStack stack) {
         return switch (slot) {
-            case 0,1,2,3,4,5,6,7,8 -> !ModUtils.isUpgrade(stack) && !ModUtils.isComponent(stack);
             case 9,10,11,12 -> ModUtils.isUpgrade(stack);
             case 13 -> ModUtils.isComponent(stack);
             case 14 -> stack.getItem() instanceof SwordItem;

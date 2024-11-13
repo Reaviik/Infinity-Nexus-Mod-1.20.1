@@ -2,7 +2,6 @@ package com.Infinity.Nexus.Mod.block.entity.wrappedHandlerMap;
 
 import com.Infinity.Nexus.Core.utils.ModUtils;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
