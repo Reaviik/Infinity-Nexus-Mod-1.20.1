@@ -7,7 +7,10 @@ import com.Infinity.Nexus.Mod.item.custom.HammerItem;
 import com.Infinity.Nexus.Mod.item.custom.ImperialInfinityArmorItem;
 import com.Infinity.Nexus.Mod.item.custom.InfinityArmorItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -77,6 +80,10 @@ public class ModEvents {
 
             HARVESTED_BLOCKS.add(pos);
             serverPlayer.gameMode.destroyBlock(pos);
+            double x = pos.getX()+0.5D;
+            double y = pos.getY()+0.5D;
+            double z = pos.getZ()+0.5D;
+            serverPlayer.serverLevel().sendParticles(ParticleTypes.SCULK_SOUL, x, y, z, 4, 0, 0, 0, 0);
             HARVESTED_BLOCKS.remove(pos);
         }
     }
