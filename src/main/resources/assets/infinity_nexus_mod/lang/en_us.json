@@ -418,6 +418,7 @@
   "block.infinity_nexus_mod.catwalk_16": "Composite Stair",
 
   "gui.infinity_nexus_mod.mob_crusher.show_area": "Show Area",
-  "gui.infinity_nexus_mod.mob_crusher.hide_area": "Hide Area"
+  "gui.infinity_nexus_mod.mob_crusher.hide_area": "Hide Area",
+  "tooltip.infinity_nexus_mod.carbon.armor": "§3When complete, this armor provides 50% damage reduction, and 200% of the damage received is converted into durability consumption."
 
 }

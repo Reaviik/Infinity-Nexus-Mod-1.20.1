@@ -18,16 +18,13 @@ public class CarbonArmorItem extends ArmorItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
-
-    }
-    @Override
     public boolean isEnchantable(ItemStack stack) {
         return true;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+        components.add(Component.translatable("tooltip.infinity_nexus_mod.carbon.armor"));
         super.appendHoverText(stack, level, components, flag);
     }
 }

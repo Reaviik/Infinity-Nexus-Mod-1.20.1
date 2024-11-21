@@ -47,11 +47,6 @@ public class ModSword extends SwordItem {
     }
 
     @Override
-    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-        return super.onItemUseFirst(stack, context);
-    }
-
-    @Override
     public boolean isEnchantable(ItemStack stack) {
         return true;
     }

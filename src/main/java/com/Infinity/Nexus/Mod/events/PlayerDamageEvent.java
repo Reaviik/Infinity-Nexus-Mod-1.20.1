@@ -43,15 +43,17 @@ public class PlayerDamageEvent {
                     }
                 }else if(hasFullCarbonArmor(player)) {
                     float damage = event.getAmount();
-                    float hurtDamage = damage / 4;
+                    float hurtDamage = damage * 2;
 
                     for(int i = 0; i < 4; i++){
                         int durability = player.getInventory().getArmor(i).getDamageValue();
                         if(durability >= 1){
-                            player.getInventory().getArmor(i).hurt((int) hurtDamage, player.level().random, null);
-                            event.setAmount(damage/10);
+                            ItemStack  part = player.getInventory().getArmor(i);
+                            part.hurt((int) hurtDamage, player.level().random, null);
                         }
                     }
+                    event.setAmount(damage/2);
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

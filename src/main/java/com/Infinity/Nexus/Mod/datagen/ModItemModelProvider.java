@@ -96,6 +96,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItemsAdditions.CARBON_CHESTPLATE);
         simpleItem(ModItemsAdditions.CARBON_LEGGINGS);
         simpleItem(ModItemsAdditions.CARBON_BOOTS);
+        //simpletools(ModItemsAdditions.CARBON_SWORD);
         simpletools(ModItemsAdditions.IMPERIAL_INFINITY_SWORD);
         simpletools(ModItemsAdditions.IMPERIAL_INFINITY_HAMMER);
         simpletools(ModItemsAdditions.IMPERIAL_INFINITY_PAXEL);

@@ -31,5 +31,4 @@ public class ModToolTiers {
                     80,
                     ModTags.Blocks.PAXEL_MINEABLE, () -> Ingredient.of(ModItemsAdditions.INFINITY_INGOT.get())),
             new ResourceLocation(InfinityNexusMod.MOD_ID, "imperial"), List.of(Tiers.NETHERITE), List.of());
-
 }
