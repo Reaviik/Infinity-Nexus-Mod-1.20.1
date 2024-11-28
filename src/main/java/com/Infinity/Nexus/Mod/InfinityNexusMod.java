@@ -3,6 +3,7 @@ package com.Infinity.Nexus.Mod;
 import com.Infinity.Nexus.Mod.block.ModBlocksAdditions;
 import com.Infinity.Nexus.Mod.block.ModBlocksProgression;
 import com.Infinity.Nexus.Mod.block.entity.ModBlockEntities;
+import com.Infinity.Nexus.Mod.block.entity.client.*;
 import com.Infinity.Nexus.Mod.config.Config;
 import com.Infinity.Nexus.Mod.effect.ModEffects;
 import com.Infinity.Nexus.Mod.entity.ModEntities;
@@ -38,6 +39,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -48,6 +50,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(InfinityNexusMod.MOD_ID)
@@ -85,6 +88,8 @@ public class InfinityNexusMod
 
         ModEffects.register(modEventBus);
 
+        GeckoLib.initialize();
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setup);
 
@@ -99,7 +104,6 @@ public class InfinityNexusMod
             ModMessages.register();
         });
     }
-
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
@@ -107,6 +111,8 @@ public class InfinityNexusMod
         public static void onClientSetup(FMLClientSetupEvent event) {
 
             ModItemProperties.addCustomItemProperties();
+
+            //ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.PEDESTAL.get(), RenderType.translucent());
 
             MenuScreens.register(ModMenuTypes.MOB_CRUSHER_MENU.get(), MobCrusherScreen::new);
             MenuScreens.register(ModMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
@@ -141,6 +147,7 @@ public class InfinityNexusMod
             ItemBlockRenderTypes.setRenderLayer(ModFluids.STARLIQUID_SOURCE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.STARLIQUID_FLOWING.get(), RenderType.translucent());
 
+            ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.INFUSER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.VOXEL_BLOCK.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.ENTITY_DISPLAY.get(), RenderType.cutoutMipped());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK.get(), RenderType.translucent());
@@ -160,10 +167,18 @@ public class InfinityNexusMod
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_15.get(), RenderType.translucent());
 
 
-
             EntityRenderers.register(ModEntities.ASGREON.get(), AsgreonRenderer::new);
             EntityRenderers.register(ModEntities.FLARON.get(), FlaronRenderer::new);
 
+        }
+        @SubscribeEvent
+        public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event){
+            event.registerBlockEntityRenderer(ModBlockEntities.TECH_PEDESTAL_BE.get(), context -> new TechPedestalBlockRenderer("tech"));
+            event.registerBlockEntityRenderer(ModBlockEntities.MAGIC_PEDESTAL_BE.get(), context -> new MagicPedestalBlockRenderer("magic"));
+            event.registerBlockEntityRenderer(ModBlockEntities.DECOR_PEDESTAL_BE.get(), context -> new DecorPedestalBlockRenderer("decor"));
+            event.registerBlockEntityRenderer(ModBlockEntities.EXPLORATION_PEDESTAL_BE.get(), context -> new ExplorationPedestalBlockRenderer("exploration"));
+            event.registerBlockEntityRenderer(ModBlockEntities.RESOURCE_PEDESTAL_BE.get(), context -> new ResourcePedestalBlockRenderer("resource"));
+            event.registerBlockEntityRenderer(ModBlockEntities.CREATIVITY_PEDESTAL_BE.get(), context -> new CreativityPedestalBlockRenderer("creativity"));
         }
     }
     private void setup(final FMLCommonSetupEvent event)

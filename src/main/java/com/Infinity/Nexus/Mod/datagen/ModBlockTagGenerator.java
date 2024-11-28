@@ -81,6 +81,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.SQUEEZER.get())
                 .add(ModBlocksAdditions.SMELTERY.get())
                 .add(ModBlocksAdditions.FACTORY.get())
+                .add(ModBlocksAdditions.INFUSER.get())
                 .add(ModBlocksAdditions.GENERATOR.get())
                 .add(ModBlocksAdditions.MATTER_CONDENSER.get())
                 .add(ModBlocksAdditions.RECYCLER.get())
@@ -117,7 +118,14 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.CATWALK_13.get())
                 .add(ModBlocksAdditions.CATWALK_14.get())
                 .add(ModBlocksAdditions.CATWALK_15.get())
-                .add(ModBlocksAdditions.CATWALK_16.get());
+                .add(ModBlocksAdditions.CATWALK_16.get())
+
+                .add(ModBlocksAdditions.TECH_PEDESTAL.get())
+                .add(ModBlocksAdditions.EXPLORATION_PEDESTAL.get())
+                .add(ModBlocksAdditions.RESOURCE_PEDESTAL.get())
+                .add(ModBlocksAdditions.MAGIC_PEDESTAL.get())
+                .add(ModBlocksAdditions.CREATIVITY_PEDESTAL.get())
+                .add(ModBlocksAdditions.DECOR_PEDESTAL.get());
 
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
@@ -162,7 +170,14 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.CATWALK_13.get())
                 .add(ModBlocksAdditions.CATWALK_14.get())
                 .add(ModBlocksAdditions.CATWALK_15.get())
-                .add(ModBlocksAdditions.CATWALK_16.get());
+                .add(ModBlocksAdditions.CATWALK_16.get())
+
+                .add(ModBlocksAdditions.TECH_PEDESTAL.get())
+                .add(ModBlocksAdditions.EXPLORATION_PEDESTAL.get())
+                .add(ModBlocksAdditions.RESOURCE_PEDESTAL.get())
+                .add(ModBlocksAdditions.MAGIC_PEDESTAL.get())
+                .add(ModBlocksAdditions.CREATIVITY_PEDESTAL.get())
+                .add(ModBlocksAdditions.DECOR_PEDESTAL.get());
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
 

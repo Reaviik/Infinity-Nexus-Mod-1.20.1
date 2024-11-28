@@ -400,6 +400,14 @@
   "item.infinity_nexus_mod.voxel_w": "§5Magic Orb",
   "item.infinity_nexus_mod.voxel_e": "§2Exploration Orb",
 
+  "block.infinity_nexus_mod.infuser": "Infuser",
+  "block.infinity_nexus_mod.creativity_pedestal": "§6Creativity Pedestal",
+  "block.infinity_nexus_mod.decor_pedestal": "§7Decorative Pedestal",
+  "block.infinity_nexus_mod.tech_pedestal": "§3Technology Pedestal",
+  "block.infinity_nexus_mod.resource_pedestal": "§eResourceful Pedestal",
+  "block.infinity_nexus_mod.magic_pedestal": "§5Magic Pedestal",
+  "block.infinity_nexus_mod.exploration_pedestal": "§2Exploration Pedestal",
+
   "block.infinity_nexus_mod.catwalk": "Side Grid",
   "block.infinity_nexus_mod.catwalk_2": "Dual Side Grid",
   "block.infinity_nexus_mod.catwalk_3": "Dual Corner Grid",

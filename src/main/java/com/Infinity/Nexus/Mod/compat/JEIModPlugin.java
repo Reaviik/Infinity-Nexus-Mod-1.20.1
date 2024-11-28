@@ -42,6 +42,7 @@ public class JEIModPlugin implements IModPlugin {
         registration.addRecipeCategories(new SmelteryCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new MatterCondenserCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FermentationBarrelCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new InfuserCategory(registration.getJeiHelpers().getGuiHelper()));
 
     }
 
@@ -58,6 +59,7 @@ public class JEIModPlugin implements IModPlugin {
         List<SmelteryRecipes> smelteryRecipes = recipeManager.getAllRecipesFor(SmelteryRecipes.Type.INSTANCE);
         List<MatterCondenserRecipes> matterCondenserRecipes = recipeManager.getAllRecipesFor(MatterCondenserRecipes.Type.INSTANCE);
         List<FermentationBarrelRecipes> fermentationBarrelRecipes = recipeManager.getAllRecipesFor(FermentationBarrelRecipes.Type.INSTANCE);
+        List<InfuserRecipes> infuserRecipes = recipeManager.getAllRecipesFor(InfuserRecipes.Type.INSTANCE);
 
         try {
         registration.addRecipes(CrusherCategory.CRUSHER_TYPE, crusherRecipes);
@@ -76,6 +78,8 @@ public class JEIModPlugin implements IModPlugin {
         System.out.println("Registry: " + matterCondenserRecipes.size() +" "+ Component.translatable("block.infinity_nexus_mod.matter_condenser"));
         registration.addRecipes(FermentationBarrelCategory.FERMENTATION_BARREL_TYPE, fermentationBarrelRecipes);
         System.out.println("Registry: " + fermentationBarrelRecipes.size() +" "+ Component.translatable("block.infinity_nexus_mod.fermentation_barrel"));
+        registration.addRecipes(InfuserCategory.INFUSER_TYPE, infuserRecipes);
+        System.out.println("Registry: " + infuserRecipes.size() +" "+ Component.translatable("block.infinity_nexus_mod.infuser"));
         }catch (Exception ignored){
         }
         registration.addItemStackInfo(new ItemStack(ModBlocksAdditions.CRUSHER.get()), Component.translatable("infinity_nexus_mod.jei_information"));
@@ -106,6 +110,7 @@ public class JEIModPlugin implements IModPlugin {
         registration.addRecipeCatalyst(ModBlocksAdditions.SMELTERY.get().asItem().getDefaultInstance(), SmelteryCategory.SMELTERY_TYPE);
         registration.addRecipeCatalyst(ModBlocksAdditions.MATTER_CONDENSER.get().asItem().getDefaultInstance(), MatterCondenserCategory.MATTER_CONDENSER_TYPE);
         registration.addRecipeCatalyst(ModBlocksAdditions.FERMENTATION_BARREL.get().asItem().getDefaultInstance(), FermentationBarrelCategory.FERMENTATION_BARREL_TYPE);
+        registration.addRecipeCatalyst(ModBlocksAdditions.INFUSER.get().asItem().getDefaultInstance(), InfuserCategory.INFUSER_TYPE);
     }
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {

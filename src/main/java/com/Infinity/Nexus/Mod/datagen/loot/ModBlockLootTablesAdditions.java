@@ -75,6 +75,7 @@ public class ModBlockLootTablesAdditions extends BlockLootSubProvider {
         this.dropSelf(ModBlocksAdditions.CRUSHER.get());
         this.dropSelf(ModBlocksAdditions.ASSEMBLY.get());
         this.dropSelf(ModBlocksAdditions.FACTORY.get());
+        this.dropSelf(ModBlocksAdditions.INFUSER.get());
         this.dropSelf(ModBlocksAdditions.SQUEEZER.get());
         this.dropSelf(ModBlocksAdditions.SMELTERY.get());
         this.dropSelf(ModBlocksAdditions.GENERATOR.get());
@@ -84,6 +85,13 @@ public class ModBlockLootTablesAdditions extends BlockLootSubProvider {
         this.dropSelf(ModBlocksAdditions.PLACER.get());
         this.dropSelf(ModBlocksAdditions.SOLAR.get());
         this.dropSelf(ModBlocksAdditions.DISPLAY.get());
+
+        this.dropSelf(ModBlocksAdditions.TECH_PEDESTAL.get());
+        this.dropSelf(ModBlocksAdditions.EXPLORATION_PEDESTAL.get());
+        this.dropSelf(ModBlocksAdditions.RESOURCE_PEDESTAL.get());
+        this.dropSelf(ModBlocksAdditions.MAGIC_PEDESTAL.get());
+        this.dropSelf(ModBlocksAdditions.CREATIVITY_PEDESTAL.get());
+        this.dropSelf(ModBlocksAdditions.DECOR_PEDESTAL.get());
 
         this.dropSelf(ModBlocksAdditions.CATWALK.get());
         this.dropSelf(ModBlocksAdditions.CATWALK_2.get());

@@ -19,11 +19,6 @@ import net.minecraft.world.level.LightLayer;
 
 public class DisplayBlockEntityRenderer implements BlockEntityRenderer<DisplayBlockEntity> {
 
-
-    float[] x = {1.032f, 0.782f, 0.5f,   0.218f, -0.032f, 1.032f,-0.04f,1.032f,-0.04f,1.032f,-0.04f,1.032f,0.782f,0.5f,0.218f,-0.032f};
-    float[] y = {1.175f, 1.145f, 1.115f, 1.145f, 1.175f,  1.145f, 1.145f, 1.115f, 1.115f, 1.145f, 1.145f, 1.175f, 1.145f, 1.115f, 1.145f, 1.175f};
-    float[] z = {1.032f, 1.032f, 1.032f, 1.032f, 1.032f, 0.782f,0.782f,0.5f,0.5f,0.218f,0.218f,-0.032f,-0.032f,-0.032f,-0.032f,-0.032f};
-
     public DisplayBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
 

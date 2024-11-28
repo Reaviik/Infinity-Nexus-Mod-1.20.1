@@ -32,19 +32,64 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModBlocksAdditions.MATTER_CONDENSER.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.MOB_CRUSHER.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.PLACER.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.INFUSER.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.SOLAR.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.FERMENTATION_BARREL.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.FACTORY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_CENTRALIZER.get()));
                         //-------------------------//-------------------------//
+                        //Pedestals
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.TECH_PEDESTAL.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.EXPLORATION_PEDESTAL.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.RESOURCE_PEDESTAL.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.MAGIC_PEDESTAL.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.CREATIVITY_PEDESTAL.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.DECOR_PEDESTAL.get()));
+                        //-------------------------//-------------------------//
                         //Solar
-                        pOutput.accept(new ItemStack(ModBlocksAdditions.SOLAR.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.SOLAR_PANE.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.SOLAR_PANE_ADVANCED.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.SOLAR_PANE_ULTIMATE.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.SOLAR_PANE_QUANTUM.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.SOLAR_PANE_PHOTONIC.get()));
+                        //-------------------------//-------------------------//
+                        //infinity tools
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_SWORD.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_PAXEL.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HAMMER.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_PICKAXE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_AXE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_SHOVEL.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HOE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_BOW.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_3D_SWORD.get()));
+                        //infinity armor
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HELMET.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_CHESTPLATE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_LEGGINGS.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_BOOTS.get()));
+                        //imperial tools
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_SWORD.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_PAXEL.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HAMMER.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_PICKAXE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_AXE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_SHOVEL.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HOE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_BOW.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_3D_SWORD.get()));
+                        //imperial armor
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HELMET.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_CHESTPLATE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_LEGGINGS.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_BOOTS.get()));
+                        //carbon armor
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_HELMET.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_CHESTPLATE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_LEGGINGS.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_BOOTS.get()));
                         //-------------------------//-------------------------//
                         //Catwalk
                         pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK.get()));
@@ -158,41 +203,6 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEEPSLATE_ALUMINUM_ORE.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEEPSLATE_URANIUM_ORE.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEEPSLATE_INFINITY_ORE.get()));
-                        //infinity tools
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_SWORD.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_PAXEL.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HAMMER.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_PICKAXE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_AXE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_SHOVEL.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HOE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_BOW.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_3D_SWORD.get()));
-                        //infinity armor
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HELMET.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_CHESTPLATE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_LEGGINGS.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_BOOTS.get()));
-                        //imperial tools
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_SWORD.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_PAXEL.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HAMMER.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_PICKAXE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_AXE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_SHOVEL.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HOE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_BOW.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_3D_SWORD.get()));
-                        //imperial armor
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HELMET.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_CHESTPLATE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_LEGGINGS.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_BOOTS.get()));
-                        //carbon armor
-                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_HELMET.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_CHESTPLATE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_LEGGINGS.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_BOOTS.get()));
 
                         pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_SINGULARITY.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.PORTAL_ACTIVATOR.get()));

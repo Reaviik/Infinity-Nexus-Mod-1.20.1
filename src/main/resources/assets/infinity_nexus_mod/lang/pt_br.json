@@ -362,6 +362,15 @@
   "item.infinity_nexus_mod.voxel_s": "§eOrbe de Recurso",
   "item.infinity_nexus_mod.voxel_w": "§5Orbe de Mágica",
   "item.infinity_nexus_mod.voxel_e": "§2Orbe de Exploração",
+
+  "block.infinity_nexus_mod.infuser": "Infusor",
+  "block.infinity_nexus_mod.creativity_pedestal": "§6Pedestal de Criatividade",
+  "block.infinity_nexus_mod.decor_pedestal": "§7Pedestal de Decoração",
+  "block.infinity_nexus_mod.tech_pedestal": "§3Pedestal de Tecnologia",
+  "block.infinity_nexus_mod.resource_pedestal": "§ePedestal de Recurso",
+  "block.infinity_nexus_mod.magic_pedestal": "§5Pedestal de Mágica",
+  "block.infinity_nexus_mod.exploration_pedestal": "§2Pedestal de Exploração",
+
   "block.infinity_nexus_mod.smeltery": "Smeltery",
 
   "infinity_nexus_mod.tooltip.liquid.amount.with.capacity": "%s / %s mb",

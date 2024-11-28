@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "infinity_nexus_mod:item/voxel_w_3d"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "infinity_nexus_mod:item/voxel_w_2d"
+		},
+		"ground": {
+			"parent": "infinity_nexus_mod:item/voxel_w_3d"
+		},
+		"fixed": {
+			"parent": "infinity_nexus_mod:item/voxel_w_3d"
+		}
+	}
+}

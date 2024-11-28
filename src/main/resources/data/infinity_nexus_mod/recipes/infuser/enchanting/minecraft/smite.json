@@ -1,0 +1,18 @@
+{
+  "type": "infinity_nexus_mod:infuser",
+  "ingredients": [
+    {
+      "type": "forge:nbt",
+      "item": "minecraft:writable_book",
+      "count": 1,
+      "nbt": "{pages:[\"smite\"]}"
+    }
+  ],
+  "output": {
+    "type": "forge:nbt",
+    "item": "minecraft:enchanted_book",
+    "count": 1,
+    "nbt": "{StoredEnchantments:[{id:\"minecraft:smite\",lvl:1s}]}"
+  },
+  "pedestals": [1, 2, 3, 4, 5, 6]
+}

@@ -1,6 +1,7 @@
 package com.Infinity.Nexus.Mod.events;
 
 import com.Infinity.Nexus.Mod.InfinityNexusMod;
+import com.Infinity.Nexus.Mod.command.Infuser;
 import com.Infinity.Nexus.Mod.command.Teste;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import com.Infinity.Nexus.Mod.item.custom.HammerItem;
@@ -41,6 +42,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void onCommandRegister(final RegisterCommandsEvent event) {
         new Teste(event.getDispatcher());
+        new Infuser(event.getDispatcher());
         ConfigCommand.register(event.getDispatcher());
     }
     // Done with the help of https://github.com/CoFH/CoFHCore/blob/1.19.x/src/main/java/cofh/core/event/AreaEffectEvents.java

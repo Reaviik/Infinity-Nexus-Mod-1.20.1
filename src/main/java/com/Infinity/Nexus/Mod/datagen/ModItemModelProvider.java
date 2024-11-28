@@ -222,13 +222,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItemsAdditions.HAMMER_RANGE_UPGRADE);
         simpleItem(ModItemsAdditions.STAR_FRAGMENT);
 
-        simpleItem(ModItemsProgression.VOXEL_TOP);
-        simpleItem(ModItemsProgression.VOXEL_DOW);
-        simpleItem(ModItemsProgression.VOXEL_NORTH);
-        simpleItem(ModItemsProgression.VOXEL_SOUTH);
-        simpleItem(ModItemsProgression.VOXEL_WEST);
-        simpleItem(ModItemsProgression.VOXEL_EAST);
-
         withExistingParent(ModItemsAdditions.ASGREON_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
         withExistingParent(ModItemsAdditions.FLARON_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
 

@@ -1,9 +1,11 @@
 package com.Infinity.Nexus.Mod.events;
 
 import com.Infinity.Nexus.Mod.InfinityNexusMod;
+import com.Infinity.Nexus.Mod.block.entity.InfuserBlockEntity;
 import com.Infinity.Nexus.Mod.block.entity.ModBlockEntities;
 import com.Infinity.Nexus.Mod.block.entity.renderer.DisplayBlockEntityRenderer;
 import com.Infinity.Nexus.Mod.block.entity.renderer.FactoryBlockEntityRenderer;
+import com.Infinity.Nexus.Mod.block.entity.renderer.InfuserBlockEntityRenderer;
 import com.Infinity.Nexus.Mod.block.entity.renderer.PlacerBlockEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -23,5 +25,8 @@ public class ModEventClientBusEvents {
 
         event.registerBlockEntityRenderer(ModBlockEntities.PLACER_BE.get(),
                 PlacerBlockEntityRenderer::new);
+
+        event.registerBlockEntityRenderer(ModBlockEntities.INFUSER_BE.get(),
+                InfuserBlockEntityRenderer::new);
     }
 }

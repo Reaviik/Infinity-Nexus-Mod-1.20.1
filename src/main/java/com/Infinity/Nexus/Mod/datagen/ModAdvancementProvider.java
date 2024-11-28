@@ -26,17 +26,5 @@ public class ModAdvancementProvider implements ForgeAdvancementProvider.Advancem
                 .addCriterion("has_raw_infinity", InventoryChangeTrigger.TriggerInstance.hasItems(ModItemsAdditions.RAW_INFINITY.get()))
                 .save(saver, new ResourceLocation(InfinityNexusMod.MOD_ID, "infinity_nexus_mod"), existingFileHelper);
 
-
-        Advancement metalDetector = Advancement.Builder.advancement()
-                .display(new DisplayInfo(new ItemStack(ModItemsAdditions.INFINITY_NUGGET.get()),
-                        Component.literal("Infinity Nugget"), Component.literal("There are Infinities of many sizes!"),
-                        null, FrameType.TASK,
-                        true, true, false))
-                .parent(rootAdvancement)
-                .addCriterion("has_infinity_nugget", InventoryChangeTrigger.TriggerInstance.hasItems(ModItemsAdditions.INFINITY_NUGGET.get()))
-                .save(saver, new ResourceLocation(InfinityNexusMod.MOD_ID, "infinity_nugget"), existingFileHelper);
-
-
-
     }
 }

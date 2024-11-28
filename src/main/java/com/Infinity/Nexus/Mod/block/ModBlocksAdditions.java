@@ -2,6 +2,7 @@ package com.Infinity.Nexus.Mod.block;
 
 import com.Infinity.Nexus.Mod.InfinityNexusMod;
 import com.Infinity.Nexus.Mod.block.custom.*;
+import com.Infinity.Nexus.Mod.block.custom.pedestals.*;
 import com.Infinity.Nexus.Mod.fluid.ModFluids;
 import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import net.minecraft.world.item.BlockItem;
@@ -77,6 +78,7 @@ public class ModBlocksAdditions {
     public static final RegistryObject<Block> PRESS = registerBlock("press", () -> new Press(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(Press.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> ASSEMBLY = registerBlock("assembler", () -> new Assembler(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(Assembler.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> FACTORY = registerBlock("factory", () -> new Factory(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(Factory.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
+    public static final RegistryObject<Block> INFUSER = registerBlock("infuser", () -> new Infuser(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(Factory.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> SQUEEZER = registerBlock("squeezer", () -> new Squeezer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(Squeezer.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> SMELTERY = registerBlock("smeltery", () -> new Smeltery(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(Smeltery.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> GENERATOR = registerBlock("generator", () -> new Generator(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(Generator.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
@@ -85,6 +87,13 @@ public class ModBlocksAdditions {
     public static final RegistryObject<Block> PLACER = registerBlock("placer", () -> new Placer(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> state.getValue(MatterCondenser.LIT) >= 8 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> DISPLAY = registerBlock("display", () -> new ItemDisplay(BlockBehaviour.Properties.copy(Blocks.ANDESITE).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.STONE)));
     public static final RegistryObject<Block> ENTITY_DISPLAY = registerBlock("entity_display", () -> new EntityDisplay(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).requiresCorrectToolForDrops().strength(3.0f, 6.0f).lightLevel((state) -> 1).noOcclusion().noCollission().mapColor(MapColor.WOOD)));
+
+    public static final RegistryObject<Block> TECH_PEDESTAL = registerBlock("tech_pedestal", () -> new TechPedestal(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> MAGIC_PEDESTAL = registerBlock("magic_pedestal", () -> new MagicPedestal(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> CREATIVITY_PEDESTAL = registerBlock("creativity_pedestal", () -> new CreativityPedestal(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> DECOR_PEDESTAL = registerBlock("decor_pedestal", () -> new DecorPedestal(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> EXPLORATION_PEDESTAL = registerBlock("exploration_pedestal", () -> new ExplorationPedestal(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> RESOURCE_PEDESTAL = registerBlock("resource_pedestal", () -> new ResourcePedestal(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
 
     public static final RegistryObject<Block> SOLAR = registerBlock("solar", () -> new Solar(BlockBehaviour.Properties.copy(Blocks.GLASS).strength(1.0f, 6.0f).lightLevel((state) -> state.getValue(Solar.LIT) > 0 ? 2 : 0).noOcclusion().mapColor(MapColor.METAL)));
     public static final RegistryObject<Block> FERMENTATION_BARREL = registerBlock("fermentation_barrel", () -> new FermentationBarrel(BlockBehaviour.Properties.copy(Blocks.GLASS).sound(SoundType.WOOD).strength(1.0f, 6.0f).noOcclusion().mapColor(MapColor.WOOD)));
