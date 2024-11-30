@@ -361,7 +361,8 @@ public class InfuserBlockEntity extends BlockEntity{
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item);
+        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
+                (this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item) && this.itemHandler.getStackInSlot(OUTPUT_SLOT).getTag().isEmpty());
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
