@@ -86,6 +86,7 @@ public class ModBlockLootTablesAdditions extends BlockLootSubProvider {
         this.dropSelf(ModBlocksAdditions.SOLAR.get());
         this.dropSelf(ModBlocksAdditions.DISPLAY.get());
         this.dropSelf(ModBlocksAdditions.DEPOT.get());
+        this.dropSelf(ModBlocksAdditions.DEPOT_STONE.get());
 
         this.dropSelf(ModBlocksAdditions.TECH_PEDESTAL.get());
         this.dropSelf(ModBlocksAdditions.EXPLORATION_PEDESTAL.get());

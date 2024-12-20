@@ -34,7 +34,7 @@ public class EntityCentralizer extends CarpetBlock {
                 double blockZ = pPos.getZ() + 0.5;
                 double mobX = mob.getX();
                 double mobZ = mob.getZ();
-                float factor = 0.005f;
+                float factor = 0.1f;
 
                     if (mobZ > blockZ) {
                         mob.absMoveTo(mobX, mob.getY(), mobZ - factor);

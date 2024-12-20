@@ -430,7 +430,10 @@
   "gui.infinity_nexus_mod.mob_crusher.show_area": "Show Area",
   "gui.infinity_nexus_mod.mob_crusher.hide_area": "Hide Area",
   "tooltip.infinity_nexus_mod.carbon.armor": "§3When complete, this armor provides 50% damage reduction, and 200% of the damage received is converted into durability consumption.",
-  "item.infinity_nexus.depot_description": "The Depot allows placing items in the world that do not despawn over time and cannot be picked up by players until the depot is broken.",
-  "block.infinity_nexus.depot": "Depot"
+
+  "item.infinity_nexus.depot_description": "The Depot place one item above yourself in the world that do not despawn over time and cannot be picked up by players until the depot is broken.",
+  "item.infinity_nexus.depot_stone_description": "The Depot place eight items around yourself in the world in a 3x3 grid that do not despawn over time and cannot be picked up by players until the depot is broken.",
+  "block.infinity_nexus_mod.depot": "Depot",
+  "block.infinity_nexus_mod.depot_stone": "Stone Depot"
 
 }

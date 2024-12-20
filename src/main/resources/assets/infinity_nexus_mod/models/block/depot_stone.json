@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"1": "infinity_nexus_mod:block/depot",
-		"particle": "infinity_nexus_mod:block/depot"
+		"1": "infinity_nexus_mod:block/depot_stone",
+		"particle": "infinity_nexus_mod:block/depot_stone"
 	},
 	"elements": [
 		{

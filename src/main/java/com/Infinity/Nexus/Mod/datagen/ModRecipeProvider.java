@@ -137,6 +137,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('C', Blocks.DROPPER)
                 .unlockedBy("has_depot", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.DEPOT.get()).build()))
                 .save(pWriter, "depot");
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocksAdditions.DEPOT_STONE.get())
+                .pattern(" A ")
+                .pattern("BCB")
+                .define('A', Blocks.STONE_PRESSURE_PLATE)
+                .define('B', Items.IRON_INGOT)
+                .define('C', Blocks.DROPPER)
+                .unlockedBy("has_depot", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.DEPOT_STONE.get()).build()))
+                .save(pWriter, "depot_stone");
 
         //infinium stellarum
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItemsAdditions.INFINIUM_STELLARUM_INGOT.get(), 9).requires(ModBlocksAdditions.INFINIUM_STELLARUM_BLOCK.get()).unlockedBy("has_infinium_stellarum_ingot_from_block", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.INFINIUM_STELLARUM_BLOCK.get()).build())).save(pWriter);

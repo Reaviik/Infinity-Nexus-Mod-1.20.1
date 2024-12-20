@@ -127,7 +127,8 @@ public class ModBlocksAdditions {
     public static final RegistryObject<Block> CATWALK_17 = registerBlock("catwalk_17", () -> new Catwalk(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.RAW_IRON),16));
     public static final RegistryObject<Block> CATWALK_18 = registerBlock("catwalk_18", () -> new Catwalk(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.RAW_IRON),17));
 
-    public static final RegistryObject<Block> DEPOT = registerBlock("depot", () -> new Depot(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.WOOD)));
+    public static final RegistryObject<Block> DEPOT = registerBlock("depot", () -> new Depot(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.WOOD), "item.infinity_nexus.depot_description"));
+    public static final RegistryObject<Block> DEPOT_STONE = registerBlock("depot_stone", () -> new Depot_Stone(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.STONE), "item.infinity_nexus.depot_stone_description"));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

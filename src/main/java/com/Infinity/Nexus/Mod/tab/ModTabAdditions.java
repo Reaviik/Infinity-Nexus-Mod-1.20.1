@@ -40,6 +40,7 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_CENTRALIZER.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEPOT.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.DEPOT_STONE.get()));
                         //-------------------------//-------------------------//
                         //Pedestals
                         pOutput.accept(new ItemStack(ModBlocksAdditions.TECH_PEDESTAL.get()));
