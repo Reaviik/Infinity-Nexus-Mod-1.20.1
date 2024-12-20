@@ -112,8 +112,6 @@ public class InfinityNexusMod
 
             ModItemProperties.addCustomItemProperties();
 
-            //ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.PEDESTAL.get(), RenderType.translucent());
-
             MenuScreens.register(ModMenuTypes.MOB_CRUSHER_MENU.get(), MobCrusherScreen::new);
             MenuScreens.register(ModMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
             MenuScreens.register(ModMenuTypes.PRESS_MENU.get(), PressScreen::new);
@@ -165,6 +163,9 @@ public class InfinityNexusMod
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_13.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_14.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_15.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_16.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_17.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_18.get(), RenderType.translucent());
 
 
             EntityRenderers.register(ModEntities.ASGREON.get(), AsgreonRenderer::new);

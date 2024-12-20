@@ -119,6 +119,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.CATWALK_14.get())
                 .add(ModBlocksAdditions.CATWALK_15.get())
                 .add(ModBlocksAdditions.CATWALK_16.get())
+                .add(ModBlocksAdditions.CATWALK_17.get())
+                .add(ModBlocksAdditions.CATWALK_18.get())
 
                 .add(ModBlocksAdditions.TECH_PEDESTAL.get())
                 .add(ModBlocksAdditions.EXPLORATION_PEDESTAL.get())
@@ -127,6 +129,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.CREATIVITY_PEDESTAL.get())
                 .add(ModBlocksAdditions.DECOR_PEDESTAL.get());
 
+        this.tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(ModBlocksAdditions.DEPOT.get());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
 
@@ -141,6 +145,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.SMELTERY.get())
                 .add(ModBlocksAdditions.GENERATOR.get())
                 .add(ModBlocksAdditions.FERMENTATION_BARREL.get())
+                .add(ModBlocksAdditions.DEPOT.get())
 
                 .add(ModBlocksProgression.SILVER_MACHINE_CASING.get())
                 .add(ModBlocksProgression.TIN_MACHINE_CASING.get())
@@ -171,6 +176,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.CATWALK_14.get())
                 .add(ModBlocksAdditions.CATWALK_15.get())
                 .add(ModBlocksAdditions.CATWALK_16.get())
+                .add(ModBlocksAdditions.CATWALK_17.get())
+                .add(ModBlocksAdditions.CATWALK_18.get())
 
                 .add(ModBlocksAdditions.TECH_PEDESTAL.get())
                 .add(ModBlocksAdditions.EXPLORATION_PEDESTAL.get())

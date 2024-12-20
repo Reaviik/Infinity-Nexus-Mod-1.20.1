@@ -39,6 +39,7 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_CENTRALIZER.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.DEPOT.get()));
                         //-------------------------//-------------------------//
                         //Pedestals
                         pOutput.accept(new ItemStack(ModBlocksAdditions.TECH_PEDESTAL.get()));
@@ -105,9 +106,11 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_11.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_12.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_13.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_16.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_17.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_18.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_14.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_15.get()));
-                        pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK_16.get()));
                         //-------------------------//-------------------------//
                         //ingots
                         pOutput.accept(new ItemStack(ModItemsAdditions.SILVER_INGOT.get()));

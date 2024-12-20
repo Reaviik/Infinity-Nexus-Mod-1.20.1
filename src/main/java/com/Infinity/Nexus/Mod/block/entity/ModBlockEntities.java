@@ -89,6 +89,10 @@ public class ModBlockEntities {
             BLOCK_ENTITY.register("creativity_pedestal_block_entity", () ->
                     BlockEntityType.Builder.of(CreativityPedestalBlockEntity::new, ModBlocksAdditions.CREATIVITY_PEDESTAL.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<DepotBlockEntity>> DEPOT_BE =
+            BLOCK_ENTITY.register("depot_block_entity", () ->
+                    BlockEntityType.Builder.of(DepotBlockEntity::new, ModBlocksAdditions.DEPOT.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITY.register(eventBus);
     }

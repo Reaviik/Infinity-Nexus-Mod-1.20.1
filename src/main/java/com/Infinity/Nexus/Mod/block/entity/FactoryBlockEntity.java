@@ -300,7 +300,7 @@ public class FactoryBlockEntity extends BlockEntity implements MenuProvider {
         if (pLevel.isClientSide) {
             return;
         }
-        int machineLevel = getMachineLevel()-1 <= 0 ? 0 : getMachineLevel()-1; ;
+        int machineLevel = getMachineLevel()-1 <= 0 ? 0 : getMachineLevel()-1;
         pLevel.setBlock(pPos, pState.setValue(Factory.LIT, machineLevel), 3);
 
         if (isRedstonePowered(pPos)) {

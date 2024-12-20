@@ -121,7 +121,22 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocksAdditions.FACTORY.get()).pattern("ABA").pattern("CDC").pattern("EEE").define('A', Blocks.QUARTZ_STAIRS).define('B', Items.GLOW_ITEM_FRAME).define('C', Blocks.CRAFTING_TABLE).define('D', Blocks.RESPAWN_ANCHOR).define('E', Blocks.POLISHED_BASALT).unlockedBy("has_factory", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.FACTORY.get()).build())).save(pWriter, "factory");
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocksAdditions.DISPLAY.get()).pattern("A").pattern("B").define('A', ModItemsProgression.CARBON_PLATE.get()).define('B', Blocks.POLISHED_ANDESITE_SLAB).unlockedBy("has_display", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.DISPLAY.get()).build())).save(pWriter, "display");
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocksAdditions.ENTITY_CENTRALIZER.get()).pattern(" A ").pattern("BCD").define('A', Blocks.HOPPER).define('B', Items.IRON_SWORD).define('C', Items.ENDER_PEARL).define('D', Items.IRON_AXE).unlockedBy("has_entity_centralizer", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.ENTITY_CENTRALIZER.get()).build())).save(pWriter, "entity_centralizer");
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocksAdditions.ENTITY_DISPLAY.get()).pattern(" A ").pattern("BCB").define('A', ModItemsProgression.CARBON_PLATE.get()).define('B', Items.SPRUCE_LOG).define('C', Items.ENDER_PEARL).unlockedBy("has_entity_centralizer", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.ENTITY_CENTRALIZER.get()).build())).save(pWriter, "entity_display");
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocksAdditions.ENTITY_DISPLAY.get())
+                .pattern(" A ")
+                .pattern("BCB")
+                .define('A', ModItemsProgression.CARBON_PLATE.get())
+                .define('B', Items.SPRUCE_LOG).define('C', Items.ENDER_PEARL)
+                .unlockedBy("has_entity_centralizer", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.ENTITY_CENTRALIZER.get()).build()))
+                .save(pWriter, "entity_display");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocksAdditions.DEPOT.get())
+                .pattern(" A ")
+                .pattern("BCB")
+                .define('A', Blocks.DARK_OAK_PRESSURE_PLATE)
+                .define('B', Items.IRON_INGOT)
+                .define('C', Blocks.DROPPER)
+                .unlockedBy("has_depot", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.DEPOT.get()).build()))
+                .save(pWriter, "depot");
 
         //infinium stellarum
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItemsAdditions.INFINIUM_STELLARUM_INGOT.get(), 9).requires(ModBlocksAdditions.INFINIUM_STELLARUM_BLOCK.get()).unlockedBy("has_infinium_stellarum_ingot_from_block", inventoryTrigger(ItemPredicate.Builder.item().of(ModBlocksAdditions.INFINIUM_STELLARUM_BLOCK.get()).build())).save(pWriter);

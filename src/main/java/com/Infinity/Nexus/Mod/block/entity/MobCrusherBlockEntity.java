@@ -1207,13 +1207,13 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
     /**
      * Checks and processes solid fuel.
      */
-    private void verifySolidFuel() {
-        ItemStack fuelStack = itemHandler.getStackInSlot(FUEL_SLOT);
-        if (!fuelStack.isEmpty()) {
-            int burnTime = ForgeHooks.getBurnTime(fuelStack, null);
-            if (burnTime > 0) {
-                fuelStack.shrink(1);
-                itemHandler.setStackInSlot(FUEL_SLOT, fuelStack);
+    private void verifySolidFuel(){
+        ItemStack slotItem = itemHandler.getStackInSlot(FUEL_SLOT);
+        int burnTime = ForgeHooks.getBurnTime(slotItem, null);
+        if(burnTime > 1){
+            while(itemHandler.getStackInSlot(FUEL_SLOT).getCount() > 0 && this.getEnergyStorage().getEnergyStored() + burnTime < this.getEnergyStorage().getMaxEnergyStored()){
+                this.getEnergyStorage().receiveEnergy(burnTime, false);
+                itemHandler.extractItem(FUEL_SLOT, 1, false);
             }
         }
     }

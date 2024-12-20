@@ -124,6 +124,10 @@ public class ModBlocksAdditions {
     public static final RegistryObject<Block> CATWALK_14 = registerBlock("catwalk_14", () -> new Catwalk(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.RAW_IRON),14));
     public static final RegistryObject<Block> CATWALK_15 = registerBlock("catwalk_15", () -> new Catwalk(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.RAW_IRON),15));
     public static final RegistryObject<Block> CATWALK_16 = registerBlock("catwalk_16", () -> new Catwalk(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.RAW_IRON),15));
+    public static final RegistryObject<Block> CATWALK_17 = registerBlock("catwalk_17", () -> new Catwalk(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.RAW_IRON),16));
+    public static final RegistryObject<Block> CATWALK_18 = registerBlock("catwalk_18", () -> new Catwalk(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.RAW_IRON),17));
+
+    public static final RegistryObject<Block> DEPOT = registerBlock("depot", () -> new Depot(BlockBehaviour.Properties.copy(Blocks.SPRUCE_PLANKS).requiresCorrectToolForDrops().strength(3.0f, 6.0f).noOcclusion().mapColor(MapColor.WOOD)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

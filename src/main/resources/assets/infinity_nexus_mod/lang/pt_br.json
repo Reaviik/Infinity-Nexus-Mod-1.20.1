@@ -418,5 +418,7 @@
   "gui.infinity_nexus_mod.mob_crusher.show_area": "Mostrar Área",
   "gui.infinity_nexus_mod.mob_crusher.hide_area": "Ocultar Área",
 
-  "tooltip.infinity_nexus_mod.carbon.armor": "§3Quando completa, esta armadura proporciona 50% de redução de dano, e 200% do dano recebido é convertido em consumo de durabilidade."
+  "tooltip.infinity_nexus_mod.carbon.armor": "§3Quando completa, esta armadura proporciona 50% de redução de dano, e 200% do dano recebido é convertido em consumo de durabilidade.",
+  "item.infinity_nexus.depot_description": "O Depósito permite colocar itens no mundo que não desaparecem com o tempo e que não podem ser coletados pelos jogadores até que o depósito seja quebrado.",
+  "block.infinity_nexus.depot": "Depósito"
 }

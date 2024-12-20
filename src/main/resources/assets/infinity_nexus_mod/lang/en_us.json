@@ -422,11 +422,15 @@
   "block.infinity_nexus_mod.catwalk_12": "Stair with Simple Right Side Railing",
   "block.infinity_nexus_mod.catwalk_13": "Stair with Composite Left Side Railing",
   "block.infinity_nexus_mod.catwalk_14": "Stair with Composite Right Side Railing",
+  "block.infinity_nexus_mod.catwalk_17": "Dual Side Stair Railing",
+  "block.infinity_nexus_mod.catwalk_18": "Dual Side Stair with Composite Side Railing",
   "block.infinity_nexus_mod.catwalk_15": "Simple Stair",
   "block.infinity_nexus_mod.catwalk_16": "Composite Stair",
 
   "gui.infinity_nexus_mod.mob_crusher.show_area": "Show Area",
   "gui.infinity_nexus_mod.mob_crusher.hide_area": "Hide Area",
-  "tooltip.infinity_nexus_mod.carbon.armor": "§3When complete, this armor provides 50% damage reduction, and 200% of the damage received is converted into durability consumption."
+  "tooltip.infinity_nexus_mod.carbon.armor": "§3When complete, this armor provides 50% damage reduction, and 200% of the damage received is converted into durability consumption.",
+  "item.infinity_nexus.depot_description": "The Depot allows placing items in the world that do not despawn over time and cannot be picked up by players until the depot is broken.",
+  "block.infinity_nexus.depot": "Depot"
 
 }
