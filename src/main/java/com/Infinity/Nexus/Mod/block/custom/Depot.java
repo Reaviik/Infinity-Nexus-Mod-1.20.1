@@ -32,7 +32,7 @@ import java.util.List;
 
 public class Depot extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static String description;
+    private final String description;
 
     public Depot(Properties pProperties, String description) {
         super(pProperties);

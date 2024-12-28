@@ -135,7 +135,7 @@
 </div> 
 
 <div style="display: flex; align-items: center;">
-<img src="https://imgur.com/MonHCZ3.png" width="32" height="32" style="vertical-align: middle"> <a href="https://github.com/Reaviik/Infinity-Nexus-Mod-1.20.1/wiki/Infuser">&nbsp;&nbsp;Infusora </a> (Fazer)
+<img src="https://imgur.com/MonHCZ3.png" width="32" height="32" style="vertical-align: middle" alt="Infuser"> <a href="https://github.com/Reaviik/Infinity-Nexus-Mod-1.20.1/wiki/Infuser">&nbsp;&nbsp;Infusora </a> (Fazer)
 </div> 
 
 <div style="display: flex; align-items: center;">

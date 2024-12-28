@@ -1,5 +1,6 @@
 package com.Infinity.Nexus.Mod.block.entity;
 
+import com.Infinity.Nexus.Mod.utils.ModUtilsMachines;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -57,7 +58,7 @@ public class DepotStoneBlockEntity extends DepotBlockEntityBase {
                         entity.setUnlimitedLifetime();
                         entity.setPickUpDelay(10);
                         level.addFreshEntity(entity);
-                        sendParticlePath(targetPos);
+                        ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(), worldPosition, targetPos, 0.5D, 0.2D, 0.5D);
 
                         this.itemHandler.getStackInSlot(0).shrink(1);
                         return;
@@ -68,25 +69,6 @@ public class DepotStoneBlockEntity extends DepotBlockEntityBase {
             hasEntities(worldPosition);
         }
     }
-
-    private void sendParticlePath(BlockPos targetPos) {
-        ServerLevel serverLevel = (ServerLevel) this.getLevel();
-        BlockPos startPos = this.worldPosition;
-        double distance = startPos.distManhattan(targetPos);
-        int steps = (int) (distance * 5);
-
-        double stepX = (targetPos.getX() - startPos.getX()) / (double) steps;
-        double stepY = (targetPos.getY() - startPos.getY()) / (double) steps;
-        double stepZ = (targetPos.getZ() - startPos.getZ()) / (double) steps;
-
-        for (int i = 0; i <= steps; i++) {
-            double x = startPos.getX() + stepX * i;
-            double y = startPos.getY() + stepY * i;
-            double z = startPos.getZ() + stepZ * i;
-            serverLevel.sendParticles(ParticleTypes.SCRAPE, x + 0.5, y + 0.2, z + 0.5, 1, 0, 0, 0, 0.01D);
-        }
-    }
-
 
     protected boolean canPlaceHere(BlockPos pPos) {
         return hasEntity(pPos);

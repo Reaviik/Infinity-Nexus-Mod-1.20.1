@@ -204,14 +204,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         .unlockedBy("has_alcohol", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(ModItemsAdditions.ALCOHOL_BOTTLE.get()).build())).save(pWriter);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItemsAdditions.PLASTIC_GOO.get(), 8)
-                        .requires(ModItemsAdditions.GLYCERIN.get())
-                        .requires(ModItemsAdditions.VINEGAR_BOTTLE.get())
-                        .requires(ModItemsAdditions.STARCH.get(), 4)
-                        .requires(Items.POTION)
-                        .unlockedBy("has_glycerin", inventoryTrigger(ItemPredicate.Builder.item()
-                        .of(ModItemsAdditions.GLYCERIN.get()).build())).save(pWriter);
-
         nineBlockStorageRecipes(pWriter, RecipeCategory.MISC, ModItemsAdditions.RAW_INFINITY.get(), RecipeCategory.MISC, ModBlocksAdditions.RAW_INFINITY_BLOCK.get());
         nineBlockStorageRecipes(pWriter, RecipeCategory.MISC, ModItemsAdditions.RAW_LEAD.get(), RecipeCategory.MISC, ModBlocksAdditions.RAW_LEAD_BLOCK.get());
         nineBlockStorageRecipes(pWriter, RecipeCategory.MISC, ModItemsAdditions.RAW_ALUMINUM.get(), RecipeCategory.MISC, ModBlocksAdditions.RAW_ALUMINUM_BLOCK.get());

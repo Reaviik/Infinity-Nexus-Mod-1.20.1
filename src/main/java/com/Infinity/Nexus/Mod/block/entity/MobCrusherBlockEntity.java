@@ -12,6 +12,7 @@ import com.Infinity.Nexus.Mod.block.custom.MobCrusher;
 import com.Infinity.Nexus.Mod.block.entity.wrappedHandlerMap.MobCrusherHandler;
 import com.Infinity.Nexus.Mod.fluid.ModFluids;
 import com.Infinity.Nexus.Mod.screen.mobcrusher.MobCrusherMenu;
+import com.Infinity.Nexus.Mod.utils.ModUtilsMachines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -58,8 +59,6 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.enchantment.Enchantments;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,18 +68,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * BlockEntity for the Mob Crusher machine.
- * This machine automatically kills mobs in its working area and collects their drops.
- * Features:
- * - Upgradeable with components and upgrade items
- * - Energy storage and consumption
- * - Fluid storage for experience
- * - Configurable working area based on machine level
- * - Automated item collection and sorting
- */
 public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
     private static final int[] OUTPUT_SLOT = {0,1,2,3,4,5,6,7,8};
     private static final int[] UPGRADE_SLOTS = {9,10,11,12};
@@ -91,7 +79,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
 
     protected final ContainerData data;
 
-    private int itemProcessingTicks = 0;
     private int progress = 0;
     private int maxProgress = 120;
     private int hasRedstoneSignal = 0;
@@ -108,7 +95,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
     private static final int ENERGY_CAPACITY = 60000;
     private static final int ENERGY_TRANSFER = 640;
     private static final int ENERGY_REQ = 32;
-    private static final int PROCESSING_INTERVAL = 100;
     private final FluidTank FLUID_STORAGE = createFluidStorage();
     private static final int FluidStorageCapacity = 10000;
 
@@ -116,10 +102,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
 
-    /**
-     * Main inventory handler for the machine.
-     * Handles item validation and storage for all slots.
-     */
     private final ItemStackHandler itemHandler = new ItemStackHandler(17) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -140,10 +122,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     };
 
-    /**
-     * Mapping of side-specific inventory handlers.
-     * Controls how items can be inserted/extracted from different block sides.
-     */
+
     private final Map<Direction, LazyOptional<WrappedHandler>> directionWrappedHandlerMap = Map.of(
             Direction.UP, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> MobCrusherHandler.extract(i, Direction.UP), MobCrusherHandler::insert)),
             Direction.DOWN, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> MobCrusherHandler.extract(i, Direction.DOWN), MobCrusherHandler::insert)),
@@ -152,10 +131,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
             Direction.EAST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> MobCrusherHandler.extract(i, Direction.EAST), MobCrusherHandler::insert)),
             Direction.WEST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> MobCrusherHandler.extract(i, Direction.WEST), MobCrusherHandler::insert)));
 
-    /**
-     * Energy storage handler for the machine.
-     * Handles energy storage and transfer capabilities.
-     */
     private final ModEnergyStorage ENERGY_STORAGE = new ModEnergyStorage(ENERGY_CAPACITY, ENERGY_TRANSFER) {
         @Override
         public void onEnergyChanged() {
@@ -164,10 +139,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     };
 
-    /**
-     * Creates and configures the fluid storage tank for the machine.
-     * @return Configured FluidTank instance
-     */
     private FluidTank createFluidStorage() {
         return new FluidTank(FluidStorageCapacity) {
             @Override
@@ -185,10 +156,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         };
     }
 
-    /**
-     * Constructor for the Mob Crusher BlockEntity.
-     * Initializes the container data handler for synchronization.
-     */
+
     public MobCrusherBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.MOBCRUSHER_BE.get(), pPos, pBlockState);
         this.data = new ContainerData() {
@@ -236,10 +204,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         };
     }
 
-    /**
-     * Handles capability requests for the block entity.
-     * Supports energy, fluid, and item handling capabilities.
-     */
+
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ENERGY) {
@@ -268,9 +233,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         return super.getCapability(cap, side);
     }
 
-    /**
-     * Initializes capabilities when the block entity loads.
-     */
     @Override
     public void onLoad() {
         super.onLoad();
@@ -279,9 +241,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         lazyFluidHandler = LazyOptional.of(() -> FLUID_STORAGE);
     }
 
-    /**
-     * Invalidates capabilities when the block entity is removed.
-     */
+
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
@@ -290,9 +250,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         lazyFluidHandler.invalidate();
     }
 
-    /**
-     * Saves the block entity's data to NBT.
-     */
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
@@ -313,9 +270,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         super.saveAdditional(pTag);
     }
 
-    /**
-     * Loads the block entity's data from NBT.
-     */
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
@@ -336,17 +290,11 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         showArea = pTag.getBoolean("mobCrusher.showArea");
     }
 
-    /**
-     * Gets the component slot index.
-     * @return The index of the component slot
-     */
+
     public static int getComponentSlot() {
         return COMPONENT_SLOT;
     }
 
-    /**
-     * Drops all items from the machine's inventory when broken.
-     */
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
@@ -356,59 +304,34 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    /**
-     * Gets the display name for the machine's GUI.
-     * @return Component containing the machine's name and level
-     */
     @Override
     public Component getDisplayName() {
         return Component.translatable("block.infinity_nexus_mod.mob_crusher").append(" LV "+ getMachineLevel());
     }
 
-    /**
-     * Creates the container menu for the machine's GUI.
-     */
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pPlayerInventory, Player pPlayer) {
         return new MobCrusherMenu(pContainerId, pPlayerInventory, this, this.data);
     }
 
-    /**
-     * Gets the energy storage capability.
-     * @return The machine's energy storage
-     */
     public IEnergyStorage getEnergyStorage() {
         return ENERGY_STORAGE;
     }
 
-    /**
-     * Gets the fluid storage capacity.
-     * @return Maximum fluid storage capacity
-     */
     public static long getFluidCapacity() {
         return FluidStorageCapacity;
     }
 
-    /**
-     * Gets the current fluid stored in the machine.
-     * @return Current fluid stack
-     */
     public FluidStack getFluid() {
         return this.FLUID_STORAGE.getFluid();
     }
 
-    /**
-     * Sets the energy level of the machine.
-     * @param energy New energy level
-     */
     public void setEnergyLevel(int energy) {
         this.ENERGY_STORAGE.setEnergy(energy);
     }
 
-    /**
-     * Gets various machine states from the data array.
-     */
+
     public int getHasRedstoneSignal() { return data.get(2); }
     public int getStillCrafting() { return data.get(3); }
     public int getHasSlotFree() { return data.get(4); }
@@ -416,10 +339,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
     public int getHasEnoughEnergy() { return data.get(6); }
     public int getHasRecipe() { return data.get(7); }
 
-    /**
-     * Main tick function for the machine's operation.
-     * Handles mob detection, killing, and loot collection.
-     */
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (level.isClientSide()) {
             return;
@@ -456,134 +375,18 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
                 setChanged(level, pos, state);
                 resetProgress();
             }
+            this.data.set(3, 0);
         } else {
             this.data.set(7, 0);
         }
-        this.data.set(3, 0);
-
-        itemProcessingTicks++;
-        if (itemProcessingTicks >= PROCESSING_INTERVAL) {
-            processStoredItems(pos, level);
-            itemProcessingTicks = 0;
-        }
     }
 
-    /**
-     * Attempts to eject items to the appropriate destination.
-     * If a linking tool is present, tries linked destination first, then falls back to above block.
-     * If no linking tool is present, tries above block directly.
-     */
-    private void tryEjectItems(BlockPos pos, Level level) {
-        boolean itemsNeedHandling = false;
-
-        if (!itemHandler.getStackInSlot(LINK_SLOT).isEmpty()) {
-            for (int outputSlot : OUTPUT_SLOT) {
-                ItemStack stackToTransfer = itemHandler.getStackInSlot(outputSlot);
-                if (!stackToTransfer.isEmpty()) {
-                    ItemStack beforeTransfer = stackToTransfer.copy();
-                    handleLinkedInsertion(stackToTransfer);
-
-                    if (!stackToTransfer.isEmpty() && stackToTransfer.getCount() == beforeTransfer.getCount()) {
-                        itemsNeedHandling = true;
-                    }
-                }
-            }
-        } else {
-            itemsNeedHandling = true;
-        }
-
-        if (itemsNeedHandling) {
-            tryEjectUpward(pos, level);
-        }
-    }
-
-    /**
-     * Attempts to eject items to the block above.
-     * If items can't be transferred, they remain in the machine.
-     */
-    private void tryEjectUpward(BlockPos pos, Level level) {
-        BlockEntity targetEntity = level.getBlockEntity(pos.above());
-        if (targetEntity == null) {
-            return;
-        }
-
-        targetEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(targetHandler -> {
-            boolean hasValidSlots = false;
-            for (int outputSlot : OUTPUT_SLOT) {
-                ItemStack stackToTransfer = itemHandler.getStackInSlot(outputSlot);
-                if (!stackToTransfer.isEmpty()) {
-                    for (int targetSlot = 0; targetSlot < targetHandler.getSlots(); targetSlot++) {
-                        if (canInsertItem(stackToTransfer, targetSlot, targetHandler)) {
-                            hasValidSlots = true;
-                            break;
-                        }
-                    }
-                    if (hasValidSlots) break;
-                }
-            }
-
-            if (hasValidSlots) {
-                for (int outputSlot : OUTPUT_SLOT) {
-                    ItemStack stackToTransfer = itemHandler.getStackInSlot(outputSlot);
-                    if (!stackToTransfer.isEmpty()) {
-                        ItemStack remaining = transferItemToInventory(stackToTransfer.copy(), targetHandler);
-                        itemHandler.setStackInSlot(outputSlot, remaining);
-                    }
-                }
-            }
-        });
-    }
-
-    /**
-     * Checks if an item can be inserted into a specific slot.
-     */
-    private boolean canInsertItem(ItemStack stack, int slot, IItemHandler handler) {
-        if (stack.isEmpty()) {
-            return false;
-        }
-
-        ItemStack existingStack = handler.getStackInSlot(slot);
-        if (existingStack.isEmpty()) {
-            return handler.isItemValid(slot, stack);
-        }
-
-        if (!existingStack.is(stack.getItem())) {
-            return false;
-        }
-
-        int maxStackSize = Math.min(handler.getSlotLimit(slot), stack.getMaxStackSize());
-        return existingStack.getCount() + stack.getCount() <= maxStackSize;
-    }
-
-    /**
-     * Attempts to transfer an ItemStack to an inventory.
-     */
-    private ItemStack transferItemToInventory(ItemStack stack, IItemHandler targetHandler) {
-        ItemStack remaining = stack.copy();
-
-        for (int slot = 0; slot < targetHandler.getSlots() && !remaining.isEmpty(); slot++) {
-            if (canInsertItem(remaining, slot, targetHandler)) {
-                remaining = targetHandler.insertItem(slot, remaining, false);
-            }
-        }
-
-        return remaining;
-    }
-
-    /**
-     * Checks if there are mobs within the machine's working area.
-     */
     private boolean hasMobInside(int machinelevel, BlockPos pPos, Level pLevel) {
         machinelevel = machinelevel + 1;
-        List<Mob> mobs = new ArrayList<>(pLevel.getEntitiesOfClass(Mob.class,
-                new AABB(pPos.offset(machinelevel * -1, 1, machinelevel * -1),
-                        pPos.offset(+machinelevel, 3,+machinelevel))));
+        List<Mob> mobs = new ArrayList<>(pLevel.getEntitiesOfClass(Mob.class, new AABB(pPos.offset( machinelevel * -1, 1,  machinelevel * -1), pPos.offset(+machinelevel, 3,+machinelevel))));
         return !mobs.isEmpty();
     }
 
-    /**
-     * Calculates and extracts energy based on machine level and upgrades.
-     */
     private void extractEnergy(MobCrusherBlockEntity mobCrusherBlockEntity) {
         int machineLevel = getMachineLevel() + 1;
         int maxProgress = mobCrusherBlockEntity.maxProgress;
@@ -598,9 +401,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         mobCrusherBlockEntity.ENERGY_STORAGE.extractEnergy(Math.max(extractEnergy, 1), false);
     }
 
-    /**
-     * Utility methods for machine operation
-     */
     private boolean hasEnoughEnergy() {
         return ENERGY_STORAGE.getEnergyStored() >= ENERGY_REQ;
     }
@@ -609,66 +409,42 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         progress = 0;
     }
 
-    /**
-     * Gets the current machine level based on installed component.
-     */
-    public int getMachineLevel() {
-        if(ModUtils.isComponent(this.itemHandler.getStackInSlot(COMPONENT_SLOT))) {
+    public int getMachineLevel(){
+        if(ModUtils.isComponent(this.itemHandler.getStackInSlot(COMPONENT_SLOT))){
             this.data.set(5, ModUtils.getComponentLevel(this.itemHandler.getStackInSlot(COMPONENT_SLOT)));
-        } else {
+        }else{
             this.data.set(5, 0);
         }
         return ModUtils.getComponentLevel(this.itemHandler.getStackInSlot(COMPONENT_SLOT));
     }
 
-    /**
-     * Checks if the block is receiving a redstone signal.
-     */
     private boolean isRedstonePowered(BlockPos pPos) {
         return this.level.hasNeighborSignal(pPos);
     }
 
-    /**
-     * Checks if the current operation has completed.
-     */
     private boolean hasProgressFinished() {
         return progress >= maxProgress;
     }
 
-    /**
-     * Increments the crafting progress counter.
-     */
     private void increaseCraftingProgress() {
         progress++;
     }
 
-    /**
-     * Sets the maximum progress time for operations.
-     */
     private void setMaxProgress() {
         maxProgress = 20;
     }
 
-    /**
-     * Creates a packet for syncing block entity data to the client.
-     */
     @Nullable
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    /**
-     * Gets the update tag for initial chunk data synchronization.
-     */
     @Override
     public @NotNull CompoundTag getUpdateTag() {
         return saveWithFullMetadata();
     }
 
-    /**
-     * Handles incoming data packets from the server.
-     */
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         super.onDataPacket(net, pkt);
@@ -676,51 +452,29 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         }
     }
+    private  void execute(Mob mob, BlockPos pPos, int machineLevel) {
 
-    /**
-     * Executes the mob killing operation and processes drops.
-     * @param entity The target entity to be processed
-     */
-    private List<ItemStack> execute(Entity entity) {
-        if (!(level instanceof ServerLevel) || !(entity instanceof Mob mob)) {
-            return new ArrayList<>();
-        }
-        ServerLevel serverLevel = (ServerLevel) level;
-        List<ItemStack> allDrops = new ArrayList<>();
+        //ItemStack component = this.itemHandler.getStackInSlot(COMPONENT_SLOT);
 
-        ItemStack sword = this.itemHandler.getStackInSlot(SWORD_SLOT);
-        int machineLevel = getMachineLevel();
-
-        Player player = new IFFakePlayer(serverLevel);
-        player.setItemInHand(InteractionHand.MAIN_HAND, sword);
-        ServerPlayer randomPlayer = serverLevel.getRandomPlayer();
-
-        int fireAspectLevel = sword.getEnchantmentLevel(Enchantments.FIRE_ASPECT);
-        if (fireAspectLevel > 0) {
-            mob.setSecondsOnFire(fireAspectLevel * 4);
-        }
-
+        //ModUtils.useComponent(component, level, this.getBlockPos());
+        IFFakePlayer player = ModUtilsMachines.getFakePlayer((ServerLevel) level);
+        player.setItemInHand(InteractionHand.MAIN_HAND, this.itemHandler.getStackInSlot(SWORD_SLOT));
+        ServerPlayer randomPlayer = ((ServerLevel) this.level).getRandomPlayer();
         DamageSource source = player.damageSources().playerAttack((randomPlayer != null) && machineLevel >= 7 ? randomPlayer : player);
-
-        int lootingLevel = sword.getEnchantmentLevel(Enchantments.MOB_LOOTING);
-
-        LootParams.Builder context = new LootParams.Builder(serverLevel)
+        LootTable table = Objects.requireNonNull(this.level.getServer()).getLootData().getLootTable(mob.getLootTable());
+        LootParams.Builder context = new LootParams.Builder((ServerLevel) this.level)
                 .withParameter(LootContextParams.THIS_ENTITY, mob)
                 .withParameter(LootContextParams.DAMAGE_SOURCE, source)
-                .withParameter(LootContextParams.ORIGIN, new Vec3(entity.getX(), entity.getY(), entity.getZ()))
+                .withParameter(LootContextParams.ORIGIN, new Vec3(pPos.getX(), pPos.getY(), pPos.getZ()))
                 .withParameter(LootContextParams.KILLER_ENTITY, player)
                 .withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player)
-                .withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, player)
-                .withParameter(LootContextParams.TOOL, sword)
-                .withLuck((float)lootingLevel);
-
-        LootTable table = Objects.requireNonNull(this.level.getServer()).getLootData().getLootTable(mob.getLootTable());
-        table.getRandomItems(context.create(LootContextParamSets.ENTITY)).forEach(stack -> {
-            allDrops.add(stack.copy());
+                .withOptionalParameter(LootContextParams.DIRECT_KILLER_ENTITY, player);
+        table.getRandomItems(context.create(LootContextParamSets.ENTITY)).forEach(stack ->{
+            insertItemOnInventory(stack);
             for(int loot = 0; loot < machineLevel; loot++) {
                 int rand = RandomSource.create().nextInt(10);
                 if (rand == 0) {
-                    allDrops.add(stack.copy());
+                    insertItemOnInventory(stack);
                 }
             }
         });
@@ -728,246 +482,137 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         List<ItemEntity> extra = new ArrayList<>();
         try {
             if (mob.captureDrops() == null) mob.captureDrops(new ArrayList<>());
-            ObfuscationReflectionHelper.findMethod(Mob.class, "m_7472_", DamageSource.class, int.class, boolean.class)
-                    .invoke(mob, source, lootingLevel, true);
+            ObfuscationReflectionHelper.findMethod(Mob.class, "m_7472_", DamageSource.class, int.class, boolean.class).invoke(mob, source, 0, true);
             if (mob.captureDrops() != null) {
                 extra.addAll(mob.captureDrops());
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
-        ForgeHooks.onLivingDrops(mob, source, extra, 3 + lootingLevel, true);
+        ForgeHooks.onLivingDrops(mob, source, extra, 3, true);
         player.attack(mob);
-
         extra.forEach(itemEntity -> {
-            allDrops.add(itemEntity.getItem().copy());
+            insertItemOnInventory(itemEntity.getItem());
             itemEntity.remove(Entity.RemovalReason.KILLED);
         });
-
         mob.setHealth(0);
-
-        int baseXP = mob.getExperienceReward();
-        insertExpense(baseXP);
-
-        return allDrops;
+        insertExpense(mob.getExperienceReward());
     }
 
-    /**
-     * Stores experience points as fluid in the machine's tank.
-     * @param experienceReward Amount of experience to store
-     */
+
     private void insertExpense(int experienceReward) {
         FluidStack fluidStack = new FluidStack(ModFluids.EXPERIENCE_SOURCE.get(), experienceReward);
         this.FLUID_STORAGE.fill(fluidStack, IFluidHandler.FluidAction.EXECUTE);
     }
-
-    /**
-     * Processes all mobs within the machine's working area.
-     */
     public void verifyMobs(Level pLevel, BlockPos pPos, int machinelevel) {
         try {
             machinelevel = machinelevel + 1;
-            List<Mob> entities = new ArrayList<>(pLevel.getEntitiesOfClass(Mob.class,
-                    new AABB(pPos.offset(machinelevel * -1, 0, machinelevel * -1),
-                            pPos.offset(+machinelevel, 3, +machinelevel))));
-
+            List<Mob> entities = new ArrayList<>(pLevel.getEntitiesOfClass(Mob.class, new AABB(pPos.offset( machinelevel * -1, 0,  machinelevel * -1), pPos.offset(+machinelevel,3,+machinelevel))));
+            this.data.set(4,0);
             if (!entities.isEmpty()) {
                 boolean hasFreeSlots = hasFreeSlots();
                 if(!hasFreeSlots && entities.size() > 30) {
+                    if(hasProgressFinished()){
+                        insertItemOnInventory(ItemStack.EMPTY);
+                    }
                     entities.forEach(Entity::discard);
                     notifyOwner();
-                    return;
-                }
-
-                for (Mob entity : entities) {
-                    if (entity != null && entity.isAlive()) {
-                        List<ItemStack> drops = execute(entity);
-                        for (ItemStack drop : drops) {
-                            insertItemOnSelfInventory(drop.copy());
+                }else if(hasFreeSlots){
+                    this.data.set(4,1);
+                    for (Mob entity : entities) {
+                        if (entity != null) {
+                            if (entity.isAlive()) {
+                                execute(entity, pPos, machinelevel);
+                            }
                         }
                     }
                 }
             }
-        } catch (Exception e) {
+        }catch (Exception e){
+            System.out.println("§f[INM§f]§4: Failed to kill mobs in: " + pPos);
             e.printStackTrace();
         }
     }
-
-    /**
-     * Processes stored items, attempting to send them to linked containers or upward.
-     */
-    private void processStoredItems(BlockPos pos, Level level) {
-        for (int outputSlot : OUTPUT_SLOT) {
-            ItemStack stackToProcess = itemHandler.getStackInSlot(outputSlot);
-            if (!stackToProcess.isEmpty()) {
-                ItemStack remaining = stackToProcess.copy();
-                boolean itemMoved = false;
-
-                if (hasLinkingTool()) {
-                    ItemStack beforeTransfer = remaining.copy();
-                    handleLinkedInsertion(remaining);
-                    if (remaining.isEmpty() || remaining.getCount() != beforeTransfer.getCount()) {
-                        itemHandler.setStackInSlot(outputSlot, remaining);
-                        itemMoved = true;
-                    }
-                }
-
-                if (!itemMoved && !remaining.isEmpty()) {
-                    BlockEntity targetEntity = level.getBlockEntity(pos.above());
-                    if (targetEntity != null) {
-                        targetEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
-                            ItemStack afterTransfer = transferItemToInventory(remaining.copy(), handler);
-                            if (afterTransfer.isEmpty() || afterTransfer.getCount() != remaining.getCount()) {
-                                itemHandler.setStackInSlot(outputSlot, afterTransfer);
-                            }
-                        });
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Resets the link coordinates in the data array.
-     */
-    private void resetLinkCoordinates() {
-        this.data.set(8, 0);
-        this.data.set(9, 0);
-        this.data.set(10, 0);
-    }
-
-    /**
-     * Parses link coordinates from the tool's display name.
-     * @param name The tool's display name containing coordinate data
-     * @return LinkCoordinates object or null if parsing fails
-     */
-    private LinkCoordinates parseLinkCoordinates(String name) {
+    private void insertItemOnInventory(ItemStack itemStack) {
         try {
-            String[] parts = name.substring(1, name.length() - 1).split(",");
-            int x = 0, y = 0, z = 0;
-            String face = "up";
+            if (itemHandler.getStackInSlot(LINK_SLOT).is(ModItems.LINKING_TOOL.get())) {
+                ItemStack linkingTool = itemHandler.getStackInSlot(LINK_SLOT).copy();
+                AtomicBoolean success = new AtomicBoolean(false);
+                String name = linkingTool.getDisplayName().getString();
+                this.data.set(8, 0);
+                this.data.set(9, 0);
+                this.data.set(10, 0);
+                if (linkingTool.hasCustomHoverName()) {
+                    String[] parts = name.substring(1, name.length() - 1).split(",");
+                    int xl = 0;
+                    int yl = 0;
+                    int zl = 0;
+                    String facel = "up";
 
-            for (String part : parts) {
-                String[] keyValue = part.split("=");
-                String key = keyValue[0].trim();
-                String value = keyValue[1].trim();
+                    for (String part : parts) {
+                        String[] keyValue = part.split("=");
+                        String key = keyValue[0].trim();
+                        String value = keyValue[1].trim();
 
-                switch (key) {
-                    case "x" -> {
-                        x = Integer.parseInt(value);
-                        this.data.set(8, x);
+                        if (key.equals("x")) {
+                            xl = Integer.parseInt(value);
+                            this.data.set(8, xl);
+                        } else if (key.equals("y")) {
+                            yl = Integer.parseInt(value);
+                            this.data.set(9, yl);
+                        } else if (key.equals("z")) {
+                            zl = Integer.parseInt(value);
+                            this.data.set(10, zl);
+                        } else if (key.equals("face")) {
+                            facel = value;
+                        }
                     }
-                    case "y" -> {
-                        y = Integer.parseInt(value);
-                        this.data.set(9, y);
+                    BlockEntity blockEntity = this.level.getBlockEntity(new BlockPos(xl, yl, zl));
+                    BlockPos targetPos = new BlockPos(xl, yl, zl);
+                    if (blockEntity.getBlockPos().equals(this.getBlockPos())) {
+                        level.addFreshEntity(new ItemEntity(level, xl, yl + 1, zl, itemHandler.getStackInSlot(LINK_SLOT).copy()));
+                        itemHandler.extractItem(LINK_SLOT, 1, false);
                     }
-                    case "z" -> {
-                        z = Integer.parseInt(value);
-                        this.data.set(10, z);
+                    if(!itemHandler.getStackInSlot(OUTPUT_SLOT[7]).isEmpty()) {
+                        if (blockEntity != null && canLink(blockEntity)) {
+                            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, ModUtilsMiner.getLinkedSide(facel)).ifPresent(iItemHandler -> {
+                                for (int slot = 0; slot < iItemHandler.getSlots(); slot++) {
+                                    if (ModUtils.canPlaceItemInContainer(itemStack.copy(), slot, iItemHandler) && iItemHandler.isItemValid(slot, itemStack.copy())) {
+                                        iItemHandler.insertItem(slot, itemStack.copy(), false);
+                                        ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(), worldPosition.above(), targetPos, 0.5D, 0.2D, 0.5D);
+                                        success.set(true);
+                                        break;
+                                    }
+                                }
+
+                                for (int slot = 0; slot < iItemHandler.getSlots(); slot++) {
+                                    for (int outputSlot : OUTPUT_SLOT) {
+                                        if (!itemHandler.getStackInSlot(outputSlot).isEmpty() && iItemHandler.isItemValid(slot, itemStack.copy()) && ModUtils.canPlaceItemInContainer(itemHandler.getStackInSlot(outputSlot).copy(), slot, iItemHandler)) {
+                                            iItemHandler.insertItem(slot, itemHandler.getStackInSlot(outputSlot).copy(), false);
+                                            itemHandler.extractItem(outputSlot, itemHandler.getStackInSlot(outputSlot).getCount(), false);
+                                            success.set(true);
+                                            break;
+                                        }
+                                    }
+                                }
+                            });
+                        }else{
+                            ModUtils.ejectItemsWhePusher(worldPosition.above(),UPGRADE_SLOTS, OUTPUT_SLOT, itemHandler, level);
+                        }
                     }
-                    case "face" -> face = value;
                 }
+                if (!success.get()) {
+                    insertItemOnSelfInventory(itemStack);
+                }
+            } else {
+                insertItemOnSelfInventory(itemStack);
             }
-            return new LinkCoordinates(x, y, z, face);
+
         } catch (Exception e) {
-            return null;
+            System.out.println("§f[INM§f]§c: Failed to insert item in: " + this.getBlockPos());
         }
     }
 
-    /**
-     * Handles interaction with linked container for item insertion.
-     * @param targetEntity The linked block entity
-     * @param coords The link coordinates
-     * @param itemStack The item stack to insert
-     */
-    private void handleLinkedContainer(BlockEntity targetEntity, LinkCoordinates coords, ItemStack itemStack) {
-        if (targetEntity == null || !canLink(targetEntity)) {
-            return;
-        }
-
-        if (targetEntity.getBlockPos().equals(this.getBlockPos())) {
-            handleSelfLink();
-            return;
-        }
-
-        if (!itemHandler.getStackInSlot(OUTPUT_SLOT[7]).isEmpty()) {
-            AtomicBoolean success = new AtomicBoolean(false);
-            attemptItemTransfer(targetEntity, coords, itemStack, success);
-        }
-    }
-
-    /**
-     * Handles the case when the machine is linked to itself.
-     */
-    private void handleSelfLink() {
-        level.addFreshEntity(new ItemEntity(level,
-                data.get(8),
-                data.get(9) + 1,
-                data.get(10),
-                itemHandler.getStackInSlot(LINK_SLOT).copy()));
-        itemHandler.extractItem(LINK_SLOT, 1, false);
-    }
-
-    /**
-     * Attempts to transfer items to the linked container.
-     * @param targetEntity The target block entity
-     * @param coords The link coordinates
-     * @param itemStack The item stack to transfer
-     * @param success Reference to track transfer success
-     */
-    private void attemptItemTransfer(BlockEntity targetEntity, LinkCoordinates coords, ItemStack itemStack, AtomicBoolean success) {
-        targetEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, ModUtilsMiner.getLinkedSide(coords.face())).ifPresent(handler -> {
-            if (tryInsertNewItem(handler, itemStack.copy())) {
-                success.set(true);
-                return;
-            }
-            transferExistingItems(handler, success);
-        });
-    }
-
-    /**
-     * Attempts to insert a new item into the target handler.
-     * @param handler The target item handler
-     * @param itemStack The item stack to insert
-     * @return true if insertion was successful
-     */
-    private boolean tryInsertNewItem(IItemHandler handler, ItemStack itemStack) {
-        for (int slot = 0; slot < handler.getSlots(); slot++) {
-            if (ModUtils.canPlaceItemInContainer(itemStack, slot, handler) &&
-                    handler.isItemValid(slot, itemStack)) {
-                handler.insertItem(slot, itemStack, false);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Transfers existing items from output slots to the target handler.
-     * @param handler The target item handler
-     * @param success Reference to track transfer success
-     */
-    private void transferExistingItems(IItemHandler handler, AtomicBoolean success) {
-        for (int slot = 0; slot < handler.getSlots(); slot++) {
-            for (int outputSlot : OUTPUT_SLOT) {
-                ItemStack outputStack = itemHandler.getStackInSlot(outputSlot);
-                if (!outputStack.isEmpty() &&
-                        handler.isItemValid(slot, outputStack) &&
-                        ModUtils.canPlaceItemInContainer(outputStack.copy(), slot, handler)) {
-                    handler.insertItem(slot, outputStack.copy(), false);
-                    itemHandler.extractItem(outputSlot, outputStack.getCount(), false);
-                    success.set(true);
-                    break;
-                }
-            }
-        }
-    }
-
-    /**
-     * Inserts an item stack into the machine's own inventory.
-     * @param itemStack The item stack to insert
-     */
     private void insertItemOnSelfInventory(ItemStack itemStack) {
         if (itemStack.isEmpty()) {
             return;
@@ -999,28 +644,10 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    /**
-     * Checks if a block entity is within linking range.
-     * @param blockEntity The target block entity
-     * @return true if the block entity is within range
-     */
     private boolean canLink(BlockEntity blockEntity) {
         return (int) Math.sqrt(this.getBlockPos().distSqr(blockEntity.getBlockPos())) < 100;
     }
 
-    /**
-     * Record class for storing link coordinates and face.
-     */
-    private record LinkCoordinates(int x, int y, int z, String face) {
-        public BlockPos toBlockPos() {
-            return new BlockPos(x, y, z);
-        }
-    }
-
-    /**
-     * Gets the current link status as a string.
-     * @return String representation of the current link coordinates or "[Unlinked]"
-     */
     public String getHasLink() {
         if (this.data.get(8) != 0 || this.data.get(9) != 0 || this.data.get(10) != 0) {
             return "X: " + this.data.get(8) + ", Y: " + this.data.get(9) + ", Z: " + this.data.get(10);
@@ -1028,10 +655,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         return "[Unlinked]";
     }
 
-    /**
-     * Gets the ItemStack of the linked block.
-     * @return ItemStack representing the linked block
-     */
     public ItemStack getLikedBlock() {
         return new ItemStack(level.getBlockState(new BlockPos(
                 this.data.get(8),
@@ -1039,31 +662,15 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
                 this.data.get(10))).getBlock().asItem());
     }
 
-    /**
-     * Sets the machine level based on the provided component item.
-     * @param itemStack The component item stack
-     * @param player The player performing the action
-     */
     public void setMachineLevel(ItemStack itemStack, Player player) {
         SetMachineLevel.setMachineLevel(itemStack, player, this, COMPONENT_SLOT, this.itemHandler);
     }
 
-    /**
-     * Sets the upgrade level based on the provided upgrade item.
-     * @param itemStack The upgrade item stack
-     * @param player The player performing the action
-     */
     public void setUpgradeLevel(ItemStack itemStack, Player player) {
         SetUpgradeLevel.setUpgradeLevel(itemStack, player, this, UPGRADE_SLOTS, this.itemHandler);
     }
-
-    /** Flag to control area preview rendering */
     private boolean showArea = false;
 
-    /**
-     * Controls the visibility of the working area preview.
-     * @param show Whether to show or hide the preview
-     */
     public void setShowArea(boolean show) {
         this.showArea = show;
         this.setChanged();
@@ -1072,20 +679,10 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    /**
-     * Gets the current state of area preview visibility.
-     * @return true if area preview is enabled
-     */
     public boolean shouldShowArea() {
         return this.showArea;
     }
 
-    /**
-     * Renders the working area preview using particles.
-     * Only renders when showArea is true and on client side.
-     * @param level The current level
-     * @param pos The block position
-     */
     private void renderAreaPreview(Level level, BlockPos pos) {
         if (!showArea || !level.isClientSide()) {
             return;
@@ -1102,12 +699,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         renderCubeEdges(level, start, range);
     }
 
-    /**
-     * Renders the edges of the working area cube using particles.
-     * @param level The current level
-     * @param start The starting position
-     * @param range The range of the working area
-     */
     private void renderCubeEdges(Level level, BlockPos start, int range) {
         for (int y = 0; y <= 2; y++) {
             for (int x = -range; x <= range; x++) {
@@ -1120,14 +711,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    /**
-     * Spawns a particle at the specified edge position.
-     * @param level The current level
-     * @param start The starting position
-     * @param x The x offset
-     * @param y The y offset
-     * @param z The z offset
-     */
     private void spawnEdgeParticle(Level level, BlockPos start, int x, int y, int z) {
         if (level.random.nextFloat() < 0.5f) {
             double particleX = start.getX() + x + 0.5;
@@ -1144,14 +727,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    /**
-     * Checks if a position represents an edge of the working area cube.
-     * @param x The x coordinate
-     * @param y The y coordinate
-     * @param z The z coordinate
-     * @param range The range of the working area
-     * @return true if the position is on an edge
-     */
     private boolean isEdgePosition(int x, int y, int z, int range) {
         if (Math.abs(x) == range && Math.abs(z) == range) {
             return true;
@@ -1162,12 +737,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         return false;
     }
 
-    /**
-     * Handles client-side tick updates, primarily for particle effects.
-     * @param level The current level
-     * @param pos The block position
-     * @param state The current block state
-     */
     public void clientTick(Level level, BlockPos pos, BlockState state) {
         if (!level.isClientSide()) {
             return;
@@ -1178,9 +747,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    /**
-     * Verifica se há slots livres no inventário.
-     */
+
     private boolean hasFreeSlots() {
         for (int slot : OUTPUT_SLOT) {
             if (itemHandler.getStackInSlot(slot).isEmpty()) {
@@ -1190,23 +757,10 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         return false;
     }
 
-    /**
-     * Checks if a linking tool is installed.
-     * @return true if a linking tool is installed
-     */
-    private boolean hasLinkingTool() {
-        return !itemHandler.getStackInSlot(LINK_SLOT).isEmpty();
-    }
-
-    /**
-     * Notify the owner of the machine.
-     */
     private void notifyOwner() {
     }
 
-    /**
-     * Checks and processes solid fuel.
-     */
+
     private void verifySolidFuel(){
         ItemStack slotItem = itemHandler.getStackInSlot(FUEL_SLOT);
         int burnTime = ForgeHooks.getBurnTime(slotItem, null);
@@ -1218,9 +772,6 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    /**
-     * Processes item insertion into a linked container.
-     */
     private void handleLinkedInsertion(ItemStack stack) {
         if (stack.isEmpty()) return;
 
