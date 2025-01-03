@@ -58,7 +58,7 @@ public class DepotStoneBlockEntity extends DepotBlockEntityBase {
                         entity.setUnlimitedLifetime();
                         entity.setPickUpDelay(10);
                         level.addFreshEntity(entity);
-                        ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(), worldPosition, targetPos, 0.5D, 0.2D, 0.5D);
+                        ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(),ParticleTypes.SCRAPE, worldPosition, targetPos, 0.5D, 0.2D, 0.5D);
 
                         this.itemHandler.getStackInSlot(0).shrink(1);
                         return;

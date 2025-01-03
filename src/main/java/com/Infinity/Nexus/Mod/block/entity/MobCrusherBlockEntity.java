@@ -496,6 +496,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
             itemEntity.remove(Entity.RemovalReason.KILLED);
         });
         mob.setHealth(0);
+        ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(), ParticleTypes.ELECTRIC_SPARK, worldPosition.above(), mob.getOnPos().above(2), 0.5D, 0.2D, 0.5D);
         insertExpense(mob.getExperienceReward());
     }
 
@@ -579,7 +580,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
                                 for (int slot = 0; slot < iItemHandler.getSlots(); slot++) {
                                     if (ModUtils.canPlaceItemInContainer(itemStack.copy(), slot, iItemHandler) && iItemHandler.isItemValid(slot, itemStack.copy())) {
                                         iItemHandler.insertItem(slot, itemStack.copy(), false);
-                                        ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(), worldPosition.above(), targetPos, 0.5D, 0.2D, 0.5D);
+                                        ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(),ParticleTypes.SCRAPE, worldPosition.above(), targetPos, 0.5D, 0.2D, 0.5D);
                                         success.set(true);
                                         break;
                                     }
