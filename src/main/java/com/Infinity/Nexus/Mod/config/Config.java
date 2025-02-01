@@ -82,15 +82,8 @@ public class Config
             .define("list_of_non_placeable_blocks", List.of(
                     "minecraft:redstone"
             ));
-    //Infinity Armor
-    private static final ForgeConfigSpec.BooleanValue INFINITY_ARMOR_FLY = BUILDER.comment("Define se a Infinity Armor pode voar ou não").define("infinity_armor_fly", true);
-    private static final ForgeConfigSpec.BooleanValue INFINITY_ARMOR_NEED_FUEL = BUILDER.comment("Define se a Infinity Armor necessita de combustivel ou não").define("infinity_armor_need_fuel", true);
-    private static final ForgeConfigSpec.ConfigValue<String> INFINITY_ARMOR_FUEL = BUILDER.comment("Define o tipo de combustivel que a Infinity Armor vai precisar").define("infinity_armor_fuel", "infinity_nexus_mod:unstable_matter");
-    private static final ForgeConfigSpec.IntValue INFINITY_ARMOR_FUEL_TIME = BUILDER.comment("Define o tempo de duracao do combustivel").defineInRange("infinity_armor_fuel_time", 2000, 1, Integer.MAX_VALUE);
     //DISPLAY
     private static final ForgeConfigSpec.ConfigValue<Double> DISPLAY_ROTATION_SPEED_MULTIPLIER = BUILDER.comment("Define o multiplicador da velocidade de rotacao dos itens no display").define("display_rotation_speed_multiplier", 0.05D);
-    //Imperial Infinity Armor
-    private static final ForgeConfigSpec.BooleanValue IMPERIAL_INFINITY_ARMOR_FLY = BUILDER.comment("Define se a Infinity Armor pode voar ou não").define("imperial_infinity_armor_fly", true);
     //Builda o Arquivo
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -163,12 +156,5 @@ public class Config
         ConfigUtils.list_of_non_placeable_blocks = LIST_OF_NON_PLACEABLE_BLOCKS.get();
         //DISPLAY
         ConfigUtils.display_rotation_speed_multiplier = DISPLAY_ROTATION_SPEED_MULTIPLIER.get();
-        //Infinity Armor
-        ConfigUtils.infinity_armor_can_fly = INFINITY_ARMOR_FLY.get();
-        ConfigUtils.infinity_armor_need_fuel = INFINITY_ARMOR_NEED_FUEL.get();
-        ConfigUtils.infinity_armor_fuel = ForgeRegistries.ITEMS.getValue(new ResourceLocation(INFINITY_ARMOR_FUEL.get()));
-        ConfigUtils.infinity_armor_fuel_time = INFINITY_ARMOR_FUEL_TIME.get();
-        //Imperial Infinity Armor
-        ConfigUtils.imperial_infinity_armor_can_fly = IMPERIAL_INFINITY_ARMOR_FLY.get();
     }
 }

@@ -3,6 +3,8 @@ package com.Infinity.Nexus.Mod.item.custom;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -33,6 +35,7 @@ public class ItemDislocator extends Item {
                     ? "chat.infinity_nexus_mod.item_dislocator_off"
                     : "chat.infinity_nexus_mod.item_dislocator_on"));
             itemNBT.putBoolean("onofre", !itemNBT.getBoolean("onofre"));
+            level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.FIRECHARGE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
         }
         return super.use(level, player, ihand);
     }

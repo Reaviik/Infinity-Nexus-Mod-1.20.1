@@ -1,7 +1,5 @@
 package com.Infinity.Nexus.Mod.block.custom;
 
-import com.Infinity.Nexus.Core.block.entity.ModBlocks;
-import com.Infinity.Nexus.Mod.block.ModBlocksAdditions;
 import com.Infinity.Nexus.Mod.block.entity.DepotBlockEntity;
 import com.Infinity.Nexus.Mod.block.entity.ModBlockEntities;
 import net.minecraft.client.gui.screens.Screen;

@@ -67,14 +67,6 @@ public class ConfigUtils {
     public static int squeezer_minimum_tick;
     //DISPLAY
     public static double display_rotation_speed_multiplier;
-    //INFINITY ARMOR
-    public static boolean infinity_armor_can_fly;
-    public static boolean infinity_armor_need_fuel;
-    public static Item infinity_armor_fuel;
-    public static int infinity_armor_fuel_time;
-    //IMPERIAL INFINITY ARMOR
-    public static boolean imperial_infinity_armor_can_fly;
-
     public static List<String> list_of_non_placeable_blocks;
 
     //public static ItemStack getStrengthUpgrade() {
