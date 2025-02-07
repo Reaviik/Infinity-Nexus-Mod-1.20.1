@@ -31,6 +31,7 @@ import com.Infinity.Nexus.Mod.screen.recycler.RecyclerScreen;
 import com.Infinity.Nexus.Mod.screen.smeltery.SmelteryScreen;
 import com.Infinity.Nexus.Mod.screen.solar.SolarScreen;
 import com.Infinity.Nexus.Mod.screen.squeezer.SqueezerScreen;
+import com.Infinity.Nexus.Mod.screen.tank.TankScreen;
 import com.Infinity.Nexus.Mod.tab.ModTabAdditions;
 import com.Infinity.Nexus.Mod.tab.ModTabProgression;
 import com.mojang.logging.LogUtils;
@@ -125,6 +126,7 @@ public class InfinityNexusMod
             MenuScreens.register(ModMenuTypes.MATTER_CONDENSER_MENU.get(), CondenserScreen::new);
             MenuScreens.register(ModMenuTypes.SOLAR_MENU.get(), SolarScreen::new);
             MenuScreens.register(ModMenuTypes.PLACER_MENU.get(), PlacerScreen::new);
+            MenuScreens.register(ModMenuTypes.TANK_MENU.get(), TankScreen::new);
 
 
 
@@ -148,6 +150,7 @@ public class InfinityNexusMod
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.INFUSER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.VOXEL_BLOCK.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.ENTITY_DISPLAY.get(), RenderType.cutoutMipped());
+            ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.TANK.get(), RenderType.cutoutMipped());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_2.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModBlocksAdditions.CATWALK_3.get(), RenderType.translucent());

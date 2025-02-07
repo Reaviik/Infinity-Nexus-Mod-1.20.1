@@ -1,6 +1,7 @@
 package com.Infinity.Nexus.Mod.item;
 
 import com.Infinity.Nexus.Mod.InfinityNexusMod;
+import com.Infinity.Nexus.Mod.item.custom.Orb;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -105,12 +106,12 @@ public class ModItemsProgression {
     public static final RegistryObject<Item> PLASTIC = ITEMS.register("plastic", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CARBON_PLATE = ITEMS.register("carbon_plate", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> VOXEL_TOP = ITEMS.register("voxel_t", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_DOW = ITEMS.register("voxel_d", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_NORTH = ITEMS.register("voxel_n", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_SOUTH = ITEMS.register("voxel_s", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_WEST = ITEMS.register("voxel_w", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_EAST = ITEMS.register("voxel_e", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> VOXEL_TOP = ITEMS.register("voxel_t", () -> new Orb(new Item.Properties()));
+    public static final RegistryObject<Item> VOXEL_DOW = ITEMS.register("voxel_d", () -> new Orb(new Item.Properties()));
+    public static final RegistryObject<Item> VOXEL_NORTH = ITEMS.register("voxel_n", () -> new Orb(new Item.Properties()));
+    public static final RegistryObject<Item> VOXEL_SOUTH = ITEMS.register("voxel_s", () -> new Orb(new Item.Properties()));
+    public static final RegistryObject<Item> VOXEL_WEST = ITEMS.register("voxel_w", () -> new Orb(new Item.Properties()));
+    public static final RegistryObject<Item> VOXEL_EAST = ITEMS.register("voxel_e", () -> new Orb(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

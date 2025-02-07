@@ -68,6 +68,9 @@ public class ConfigUtils {
     //DISPLAY
     public static double display_rotation_speed_multiplier;
     public static List<String> list_of_non_placeable_blocks;
+    //TANK
+    public static int tank_capacity;
+    public static boolean tank_can_endless;
 
     //public static ItemStack getStrengthUpgrade() {
     //    return new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(AssemblerConfig.list_of_upgrades.get(1)))));

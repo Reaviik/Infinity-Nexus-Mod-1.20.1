@@ -14,6 +14,7 @@ import com.Infinity.Nexus.Mod.screen.recycler.RecyclerMenu;
 import com.Infinity.Nexus.Mod.screen.smeltery.SmelteryMenu;
 import com.Infinity.Nexus.Mod.screen.solar.SolarMenu;
 import com.Infinity.Nexus.Mod.screen.squeezer.SqueezerMenu;
+import com.Infinity.Nexus.Mod.screen.tank.TankMenu;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
@@ -58,6 +59,8 @@ public class ModMenuTypes {
             registerMenuType("condenser_menu", CondenserMenu::new);
     public static final RegistryObject<MenuType<PlacerMenu>> PLACER_MENU =
             registerMenuType("placer_menu", PlacerMenu::new);
+    public static final RegistryObject<MenuType<TankMenu>> TANK_MENU =
+            registerMenuType("tank_menu", TankMenu::new);
 
 
     //Solar

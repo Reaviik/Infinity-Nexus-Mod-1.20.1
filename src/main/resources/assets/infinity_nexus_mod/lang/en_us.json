@@ -431,6 +431,12 @@
   "item.infinity_nexus.depot_description": "The Depot place one item above yourself in the world that do not despawn over time and cannot be picked up by players until the depot is broken.",
   "item.infinity_nexus.depot_stone_description": "The Depot place eight items around yourself in the world in a 3x3 grid that do not despawn over time and cannot be picked up by players until the depot is broken.",
   "block.infinity_nexus_mod.depot": "Depot",
-  "block.infinity_nexus_mod.depot_stone": "Stone Depot"
+  "block.infinity_nexus_mod.depot_stone": "Stone Depot",
+  "tooltip.infinity_nexus.orb_stage": "Step: ",
+
+  "block.infinity_nexus_mod.tank": "Tank",
+  "tooltip.infinity_nexus_mod.tank_endless": "§6Endless§r",
+  "tooltip.infinity_nexus_mod.tank_empty": "Empty",
+  "item.infinity_nexus.tank_description": "While completely full never empties"
 
 }

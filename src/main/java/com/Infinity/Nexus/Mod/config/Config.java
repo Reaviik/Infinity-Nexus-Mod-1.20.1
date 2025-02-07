@@ -84,6 +84,9 @@ public class Config
             ));
     //DISPLAY
     private static final ForgeConfigSpec.ConfigValue<Double> DISPLAY_ROTATION_SPEED_MULTIPLIER = BUILDER.comment("Define o multiplicador da velocidade de rotacao dos itens no display").define("display_rotation_speed_multiplier", 0.05D);
+    //Tank
+    private static final ForgeConfigSpec.IntValue TANK_CAPACITY = BUILDER.comment("Define a quantidade de itens que o tanque pode armazenar").defineInRange("tank_capacity", 128000, 1, Integer.MAX_VALUE);
+    private static final ForgeConfigSpec.BooleanValue TANK_CAN_ENDLESS = BUILDER.comment("Define se o tanque pode ficar com liquido infinito quando cheio").define("tank_can_endless", true);
     //Builda o Arquivo
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -156,5 +159,8 @@ public class Config
         ConfigUtils.list_of_non_placeable_blocks = LIST_OF_NON_PLACEABLE_BLOCKS.get();
         //DISPLAY
         ConfigUtils.display_rotation_speed_multiplier = DISPLAY_ROTATION_SPEED_MULTIPLIER.get();
+        //TANK
+        ConfigUtils.tank_capacity = TANK_CAPACITY.get();
+        ConfigUtils.tank_can_endless = TANK_CAN_ENDLESS.get();
     }
 }

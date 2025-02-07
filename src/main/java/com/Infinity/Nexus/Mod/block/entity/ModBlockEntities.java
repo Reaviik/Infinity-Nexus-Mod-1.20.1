@@ -97,6 +97,10 @@ public class ModBlockEntities {
             BLOCK_ENTITY.register("depot_stone_block_entity", () ->
                     BlockEntityType.Builder.of(DepotStoneBlockEntity::new, ModBlocksAdditions.DEPOT_STONE.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TankBlockEntity>> TANK_BE =
+            BLOCK_ENTITY.register("tank_block_entity", () ->
+                    BlockEntityType.Builder.of(TankBlockEntity::new, ModBlocksAdditions.TANK.get()).build(null));
+
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITY.register(eventBus);

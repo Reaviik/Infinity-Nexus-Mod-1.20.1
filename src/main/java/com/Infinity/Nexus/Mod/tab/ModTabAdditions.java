@@ -39,6 +39,7 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_CENTRALIZER.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.TANK.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEPOT.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEPOT_STONE.get()));
                         //-------------------------//-------------------------//

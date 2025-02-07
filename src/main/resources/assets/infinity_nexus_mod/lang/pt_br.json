@@ -423,5 +423,11 @@
   "item.infinity_nexus.depot_description": "O Depósito coloca itens acima de si no mundo, que não desaparecem com o tempo e não podem ser coletados pelos jogadores até que o depósito seja quebrado.",
   "item.infinity_nexus.depot_stone_description": "O Depósito coloca itens no mundo em uma área de 3x3 ao redor de si, que não desaparecem com o tempo e não podem ser coletados pelos jogadores até que o depósito seja quebrado.",
   "block.infinity_nexus_mod.depot": "Depósito",
-  "block.infinity_nexus_mod.depot_stone": "Depósito de Pedra"
+  "block.infinity_nexus_mod.depot_stone": "Depósito de Pedra",
+  "tooltip.infinity_nexus.orb_stage": "Etapa: ",
+
+  "block.infinity_nexus_mod.tank": "Tanque",
+  "tooltip.infinity_nexus_mod.tank_endless": "§6Infinito§r",
+  "tooltip.infinity_nexus_mod.tank_empty": "Vazio",
+  "item.infinity_nexus.tank_description": "Quando completamente cheio jamais esvazia"
 }
