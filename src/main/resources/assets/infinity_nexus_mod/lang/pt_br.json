@@ -356,12 +356,12 @@
   "block.infinity_nexus_mod.entity_display": "Exibidor de Entidade",
 
   "block.infinity_nexus_mod.voxel_cube": "Cubo de Voxel",
-  "item.infinity_nexus_mod.voxel_t": "§6Orbe de Criatividade",
-  "item.infinity_nexus_mod.voxel_d": "§7Orbe de Decoração",
-  "item.infinity_nexus_mod.voxel_n": "§3Orbe de Tecnologia",
-  "item.infinity_nexus_mod.voxel_s": "§eOrbe de Recurso",
-  "item.infinity_nexus_mod.voxel_w": "§5Orbe de Mágica",
-  "item.infinity_nexus_mod.voxel_e": "§2Orbe de Exploração",
+  "item.infinity_nexus_mod.voxel_t": "§6Cubo de Criatividade",
+  "item.infinity_nexus_mod.voxel_d": "§7Cubo de Decoração",
+  "item.infinity_nexus_mod.voxel_n": "§3Cubo de Tecnologia",
+  "item.infinity_nexus_mod.voxel_s": "§eCubo de Recurso",
+  "item.infinity_nexus_mod.voxel_w": "§5Cubo de Mágica",
+  "item.infinity_nexus_mod.voxel_e": "§2Cubo de Exploração",
 
   "block.infinity_nexus_mod.infuser": "Infusor",
   "block.infinity_nexus_mod.creativity_pedestal": "§6Pedestal de Criatividade",

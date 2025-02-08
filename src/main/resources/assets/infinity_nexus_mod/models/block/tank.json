@@ -1,10 +1,12 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "translucent",
 	"textures": {
-		"2": "block/hopper_top",
-		"3": "block/respawn_anchor_top_off",
-		"5": "block/light_gray_stained_glass",
-		"6": "block/chiseled_stone_bricks"
+		"2": "minecraft:block/hopper_top",
+		"3": "minecraft:block/respawn_anchor_top_off",
+		"5": "minecraft:block/light_gray_stained_glass",
+		"6": "minecraft:block/chiseled_stone_bricks",
+		"particle": "infinity_nexus_mod:block/tank"
 	},
 	"elements": [
 		{

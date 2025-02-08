@@ -390,12 +390,12 @@
   "block.infinity_nexus_mod.entity_display": "Entity Display",
 
   "block.infinity_nexus_mod.voxel_cube": "Voxel Cube",
-  "item.infinity_nexus_mod.voxel_t": "§6Creativity Orb",
-  "item.infinity_nexus_mod.voxel_d": "§7Decorative Orb",
-  "item.infinity_nexus_mod.voxel_n": "§3Technology Orb",
-  "item.infinity_nexus_mod.voxel_s": "§eResourceful Orb",
-  "item.infinity_nexus_mod.voxel_w": "§5Magic Orb",
-  "item.infinity_nexus_mod.voxel_e": "§2Exploration Orb",
+  "item.infinity_nexus_mod.voxel_t": "§6Creativity Cube",
+  "item.infinity_nexus_mod.voxel_d": "§7Decorative Cube",
+  "item.infinity_nexus_mod.voxel_n": "§3Technology Cube",
+  "item.infinity_nexus_mod.voxel_s": "§eResourceful Cube",
+  "item.infinity_nexus_mod.voxel_w": "§5Magic Cube",
+  "item.infinity_nexus_mod.voxel_e": "§2Exploration Cube",
 
   "block.infinity_nexus_mod.infuser": "Infuser",
   "block.infinity_nexus_mod.creativity_pedestal": "§6Creativity Pedestal",

@@ -308,6 +308,9 @@ public class InfuserBlockEntity extends BlockEntity{
 
         ItemStack result = recipe.get().getResultItem(getLevel().registryAccess());
         recipeOutput = result.copy();
+        if(!itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() && recipeOutput != itemHandler.getStackInSlot(OUTPUT_SLOT)){
+            return false;
+        }
 
         return canInsertAmountIntoOutputSlot(result.getCount())
                 && canInsertItemIntoOutputSlot(result.getItem())
@@ -404,8 +407,7 @@ public class InfuserBlockEntity extends BlockEntity{
     }
 
     public void addStack(ItemStack copy, InfuserBlockEntity blockEntity, Player player, int slot) {
-        if(this.itemHandler.getStackInSlot(0).isEmpty() || (this.itemHandler.getStackInSlot(0).is(copy.getItem()) && ((this.itemHandler.getStackInSlot(0).getCount() + copy.getCount()) <= this.itemHandler.getStackInSlot(0).getMaxStackSize()))) {
-            copy.setCount(copy.getCount() + this.itemHandler.getStackInSlot(0).getCount());
+        if(this.itemHandler.getStackInSlot(0).isEmpty()) {
             this.itemHandler.setStackInSlot(0, copy);
             player.getMainHandItem().setCount(0);
         }
