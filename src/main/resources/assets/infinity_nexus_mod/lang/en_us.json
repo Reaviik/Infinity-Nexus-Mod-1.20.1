@@ -397,6 +397,21 @@
   "item.infinity_nexus_mod.voxel_w": "§5Magic Cube",
   "item.infinity_nexus_mod.voxel_e": "§2Exploration Cube",
 
+  "item.infinity_nexus_mod.voxel_t_basic": "§6Creativity Cube",
+  "item.infinity_nexus_mod.voxel_d_basic": "§7Decorative Cube",
+  "item.infinity_nexus_mod.voxel_n_basic": "§3Technology Cube",
+  "item.infinity_nexus_mod.voxel_s_basic": "§eResourceful Cube",
+  "item.infinity_nexus_mod.voxel_w_basic": "§5Magic Cube",
+  "item.infinity_nexus_mod.voxel_e_basic": "§2Exploration Cube",
+
+  "item.infinity_nexus_mod.voxel_t_advanced": "§6Creativity Cube",
+  "item.infinity_nexus_mod.voxel_d_advanced": "§7Decorative Cube",
+  "item.infinity_nexus_mod.voxel_n_advanced": "§3Technology Cube",
+  "item.infinity_nexus_mod.voxel_s_advanced": "§eResourceful Cube",
+  "item.infinity_nexus_mod.voxel_w_advanced": "§5Magic Cube",
+  "item.infinity_nexus_mod.voxel_e_advanced": "§2Exploration Cube",
+
+
   "block.infinity_nexus_mod.infuser": "Infuser",
   "block.infinity_nexus_mod.creativity_pedestal": "§6Creativity Pedestal",
   "block.infinity_nexus_mod.decor_pedestal": "§7Decorative Pedestal",

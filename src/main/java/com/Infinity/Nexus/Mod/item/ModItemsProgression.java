@@ -106,12 +106,26 @@ public class ModItemsProgression {
     public static final RegistryObject<Item> PLASTIC = ITEMS.register("plastic", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CARBON_PLATE = ITEMS.register("carbon_plate", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> VOXEL_TOP = ITEMS.register("voxel_t", () -> new Orb(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_DOW = ITEMS.register("voxel_d", () -> new Orb(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_NORTH = ITEMS.register("voxel_n", () -> new Orb(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_SOUTH = ITEMS.register("voxel_s", () -> new Orb(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_WEST = ITEMS.register("voxel_w", () -> new Orb(new Item.Properties()));
-    public static final RegistryObject<Item> VOXEL_EAST = ITEMS.register("voxel_e", () -> new Orb(new Item.Properties()));
+    public static final RegistryObject<Item> VOXEL_TOP = ITEMS.register("voxel_t", () -> new Orb(new Item.Properties(), 0));
+    public static final RegistryObject<Item> VOXEL_DOW = ITEMS.register("voxel_d", () -> new Orb(new Item.Properties(), 0));
+    public static final RegistryObject<Item> VOXEL_NORTH = ITEMS.register("voxel_n", () -> new Orb(new Item.Properties(), 0));
+    public static final RegistryObject<Item> VOXEL_SOUTH = ITEMS.register("voxel_s", () -> new Orb(new Item.Properties(), 0));
+    public static final RegistryObject<Item> VOXEL_WEST = ITEMS.register("voxel_w", () -> new Orb(new Item.Properties(), 0));
+    public static final RegistryObject<Item> VOXEL_EAST = ITEMS.register("voxel_e", () -> new Orb(new Item.Properties(), 0));
+
+    public static final RegistryObject<Item> VOXEL_TOP_BASIC = ITEMS.register("voxel_t_basic", () -> new Orb(new Item.Properties(), 1));
+    public static final RegistryObject<Item> VOXEL_DOW_BASIC = ITEMS.register("voxel_d_basic", () -> new Orb(new Item.Properties(), 1));
+    public static final RegistryObject<Item> VOXEL_NORTH_BASIC = ITEMS.register("voxel_n_basic", () -> new Orb(new Item.Properties(), 1));
+    public static final RegistryObject<Item> VOXEL_SOUTH_BASIC = ITEMS.register("voxel_s_basic", () -> new Orb(new Item.Properties(), 1));
+    public static final RegistryObject<Item> VOXEL_WEST_BASIC = ITEMS.register("voxel_w_basic", () -> new Orb(new Item.Properties(), 1));
+    public static final RegistryObject<Item> VOXEL_EAST_BASIC = ITEMS.register("voxel_e_basic", () -> new Orb(new Item.Properties(), 1));
+
+    public static final RegistryObject<Item> VOXEL_TOP_ADVANCED = ITEMS.register("voxel_t_advanced", () -> new Orb(new Item.Properties(), 2));
+    public static final RegistryObject<Item> VOXEL_DOW_ADVANCED = ITEMS.register("voxel_d_advanced", () -> new Orb(new Item.Properties(), 2));
+    public static final RegistryObject<Item> VOXEL_NORTH_ADVANCED = ITEMS.register("voxel_n_advanced", () -> new Orb(new Item.Properties(), 2));
+    public static final RegistryObject<Item> VOXEL_SOUTH_ADVANCED = ITEMS.register("voxel_s_advanced", () -> new Orb(new Item.Properties(), 2));
+    public static final RegistryObject<Item> VOXEL_WEST_ADVANCED = ITEMS.register("voxel_w_advanced", () -> new Orb(new Item.Properties(), 2));
+    public static final RegistryObject<Item> VOXEL_EAST_ADVANCED = ITEMS.register("voxel_e_advanced", () -> new Orb(new Item.Properties(), 2));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
