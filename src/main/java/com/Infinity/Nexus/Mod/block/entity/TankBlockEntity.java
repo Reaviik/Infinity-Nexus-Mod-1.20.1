@@ -15,6 +15,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -230,14 +233,9 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
             if (pLevel.isClientSide) {
                 return;
             }
-            if(endless == 1) {
-                if(pState.getValue(Tank.LIT) != 1){
-                    pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 1), 3);
-                }
-            }
             fillUpOnFluid();
             ejectFluid();
-            verifyEndless();
+            verifyEndless(pState, pLevel, pPos);
             setChanged(pLevel, pPos, pState);
         }catch (Exception e){
             e.printStackTrace();
@@ -271,15 +269,31 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
     }
 
 
-    private void verifyEndless() {
-        if(ConfigUtils.tank_can_endless) {
+    private void verifyEndless(BlockState pState, Level pLevel, BlockPos pPos) {
+        if (ConfigUtils.tank_can_endless) {
+            String fluidId = FLUID_STORAGE.getFluid().getFluid().builtInRegistryHolder().key().location().toString();
+            boolean isBlacklisted = ConfigUtils.blacklist_tank_fluids.contains(fluidId);
+            boolean shouldBeEndless = (ConfigUtils.blacklist_tank_fluids_toggle && isBlacklisted) ||
+                    (!ConfigUtils.blacklist_tank_fluids_toggle && !isBlacklisted);
+
+            if (shouldBeEndless) {
+                endless = 1;
+            } else {
+                endless = 0;
+                if (pState.getValue(Tank.LIT) != 0) {
+                    pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 0), 3);
+                }
+            }
+
             if (endless == 1) {
+                if (pState.getValue(Tank.LIT) != 1) {
+                    pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 1), 3);
+                }
                 FLUID_STORAGE.fill(new FluidStack(FLUID_STORAGE.getFluid().getFluid(), FLUID_STORAGE.getCapacity()), IFluidHandler.FluidAction.EXECUTE);
-            }else if(!FLUID_STORAGE.getFluid().equals(FluidStack.EMPTY) && FLUID_STORAGE.getFluid().getAmount() >= ConfigUtils.tank_capacity){
-                    endless = 1;
             }
         }
     }
+
 
 
     private void fillUpOnFluid() {
@@ -288,30 +302,32 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
     private void transferItemFluidToTank(int fluidInputSlot) {
-        this.itemHandler.getStackInSlot(fluidInputSlot).getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).ifPresent(iFluidHandlerItem -> {
-            //TODO
-            if(iFluidHandlerItem.getContainer().getItem() instanceof BucketItem) {
-                if(this.FLUID_STORAGE.getSpace() >= 1000){
-                    FluidStack stack = iFluidHandlerItem.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-                    this.FLUID_STORAGE.fill(new FluidStack(stack.getFluid(), stack.getAmount()), IFluidHandler.FluidAction.EXECUTE);
-                    this.itemHandler.extractItem(FLUID_SLOT, 1, false);
-                    this.itemHandler.setStackInSlot(FLUID_SLOT, Items.BUCKET.getDefaultInstance());
-                    removeContainer(iFluidHandlerItem.getContainer(), 0);
-                }
-            }else if(this.FLUID_STORAGE.getSpace() >= 10 || this.FLUID_STORAGE.getSpace() >= iFluidHandlerItem.getContainer().getCount()) {
-                int drainAmount = Math.min(this.FLUID_STORAGE.getSpace(), 10);
-                FluidStack stack = iFluidHandlerItem.drain(drainAmount, IFluidHandler.FluidAction.SIMULATE);
-                iFluidHandlerItem.drain(stack, IFluidHandler.FluidAction.EXECUTE);
-                this.FLUID_STORAGE.fill(new FluidStack(stack.getFluid(), stack.getAmount()), IFluidHandler.FluidAction.EXECUTE);
-                removeContainer(iFluidHandlerItem.getContainer(), iFluidHandlerItem.getFluidInTank(0).getAmount());
-            }
-        });
+        this.itemHandler.getStackInSlot(fluidInputSlot)
+                .getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
+                .ifPresent(iFluidHandlerItem -> {
+
+                    boolean isBucket = iFluidHandlerItem.getContainer().getItem() instanceof BucketItem;
+                    int transferAmount = isBucket ? 1000 : Math.min(this.FLUID_STORAGE.getSpace(), 10);
+
+                    if (this.FLUID_STORAGE.getSpace() >= transferAmount) {
+                        FluidStack drained = iFluidHandlerItem.drain(transferAmount, IFluidHandler.FluidAction.EXECUTE);
+                        this.FLUID_STORAGE.fill(new FluidStack(drained.getFluid(), drained.getAmount()), IFluidHandler.FluidAction.EXECUTE);
+
+                        if (isBucket && FLUID_STORAGE.getFluid().getFluid().isSame(FLUID_STORAGE.getFluid().getFluid())) {
+                            this.itemHandler.extractItem(FLUID_SLOT, 1, false);
+                            this.itemHandler.setStackInSlot(FLUID_SLOT, Items.BUCKET.getDefaultInstance());
+                        }
+
+                        removeContainer(iFluidHandlerItem.getContainer(), isBucket ? 0 : drained.getAmount());
+                    }
+                });
     }
+
 
     private void removeContainer(ItemStack container, int fluid) {
         if(fluid <= 0 || container.getItem() instanceof BucketItem) {
             if(itemHandler.getStackInSlot(OUTPUT_FLUID_SLOT).isEmpty()) {
-                this.itemHandler.extractItem(FLUID_SLOT, 1, false);
+                this.itemHandler.extractItem(FLUID_SLOT, itemHandler.getStackInSlot(FLUID_SLOT).getCount(), false);
                 this.itemHandler.setStackInSlot(OUTPUT_FLUID_SLOT, container);
             }
         }
@@ -357,5 +373,16 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
 
     public IFluidTank getFluidTank() {
         return FLUID_STORAGE;
+    }
+    public void fillBucket(ItemStack mainHandItem, Player pPlayer, Level pLevel) {
+        if(mainHandItem.is(Items.BUCKET.asItem())) {
+            if (FLUID_STORAGE.getFluidAmount() >= 1000) {
+                mainHandItem.shrink(1);
+                FLUID_STORAGE.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                pPlayer.level().playSound(pPlayer, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 0.5F, 0.2F);
+                ItemEntity itemEntity = new ItemEntity(pLevel, pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(), new ItemStack(FLUID_STORAGE.getFluid().getFluid().getBucket()));
+                pLevel.addFreshEntity(itemEntity);
+            }
+        }
     }
 }

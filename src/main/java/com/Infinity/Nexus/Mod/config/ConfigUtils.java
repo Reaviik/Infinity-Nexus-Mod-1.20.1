@@ -71,6 +71,9 @@ public class ConfigUtils {
     //TANK
     public static int tank_capacity;
     public static boolean tank_can_endless;
+    public static boolean blacklist_tank_fluids_toggle;
+    public static List<String> blacklist_tank_fluids;
+
 
     //public static ItemStack getStrengthUpgrade() {
     //    return new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(AssemblerConfig.list_of_upgrades.get(1)))));

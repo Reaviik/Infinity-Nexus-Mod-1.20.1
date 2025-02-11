@@ -87,6 +87,15 @@ public class Config
     //Tank
     private static final ForgeConfigSpec.IntValue TANK_CAPACITY = BUILDER.comment("Define a quantidade de itens que o tanque pode armazenar").defineInRange("tank_capacity", 16000000, 1, Integer.MAX_VALUE);
     private static final ForgeConfigSpec.BooleanValue TANK_CAN_ENDLESS = BUILDER.comment("Define se o tanque pode ficar com liquido infinito quando cheio").define("tank_can_endless", true);
+    private static final ForgeConfigSpec.BooleanValue BLACKLIST_TANK_FLUIDS_TOGGLE = BUILDER.comment("False = blacklist, True = whitelist").define("blacklist_tank_fluids_toggle", false);
+    private static final ForgeConfigSpec.ConfigValue<List<String>> BLACKLIST_TANK_FLUIDS = BUILDER
+            .comment("Lista de liquidos que o tanque nao pode tornar infinito.")
+            .define("blacklist_tank_fluids", List.of(
+                    "infinity_nexus_mod:sugarcane_juice_water_fluid",
+                    "infinity_nexus_mod:wine_water_fluid",
+                    "infinity_nexus_mod:potato_juice_water_fluid",
+                    "infinity_nexus_mod:vinegar_water_fluid"
+            ));
     //Builda o Arquivo
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -162,5 +171,7 @@ public class Config
         //TANK
         ConfigUtils.tank_capacity = TANK_CAPACITY.get();
         ConfigUtils.tank_can_endless = TANK_CAN_ENDLESS.get();
+        ConfigUtils.blacklist_tank_fluids_toggle = BLACKLIST_TANK_FLUIDS_TOGGLE.get();
+        ConfigUtils.blacklist_tank_fluids = BLACKLIST_TANK_FLUIDS.get();
     }
 }

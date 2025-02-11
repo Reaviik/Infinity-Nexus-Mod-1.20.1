@@ -12,7 +12,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -29,7 +31,9 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -86,7 +90,14 @@ public class Tank extends BaseEntityBlock {
 
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
-        CommonUpgrades.setUpgrades(pLevel, pPos, pPlayer);
+        if(pPlayer.getMainHandItem().is(Items.BUCKET.asItem())){
+            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+            if(blockEntity instanceof TankBlockEntity tank) {
+                tank.fillBucket(pPlayer.getMainHandItem(), pPlayer, pLevel);
+            }
+        }else{
+            CommonUpgrades.setUpgrades(pLevel, pPos, pPlayer);
+        }
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
      @Override
@@ -119,9 +130,9 @@ public class Tank extends BaseEntityBlock {
         FluidStack stack = FluidStack.loadFluidStackFromNBT(pStack.getTagElement("Fluid"));
         if(!stack.equals(FluidStack.EMPTY)) {
             boolean endless = stack.getAmount() >= ConfigUtils.tank_capacity;
-            pTooltip.add(Component.literal(stack.getDisplayName().getString() + (endless ? " (" + Component.translatable("tooltip.infinity_nexus_mod.tank_endless").getString() + ")" : " " + stack.getAmount() + "mB/128000mB")));
+            pTooltip.add(Component.literal(stack.getDisplayName().getString() + (endless ? " (" + Component.translatable("tooltip.infinity_nexus_mod.tank_endless").getString() + ")" : " " + stack.getAmount() + "mB/"+ ConfigUtils.tank_capacity +"mB")));
         }else{
-            pTooltip.add(Component.translatable("tooltip.infinity_nexus_mod.tank_empty"));
+            pTooltip.add(Component.translatable("tooltip.infinity_nexus_mod.tank_empty").append(Component.literal(": 0mB/"+ ConfigUtils.tank_capacity +"mB")));
         }if(ConfigUtils.tank_can_endless) {
             if (Screen.hasShiftDown()) {
                 pTooltip.add(Component.translatable("item.infinity_nexus.tank_description"));
