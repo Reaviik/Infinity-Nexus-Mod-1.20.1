@@ -64,6 +64,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItemsAdditions.BRONZE_DUST);
         simpleItem(ModItemsAdditions.STEEL_DUST);
         simpleItem(ModItemsAdditions.GRAPHITE_DUST);
+        simpleItem(ModItemsAdditions.DIAMOND_DUST);
 
         simpleItem(ModItemsAdditions.RAW_INFINITY);
         simpleItem(ModItemsAdditions.RAW_LEAD);
@@ -96,7 +97,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItemsAdditions.CARBON_CHESTPLATE);
         simpleItem(ModItemsAdditions.CARBON_LEGGINGS);
         simpleItem(ModItemsAdditions.CARBON_BOOTS);
-        //simpletools(ModItemsAdditions.CARBON_SWORD);
+        simpletools(ModItemsAdditions.CARBON_SWORD);
+        simpletools(ModItemsAdditions.CARBON_PICKAXE);
+        simpletools(ModItemsAdditions.CARBON_AXE);
+        simpletools(ModItemsAdditions.CARBON_SHOVEL);
+        simpletools(ModItemsAdditions.CARBON_HOE);
         simpletools(ModItemsAdditions.IMPERIAL_INFINITY_SWORD);
         simpletools(ModItemsAdditions.IMPERIAL_INFINITY_HAMMER);
         simpletools(ModItemsAdditions.IMPERIAL_INFINITY_PAXEL);
@@ -138,6 +143,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItemsProgression.GOLD_SHEET_CAST);
         simpleItem(ModItemsProgression.GOLD_WIRE_CAST);
         simpleItem(ModItemsProgression.GOLD_INGOT_CAST);
+        simpleItem(ModItemsProgression.INFINITY_MESH_CAST);
         simpleItem(ModItemsProgression.RAW_ROD_CLAY_MODEL);
         simpleItem(ModItemsProgression.RAW_SCREW_CLAY_MODEL);
         simpleItem(ModItemsProgression.RAW_SHEET_CLAY_MODEL);
@@ -206,6 +212,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItemsProgression.ALUMINUM_SHEET);
         simpleItem(ModItemsProgression.INDUSTRIAL_SHEET);
         simpleItem(ModItemsProgression.INFINITY_SHEET);
+        simpleItem(ModItemsProgression.IRIDIUM_MESH);
         simpleItem(ModItemsProgression.CARBON_PLATE);
 
         simpleItem(ModItemsProgression.BIO_MASS);

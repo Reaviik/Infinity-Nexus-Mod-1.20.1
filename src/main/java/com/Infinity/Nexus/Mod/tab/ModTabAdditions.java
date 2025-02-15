@@ -58,6 +58,11 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModItemsAdditions.SOLAR_PANE_QUANTUM.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.SOLAR_PANE_PHOTONIC.get()));
                         //-------------------------//-------------------------//
+                        //infinity armor
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HELMET.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_CHESTPLATE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_LEGGINGS.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_BOOTS.get()));
                         //infinity tools
                         pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_SWORD.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_PAXEL.get()));
@@ -67,12 +72,11 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_SHOVEL.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HOE.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_BOW.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_3D_SWORD.get()));
-                        //infinity armor
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_HELMET.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_CHESTPLATE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_LEGGINGS.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_BOOTS.get()));
+                        //imperial armor
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HELMET.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_CHESTPLATE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_LEGGINGS.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_BOOTS.get()));
                         //imperial tools
                         pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_SWORD.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_PAXEL.get()));
@@ -82,17 +86,21 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_SHOVEL.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HOE.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_BOW.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_3D_SWORD.get()));
-                        //imperial armor
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_HELMET.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_CHESTPLATE.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_LEGGINGS.get()));
-                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_BOOTS.get()));
                         //carbon armor
                         pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_HELMET.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_CHESTPLATE.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_LEGGINGS.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_BOOTS.get()));
+                        //carbon tools
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_SWORD.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_PICKAXE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_AXE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_SHOVEL.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_HOE.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.CARBON_BOW.get()));
+                        //3D
+                        pOutput.accept(new ItemStack(ModItemsAdditions.IMPERIAL_INFINITY_3D_SWORD.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_3D_SWORD.get()));
                         //-------------------------//-------------------------//
                         //Catwalk
                         pOutput.accept(new ItemStack(ModBlocksAdditions.CATWALK.get()));
@@ -155,6 +163,7 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModItemsAdditions.BRONZE_DUST.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.STEEL_DUST.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.GRAPHITE_DUST.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.DIAMOND_DUST.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.ALUMINUM_DUST.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.URANIUM_DUST.get()));
                         pOutput.accept(new ItemStack(ModItemsAdditions.INFINITY_DUST.get()));

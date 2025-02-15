@@ -40,6 +40,7 @@ public class ModTabProgression {
                         pOutput.accept(new ItemStack(ModItemsProgression.GOLD_SHEET_CAST.get()));
                         pOutput.accept(new ItemStack(ModItemsProgression.GOLD_ROD_CAST.get()));
                         pOutput.accept(new ItemStack(ModItemsProgression.GOLD_INGOT_CAST.get()));
+                        pOutput.accept(new ItemStack(ModItemsProgression.INFINITY_MESH_CAST.get()));
 
                         pOutput.accept(new ItemStack(ModItemsProgression.RAW_WIRE_CLAY_MODEL.get()));
                         pOutput.accept(new ItemStack(ModItemsProgression.RAW_SCREW_CLAY_MODEL.get()));
@@ -106,6 +107,7 @@ public class ModTabProgression {
                         pOutput.accept(new ItemStack(ModItemsProgression.ALUMINUM_SHEET.get()));
                         pOutput.accept(new ItemStack(ModItemsProgression.INDUSTRIAL_SHEET.get()));
                         pOutput.accept(new ItemStack(ModItemsProgression.INFINITY_SHEET.get()));
+                        pOutput.accept(new ItemStack(ModItemsProgression.IRIDIUM_MESH.get()));
 
                         pOutput.accept(new ItemStack(ModItemsProgression.VOXEL_TOP.get()));
                         pOutput.accept(new ItemStack(ModItemsProgression.VOXEL_DOW.get()));

@@ -31,7 +31,7 @@
   "item.infinity_nexus_mod.imperial_infinity_chestplate": "Peitoral Imperial de Infinity",
   "item.infinity_nexus_mod.imperial_infinity_leggings": "Perneiras Imperiais de Infinity",
   "item.infinity_nexus_mod.imperial_infinity_boots": "Botas Imperiais de Infinity",
-  "item.infinity_nexus.infinity_armor": "§bArmadura completa concede: §6Voo Criativo §5- Regeneração and §5 Absorção",
+  "item.infinity_nexus.infinity_armor": "§bArmadura completa concede: §5- Regeneração e §5 Absorção",
   "item.infinity_nexus_mod.imperial_infinity_sword": "Espada Imperial de Infinity",
   "tooltip.infinity_nexus_mod.imperial_infinity_sword": "§eCausa os efeitos §7Fraqueza §ee §9Definhamento §equando atinge",
   "item.infinity_nexus_mod.imperial_infinity_hammer": "Martelo Imperial de Infinity",
@@ -169,6 +169,7 @@
   "fluid.infinity_nexus_mod.molten_infinity": "Infinity Derretido",
   "item.infinity_nexus_mod.molten_infinity_bucket": "Balde de Infinity Fundido",
   "block.infinity_nexus_mod.molten_starliquid_bucket": "Starliquid Derretido",
+  "block.infinity_nexus_mod.starliquid": "Starliquid Derretido",
   "fluid.infinity_nexus_mod.molten_starliquid": "Starliquid Derretido",
   "item.infinity_nexus_mod.molten_starliquid_bucket": "Balde de Starliquid Fundido",
 
@@ -440,7 +441,19 @@
   "block.infinity_nexus_mod.depot_stone": "Depósito de Pedra",
   "tooltip.infinity_nexus.orb_stage": "Etapa: ",
 
-  "block.infinity_nexus_mod.tank": "Tanque",
+  "item.infinity_nexus_mod.carbon_sword": "Espada de Carbono",
+  "item.infinity_nexus_mod.carbon_hoe": "Enxada de Carbono",
+  "item.infinity_nexus_mod.carbon_axe": "Machado de Carbono",
+  "item.infinity_nexus_mod.carbon_pickaxe": "Picareta de Carbono",
+  "item.infinity_nexus_mod.carbon_bow": "Arco de Carbono",
+  "item.infinity_nexus_mod.carbon_shovel": "Pá de Carbono",
+
+  "block.infinity_nexus_mod.compactor": "Compactador",
+  "item.infinity_nexus_mod.infinity_mesh_cast": "Forma de Grade de Infinity",
+  "item.infinity_nexus_mod.iridium_mesh": "Grade de Irídio",
+  "item.infinity_nexus_mod.diamond_dust": "Pó de Diamante",
+
+  "block.infinity_nexus_mod.tank": "Tanque de Líquido",
   "tooltip.infinity_nexus_mod.tank_endless": "§6Infinito§r",
   "tooltip.infinity_nexus_mod.tank_empty": "Vazio",
   "item.infinity_nexus.tank_description": "Quando completamente cheio jamais esvazia"

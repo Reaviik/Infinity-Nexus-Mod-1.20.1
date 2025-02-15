@@ -90,6 +90,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.SOLAR.get())
                 .add(ModBlocksAdditions.FERMENTATION_BARREL.get())
                 .add(ModBlocksAdditions.DEPOT_STONE.get())
+                .add(ModBlocksAdditions.COMPACTOR.get())
 
                 .add(ModBlocksProgression.SILVER_MACHINE_CASING.get())
                 .add(ModBlocksProgression.TIN_MACHINE_CASING.get())

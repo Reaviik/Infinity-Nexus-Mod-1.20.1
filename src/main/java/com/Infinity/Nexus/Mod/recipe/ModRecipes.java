@@ -20,6 +20,7 @@ public class ModRecipes {
     public static final RegistryObject<RecipeSerializer<FermentationBarrelRecipes>> FERMENTATION_BARREL_SERIALIZER = SERIALIZER.register("fermentation", () -> FermentationBarrelRecipes.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<MatterCondenserRecipes>> MATTER_CONDENSER_SERIALIZER = SERIALIZER.register("matter_condenser", () -> MatterCondenserRecipes.Serializer.INSTANCE);
     public static final RegistryObject<RecipeSerializer<InfuserRecipes>> INFUSER_SERIALIZER = SERIALIZER.register("infuser", () -> InfuserRecipes.Serializer.INSTANCE);
+    public static final RegistryObject<RecipeSerializer<CompactorRecipes>> COMPACTOR_SERIALIZER = SERIALIZER.register("compacting", () -> CompactorRecipes.Serializer.INSTANCE);
 
     public static void register(IEventBus eventBus) {
         SERIALIZER.register(eventBus);

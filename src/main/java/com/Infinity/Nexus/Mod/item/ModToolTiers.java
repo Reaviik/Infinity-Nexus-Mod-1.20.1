@@ -12,6 +12,16 @@ import net.minecraftforge.common.TierSortingRegistry;
 import java.util.List;
 
 public class ModToolTiers {
+
+    public static final Tier CARBON = TierSortingRegistry.registerTier(
+            new ForgeTier(
+                    6,
+                    1500,
+                    20,
+                    -1,
+                    50,
+                    ModTags.Blocks.PAXEL_MINEABLE, () -> Ingredient.of(ModItemsProgression.CARBON_PLATE.get())),
+            new ResourceLocation(InfinityNexusMod.MOD_ID, "carbon"), List.of(Tiers.NETHERITE), List.of());
     public static final Tier INFINITY = TierSortingRegistry.registerTier(
             new ForgeTier(
                     7,

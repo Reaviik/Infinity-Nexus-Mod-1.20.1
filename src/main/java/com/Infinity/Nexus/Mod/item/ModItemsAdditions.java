@@ -65,6 +65,7 @@ public class ModItemsAdditions {
     public static final RegistryObject<Item> BRONZE_DUST = ITEMS.register("bronze_dust",() -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> STEEL_DUST = ITEMS.register("steel_dust",() -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GRAPHITE_DUST = ITEMS.register("graphite_dust",() -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DIAMOND_DUST = ITEMS.register("diamond_dust",() -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_INFINITY = ITEMS.register("raw_infinity",() -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead",() -> new Item(new Item.Properties()));
@@ -78,6 +79,22 @@ public class ModItemsAdditions {
     public static final RegistryObject<Item> INFINITY_SINGULARITY = ITEMS.register("infinity_singularity",() -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ITEM_DISLOCATOR = ITEMS.register("item_dislocator",() -> new ItemDislocator(new Item.Properties()));
     public static final RegistryObject<Item> PORTAL_ACTIVATOR = ITEMS.register("catalyst",() -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> CARBON_HELMET = ITEMS.register("carbon_helmet", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CARBON_CHESTPLATE = ITEMS.register("carbon_chestplate", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.CHESTPLATE, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CARBON_LEGGINGS = ITEMS.register("carbon_leggings", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.LEGGINGS, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> CARBON_BOOTS = ITEMS.register("carbon_boots", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.BOOTS, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> CARBON_SWORD = ITEMS.register("carbon_sword",
+            () -> new ModSword(ModToolTiers.CARBON, 18, 0,//+4
+                    new Item.Properties().stacksTo(1).fireResistant(),
+                    Component.literal(""),
+                    new MobEffectInstance[]{}));
+    public static final RegistryObject<Item> CARBON_PICKAXE = ITEMS.register("carbon_pickaxe", () -> new PickaxeItems(ModToolTiers.CARBON, 5, 4, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> CARBON_SHOVEL = ITEMS.register("carbon_shovel", () -> new ShovelItems(ModToolTiers.CARBON, 5, 3, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> CARBON_AXE = ITEMS.register("carbon_axe", () -> new AxeItems(ModToolTiers.CARBON, 8, 3, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> CARBON_HOE = ITEMS.register("carbon_hoe", () -> new HoeItems(ModToolTiers.CARBON, 3, 3, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> CARBON_BOW = ITEMS.register("carbon_bow", () -> new ModBow(ModToolTiers.CARBON, new Item.Properties().durability(1500).fireResistant(), 20));
 
     public static final RegistryObject<Item> INFINITY_SWORD = ITEMS.register("infinity_sword",
             () -> new ModSword(ModToolTiers.INFINITY, 40, 0,//+4
@@ -107,11 +124,6 @@ public class ModItemsAdditions {
     public static final RegistryObject<Item> INFINITY_CHESTPLATE = ITEMS.register("infinity_chestplate", () -> new InfinityArmorItem(ModArmorMaterials.INFINITY, ArmorItem.Type.CHESTPLATE, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> INFINITY_LEGGINGS = ITEMS.register("infinity_leggings", () -> new InfinityArmorItem(ModArmorMaterials.INFINITY, ArmorItem.Type.LEGGINGS, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
     public static final RegistryObject<Item> INFINITY_BOOTS = ITEMS.register("infinity_boots", () -> new InfinityArmorItem(ModArmorMaterials.INFINITY, ArmorItem.Type.BOOTS, new Item.Properties().stacksTo(1).rarity(Rarity.RARE).fireResistant()));
-
-    public static final RegistryObject<Item> CARBON_HELMET = ITEMS.register("carbon_helmet", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.HELMET, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> CARBON_CHESTPLATE = ITEMS.register("carbon_chestplate", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.CHESTPLATE, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> CARBON_LEGGINGS = ITEMS.register("carbon_leggings", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.LEGGINGS, new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> CARBON_BOOTS = ITEMS.register("carbon_boots", () -> new CarbonArmorItem(ModArmorMaterials.CARBON, ArmorItem.Type.BOOTS, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> IMPERIAL_INFINITY_SWORD = ITEMS.register("imperial_infinity_sword",
             () -> new ModSword(ModToolTiers.IMPERIAL, 50, 1,

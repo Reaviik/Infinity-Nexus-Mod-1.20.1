@@ -1,0 +1,36 @@
+{
+  "type": "infinity_nexus_mod:compacting",
+  "ingredients": [
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" },
+    { "item":  "minecraft:stone" }
+  ],
+  "output": {
+    "item": "infinity_nexus_core:fake_grass_block",
+    "count": 1
+  }
+}

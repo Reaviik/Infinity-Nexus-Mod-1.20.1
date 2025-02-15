@@ -6,6 +6,7 @@ import net.minecraft.world.item.Item;
 
 public class ModItemProperties {
     public static void addCustomItemProperties() {
+        makeBow(ModItemsAdditions.CARBON_BOW.get());
         makeBow(ModItemsAdditions.INFINITY_BOW.get());
         makeBow(ModItemsAdditions.IMPERIAL_INFINITY_BOW.get());
     }

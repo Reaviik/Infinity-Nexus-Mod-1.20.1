@@ -18,6 +18,7 @@ public class ModItemsProgression {
     public static final RegistryObject<Item> GOLD_SHEET_CAST = ITEMS.register("gold_sheet_cast", () -> new Item(new Item.Properties().rarity(Rarity.COMMON)));
     public static final RegistryObject<Item> GOLD_ROD_CAST = ITEMS.register("gold_rod_cast", () -> new Item(new Item.Properties().rarity(Rarity.COMMON)));
     public static final RegistryObject<Item> GOLD_INGOT_CAST = ITEMS.register("gold_ingot_cast", () -> new Item(new Item.Properties().rarity(Rarity.COMMON)));
+    public static final RegistryObject<Item> INFINITY_MESH_CAST = ITEMS.register("infinity_mesh_cast", () -> new Item(new Item.Properties().rarity(Rarity.COMMON)));
 
     //Models
     public static final RegistryObject<Item> RAW_WIRE_CLAY_MODEL = ITEMS.register("raw_wire_clay_model", () -> new Item(new Item.Properties().rarity(Rarity.COMMON)));
@@ -92,7 +93,8 @@ public class ModItemsProgression {
     public static final RegistryObject<Item> ALUMINUM_SHEET = ITEMS.register("aluminum_sheet", () -> new Item(new Item.Properties().rarity(Rarity.COMMON)));
     public static final RegistryObject<Item> STEEL_SHEET = ITEMS.register("steel_sheet", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
     public static final RegistryObject<Item> INDUSTRIAL_SHEET = ITEMS.register("industrial_sheet", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    public static final RegistryObject<Item> INFINITY_SHEET = ITEMS.register("infinity_sheet", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> INFINITY_SHEET = ITEMS.register("infinity_sheet", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+    public static final RegistryObject<Item> IRIDIUM_MESH = ITEMS.register("iridium_mesh", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 
 
     public static final RegistryObject<Item> BIO_MASS = ITEMS.register("bio_mass", () -> new Item(new Item.Properties()));

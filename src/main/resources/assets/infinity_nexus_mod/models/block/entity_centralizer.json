@@ -1,7 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"5": "minecraft:block/hopper_inside"
+		"5": "minecraft:block/hopper_inside",
+		"particle": "minecraft:block/hopper_inside"
 	},
 	"elements": [
 		{
