@@ -271,25 +271,27 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
 
     private void verifyEndless(BlockState pState, Level pLevel, BlockPos pPos) {
         if (ConfigUtils.tank_can_endless) {
-            String fluidId = FLUID_STORAGE.getFluid().getFluid().builtInRegistryHolder().key().location().toString();
-            boolean isBlacklisted = ConfigUtils.blacklist_tank_fluids.contains(fluidId);
-            boolean shouldBeEndless = (ConfigUtils.blacklist_tank_fluids_toggle && isBlacklisted) ||
-                    (!ConfigUtils.blacklist_tank_fluids_toggle && !isBlacklisted);
+            if(!FLUID_STORAGE.getFluid().isEmpty()) {
+                String fluidId = FLUID_STORAGE.getFluid().getFluid().builtInRegistryHolder().key().location().toString();
+                boolean isBlacklisted = ConfigUtils.blacklist_tank_fluids.contains(fluidId);
+                boolean shouldBeEndless = (ConfigUtils.blacklist_tank_fluids_toggle && isBlacklisted) ||
+                        (!ConfigUtils.blacklist_tank_fluids_toggle && !isBlacklisted);
 
-            if (shouldBeEndless) {
-                endless = 1;
-            } else {
-                endless = 0;
-                if (pState.getValue(Tank.LIT) != 0) {
-                    pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 0), 3);
+                if (shouldBeEndless) {
+                    endless = 1;
+                } else {
+                    endless = 0;
+                    if (pState.getValue(Tank.LIT) != 0) {
+                        pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 0), 3);
+                    }
                 }
-            }
 
-            if (endless == 1) {
-                if (pState.getValue(Tank.LIT) != 1) {
-                    pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 1), 3);
+                if (endless == 1) {
+                    if (pState.getValue(Tank.LIT) != 1) {
+                        pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 1), 3);
+                    }
+                    FLUID_STORAGE.fill(new FluidStack(FLUID_STORAGE.getFluid().getFluid(), FLUID_STORAGE.getCapacity()), IFluidHandler.FluidAction.EXECUTE);
                 }
-                FLUID_STORAGE.fill(new FluidStack(FLUID_STORAGE.getFluid().getFluid(), FLUID_STORAGE.getCapacity()), IFluidHandler.FluidAction.EXECUTE);
             }
         }
     }

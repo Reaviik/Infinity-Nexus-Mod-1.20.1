@@ -3,6 +3,7 @@ package com.Infinity.Nexus.Mod.block.custom;
 import com.Infinity.Nexus.Mod.block.custom.common.CommonUpgrades;
 import com.Infinity.Nexus.Mod.block.entity.FactoryBlockEntity;
 import com.Infinity.Nexus.Mod.block.entity.ModBlockEntities;
+import com.Infinity.Nexus.Mod.recipe.auto.FactoryRecipeCopy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -77,6 +78,7 @@ public class Factory extends BaseEntityBlock {
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         CommonUpgrades.setUpgrades(pLevel, pPos, pPlayer);
+        FactoryRecipeCopy.copy(pLevel, pPos, pPlayer, pHand);
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 

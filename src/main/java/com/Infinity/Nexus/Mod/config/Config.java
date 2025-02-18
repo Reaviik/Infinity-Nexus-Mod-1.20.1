@@ -96,6 +96,10 @@ public class Config
                     "infinity_nexus_mod:potato_juice_water_fluid",
                     "infinity_nexus_mod:vinegar_water_fluid"
             ));
+    private static final ForgeConfigSpec.IntValue TRANSLOCATOR_DELAY = BUILDER.comment("Define a quantidade de ticks entre uma operação e outra").defineInRange("translator_delay", 20, 1, Integer.MAX_VALUE);
+    private static final ForgeConfigSpec.IntValue TRANSLOCATOR_RANGE_LIMIT = BUILDER.comment("Define a distancia maxima que o translator pode enviar").defineInRange("translator_range_limit", 100, 1, Integer.MAX_VALUE);
+    private static final ForgeConfigSpec.IntValue TRANSLOCATOR_SKIP_PROGRESS = BUILDER.comment("Define a quantidade de ticks ignorados quando recebe um item de outro translocador").defineInRange("translator_skip_progress", 15, 1, Integer.MAX_VALUE);
+
     //Builda o Arquivo
     public static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -173,5 +177,9 @@ public class Config
         ConfigUtils.tank_can_endless = TANK_CAN_ENDLESS.get();
         ConfigUtils.blacklist_tank_fluids_toggle = BLACKLIST_TANK_FLUIDS_TOGGLE.get();
         ConfigUtils.blacklist_tank_fluids = BLACKLIST_TANK_FLUIDS.get();
+        //TRANSLOCATOR
+        ConfigUtils.translocator_delay = TRANSLOCATOR_DELAY.get();
+        ConfigUtils.translocator_range_limit = TRANSLOCATOR_RANGE_LIMIT.get();
+        ConfigUtils.translocator_skip_progress = TRANSLOCATOR_SKIP_PROGRESS.get();
     }
 }

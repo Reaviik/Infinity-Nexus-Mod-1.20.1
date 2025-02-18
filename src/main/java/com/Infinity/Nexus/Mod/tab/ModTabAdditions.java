@@ -33,13 +33,16 @@ public class ModTabAdditions {
                         pOutput.accept(new ItemStack(ModBlocksAdditions.MOB_CRUSHER.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.PLACER.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.INFUSER.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.FACTORY.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.COMPACTOR.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.SOLAR.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.FERMENTATION_BARREL.get()));
-                        pOutput.accept(new ItemStack(ModBlocksAdditions.FACTORY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_DISPLAY.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.ENTITY_CENTRALIZER.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.TANK.get()));
+                        pOutput.accept(new ItemStack(ModBlocksAdditions.TRANSLOCATOR.get()));
+                        pOutput.accept(new ItemStack(ModItemsAdditions.TRANSLOCATOR_LINK.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEPOT.get()));
                         pOutput.accept(new ItemStack(ModBlocksAdditions.DEPOT_STONE.get()));
                         //-------------------------//-------------------------//

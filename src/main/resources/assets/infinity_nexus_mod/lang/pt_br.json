@@ -456,5 +456,16 @@
   "block.infinity_nexus_mod.tank": "Tanque de Líquido",
   "tooltip.infinity_nexus_mod.tank_endless": "§6Infinito§r",
   "tooltip.infinity_nexus_mod.tank_empty": "Vazio",
-  "item.infinity_nexus.tank_description": "Quando completamente cheio jamais esvazia"
+  "item.infinity_nexus.tank_description": "Quando completamente cheio jamais esvazia",
+
+  "tooltip.infinity_nexus.cord": "Linkado a:",
+  "block.infinity_nexus_mod.translocator": "Translocador de Itens",
+  "item.infinity_nexus_mod.translocator_link": "Link do Translocador",
+  "item.infinity_nexus.translocator_description": "Uma unidade de transporte avançada capaz de transferir itens entre pontos distantes. Use um Ampliação de Ejetor para enviar itens para outro Translocador a até 100 blocks. Use um Link de Translocador para copiar as coordenadas do Translocador de destino e colá-las no Rranslocador de envio.",
+  "tooltip.infinity_nexus.translocator_receive": "Translocador modificado para receber!",
+  "tooltip.infinity_nexus.translocator_send": "Translocador modificado para enviar!",
+  "tooltip.infinity_nexus.translocator_link_fail": "Falha ao colar as coordenadas, precisa inserir uma Ampliação de Ejetor no Translocador de envio",
+  "tooltip.infinity_nexus.translocator_link": "Coordenadas coladas!",
+  "tooltip.infinity_nexus.translocator_copy": "Coordenadas copiadas!",
+  "tooltip.infinity_nexus.translocator_clear": "Coordenadas limpas!"
 }

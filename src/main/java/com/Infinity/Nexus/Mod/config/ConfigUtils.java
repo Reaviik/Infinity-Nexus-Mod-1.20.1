@@ -73,6 +73,10 @@ public class ConfigUtils {
     public static boolean tank_can_endless;
     public static boolean blacklist_tank_fluids_toggle;
     public static List<String> blacklist_tank_fluids;
+    //TRANSLOCATOR
+    public static int translocator_delay;
+    public static int translocator_range_limit;
+    public static int translocator_skip_progress;
 
 
     //public static ItemStack getStrengthUpgrade() {

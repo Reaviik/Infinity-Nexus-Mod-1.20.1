@@ -459,4 +459,8 @@ public class FactoryBlockEntity extends BlockEntity implements MenuProvider {
     public void setUpgradeLevel(ItemStack itemStack, Player player) {
         SetUpgradeLevel.setUpgradeLevel(itemStack, player, this, UPGRADE_SLOTS, this.itemHandler);
     }
+
+    public IItemHandler getRecipeInventory() {
+        return this.itemHandler;
+    }
 }

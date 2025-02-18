@@ -465,6 +465,18 @@
   "block.infinity_nexus_mod.tank": "Liquid Tank",
   "tooltip.infinity_nexus_mod.tank_endless": "§6Endless§r",
   "tooltip.infinity_nexus_mod.tank_empty": "Empty",
-  "item.infinity_nexus.tank_description": "While completely full never empties"
+  "item.infinity_nexus.tank_description": "While completely full never empties",
 
+  "infinity_nexus_mod.guide_name": "Infinity Nexus Guide",
+
+  "tooltip.infinity_nexus.cord": "Linked to:",
+  "block.infinity_nexus_mod.translocator": "Item Translocator",
+  "item.infinity_nexus_mod.translocator_link": "Translocator Link",
+  "item.infinity_nexus.translocator_description": "An advanced transport unit capable of transferring items between distant points. Use a Pusher Upgrade to send items to another Translocator up to 100 blocks away. Use a Translocator Link to copy the target Translocator's coordinates and paste them into the sending Translocator.",
+  "tooltip.infinity_nexus.translocator_receive": "Translocator changed to receive!",
+  "tooltip.infinity_nexus.translocator_send": "Translocator changed to send!",
+  "tooltip.infinity_nexus.translocator_link_fail": "Paste coordinates failed, you need insert Pusher Upgrade in the sender Translocator",
+  "tooltip.infinity_nexus.translocator_link": "Coordinates pasted!",
+  "tooltip.infinity_nexus.translocator_copy": "Coordinates copied",
+  "tooltip.infinity_nexus.translocator_clear": "Coordinates clear!"
 }

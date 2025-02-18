@@ -105,6 +105,10 @@ public class ModBlockEntities {
             BLOCK_ENTITY.register("compactor_block_entity", () ->
                     BlockEntityType.Builder.of(CompactorBlockEntity::new, ModBlocksAdditions.COMPACTOR.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TranslocatorBlockEntity>> TRASLOCATOR_BE =
+            BLOCK_ENTITY.register("traslocator_block_entity", () ->
+                    BlockEntityType.Builder.of(TranslocatorBlockEntity::new, ModBlocksAdditions.TRANSLOCATOR.get()).build(null));
+
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITY.register(eventBus);

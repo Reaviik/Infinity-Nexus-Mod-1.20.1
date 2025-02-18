@@ -12,12 +12,14 @@ import com.Infinity.Nexus.Mod.recipe.PressRecipes;
 import com.Infinity.Nexus.Mod.screen.tank.TankMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
@@ -87,10 +89,11 @@ public class CompactorBlockEntity extends BlockEntity {
     }
 
     private void craft(Level pLevel, BlockPos pPos) {
-        System.out.println("&f[INM&f]&4: Crafting");
         Optional<CompactorRecipes> recipe = getCurrentRecipe();
         if(!recipe.isEmpty()) {
-            List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, new AABB(pPos.above(2)));
+            AABB aabb = new AABB(pPos.above(4).east(2).south(2), pPos.above().west().north());
+            List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, aabb);
+            ServerLevel level = (ServerLevel) getLevel();
             if (!entities.isEmpty()) {
                 entities.get(0).remove(Entity.RemovalReason.DISCARDED);
                 ItemStack result = recipe.get().getResultItem(pLevel.registryAccess());
@@ -141,16 +144,15 @@ public class CompactorBlockEntity extends BlockEntity {
         int centerX = this.worldPosition.getX();
         int centerY = this.worldPosition.getY() + 2;
         int centerZ = this.worldPosition.getZ();
-
-        // Definição das posições em ordem específica (z primeiro, depois x e depois y)
         int index = 0;
-        for (int y = -1; y <= 1; y++) { // Altura
-            for (int z = -1; z <= 1; z++) { // Profundidade
-                for (int x = -1; x <= 1; x++) { // Largura
+        for (int y = -1; y <= 1; y++) {
+            for (int z = -1; z <= 1; z++) {
+                for (int x = -1; x <= 1; x++) {
                     BlockPos pos = new BlockPos(centerX + x, centerY + y, centerZ + z);
 
-                    if (x == 0 && y == 0 && z == 0) { // Posição central
-                        List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, new AABB(pos));
+                    if (x == 0 && y == 0 && z == 0) {
+                        AABB aabb = new AABB(pos.below().east(2).south(2), pos.above().north().west());
+                        List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, aabb);
                         if (!entities.isEmpty()) {
                             ItemStack centerItem = entities.get(0).getItem();
                             if (centerItem.getCount() == 1) {

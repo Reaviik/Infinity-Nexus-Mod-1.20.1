@@ -112,19 +112,19 @@ public class Infuser extends BaseEntityBlock {
                                 TooltipFlag flag) {
         if (Screen.hasShiftDown()) {
             components.add(Component.literal("§bInfuser Build Example"));
-            components.add(Component.literal("§4§n⬛§f = ").append(Component.translatable("block.infinity_nexus_mod.infuser")));
-            components.add(Component.literal("§5⬛§f = ").append(Component.translatable("block.infinity_nexus_mod.magic_pedestal")));
-            components.add(Component.literal("§e⬛§f = ").append(Component.translatable("block.infinity_nexus_mod.resource_pedestal")));
-            components.add(Component.literal("§8⬛§f = ").append(Component.translatable("block.infinity_nexus_mod.decor_pedestal")));
-            components.add(Component.literal("§3⬛§f = ").append(Component.translatable("block.infinity_nexus_mod.tech_pedestal")));
-            components.add(Component.literal("§6⬛§f = ").append(Component.translatable("block.infinity_nexus_mod.creativity_pedestal")));
-            components.add(Component.literal("§2⬛§f = ").append(Component.translatable("block.infinity_nexus_mod.exploration_pedestal")));
+            components.add(Component.literal("§4§n[]§f = §4").append(Component.translatable("block.infinity_nexus_mod.infuser")));
+            components.add(Component.literal("§5[]§f = ").append(Component.translatable("block.infinity_nexus_mod.magic_pedestal")));
+            components.add(Component.literal("§e[]§f = ").append(Component.translatable("block.infinity_nexus_mod.resource_pedestal")));
+            components.add(Component.literal("§8[]§f = ").append(Component.translatable("block.infinity_nexus_mod.decor_pedestal")));
+            components.add(Component.literal("§3[]§f = ").append(Component.translatable("block.infinity_nexus_mod.tech_pedestal")));
+            components.add(Component.literal("§6[]§f = ").append(Component.translatable("block.infinity_nexus_mod.creativity_pedestal")));
+            components.add(Component.literal("§2[]§f = ").append(Component.translatable("block.infinity_nexus_mod.exploration_pedestal")));
 
-            components.add(Component.literal("§f⬛⬛§5⬛§f⬛⬛"));
-            components.add(Component.literal("§e⬛§f⬛⬛⬛§8⬛"));
-            components.add(Component.literal("§f⬛⬛§4⬛§f⬛⬛"));
-            components.add(Component.literal("§3⬛§f⬛⬛⬛§6⬛"));
-            components.add(Component.literal("§f⬛⬛§2⬛§f⬛⬛"));
+            components.add(Component.literal("§f[][]§5[]§f[][]"));
+            components.add(Component.literal("§e[]§f[][][]§8[]"));
+            components.add(Component.literal("§f[][]§4[]§f[][]"));
+            components.add(Component.literal("§3[]§f[][][]§6[]"));
+            components.add(Component.literal("§f[][]§2[]§f[][]"));
         } else {
             components.add(Component.translatable("tooltip.infinity_nexus.pressShift"));
         }
