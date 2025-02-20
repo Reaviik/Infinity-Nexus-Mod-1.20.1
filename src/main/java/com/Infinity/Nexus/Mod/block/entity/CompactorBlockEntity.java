@@ -122,21 +122,23 @@ public class CompactorBlockEntity extends BlockEntity {
         }
         return free;
     }
-
     private void removeBlocks() {
         int centerX = this.worldPosition.getX();
         int centerY = this.worldPosition.getY() + 2;
         int centerZ = this.worldPosition.getZ();
+        BlockPos center = new BlockPos(centerX, centerY, centerZ);
         for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
+            for (int y = 1; y >= -1; y--) {
                 for (int z = -1; z <= 1; z++) {
                     BlockPos pos = new BlockPos(centerX + x, centerY + y, centerZ + z);
-                    //this.level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                    level.destroyBlock(pos, false);
+                    if(!center.equals(pos)) {
+                        level.destroyBlock(pos, false);
+                    }
                 }
             }
         }
     }
+
 
 
     private Optional<CompactorRecipes> getCurrentRecipe() {

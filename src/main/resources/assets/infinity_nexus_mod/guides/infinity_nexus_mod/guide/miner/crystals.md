@@ -32,7 +32,7 @@ item_ids:
 - [Tier 6](miner_level_6.md) **<ItemImage id="infinity_nexus_miner:agate_crystal" /> Agate Crystal**
 - [Tier 7](miner_level_7.md) **<ItemImage id="infinity_nexus_miner:darium_crystal" /> Darium Crystal**
 - [Tier 8](miner_level_8.md) **<ItemImage id="infinity_nexus_miner:termurium_crystal" /> Termurium Crystal**
-- [Tier 9](miner_level_9.md)**<ItemImage id="infinity_nexus_miner:amber_crystal" /><ItemImage id="infinity_nexus_miner:marine_crystal" /><ItemImage id="infinity_nexus_miner:citrium_crystal" /><ItemImage id="infinity_nexus_miner:rubium_crystal" /><ItemImage id="infinity_nexus_miner:demetrium_crystal" /><ItemImage id="infinity_nexus_miner:agate_crystal" /><ItemImage id="infinity_nexus_miner:darium_crystal" /><ItemImage id="infinity_nexus_miner:termurium_crystal" />**
+- [Tier 9](miner_level_9.md) **<ItemImage id="infinity_nexus_miner:amber_crystal" /><ItemImage id="infinity_nexus_miner:marine_crystal" /><ItemImage id="infinity_nexus_miner:citrium_crystal" /><ItemImage id="infinity_nexus_miner:rubium_crystal" /><ItemImage id="infinity_nexus_miner:demetrium_crystal" /><ItemImage id="infinity_nexus_miner:agate_crystal" /><ItemImage id="infinity_nexus_miner:darium_crystal" /><ItemImage id="infinity_nexus_miner:termurium_crystal" />**
 
 ## Utility
 - Crystals can be used to make [Clear Glasses](glasses.md).

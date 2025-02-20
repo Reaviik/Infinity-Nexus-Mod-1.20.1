@@ -11,6 +11,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -30,42 +32,81 @@ public class TranslocatorLink extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        int[] coord = stack.getOrCreateTag().getIntArray("cords");
-        components.add(Component.translatable("tooltip.infinity_nexus.cord").append(Component.literal(" " + Arrays.toString(coord))));
+        int[] cords = stack.getOrCreateTag().getIntArray("cords");
+        boolean multiples = stack.getOrCreateTag().getBoolean("multiples");
+        components.add(Component.translatable("tooltip.infinity_nexus.translocator_link_type").append(Component.literal(" " + (multiples ? "Multiples" : "Single"))));
+        components.add(Component.translatable("tooltip.infinity_nexus.translocator_link_cord"));
+
+        if (cords.length > 0) {
+            for (int i = 0; i < cords.length; i += 3) {
+                if (i + 2 < cords.length) {
+                    components.add(Component.literal("X: " + cords[i] + " Y: " + cords[i+1] + " Z: " + cords[i+2]));
+                }
+            }
+        }
+
         super.appendHoverText(stack, level, components, flag);
     }
 
+
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-        if(!context.getLevel().isClientSide()){
+        if (!context.getLevel().isClientSide()) {
             BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos());
-            if (blockEntity instanceof TranslocatorBlockEntity translocator) {
-                BlockPos pos = context.getClickedPos();
-                int[] cord = {pos.getX(), pos.getY(), pos.getZ()};
-                if(!Objects.requireNonNull(context.getPlayer()).isShiftKeyDown()) {
-                    int[] cords = context.getPlayer().getMainHandItem().getOrCreateTag().getIntArray("cords");
-                    translocator.setCords(cords, context.getPlayer(), cords);
-                }else {
-                    stack.getOrCreateTag().putIntArray("cords", cord);
-                    context.getPlayer().sendSystemMessage(Component.literal(InfinityNexusMod.message).append(Component.translatable("tooltip.infinity_nexus.translocator_copy")));
-                }
-            }else{
-                if(Objects.requireNonNull(context.getPlayer()).isShiftKeyDown()) {
-                    context.getPlayer().getMainHandItem().getOrCreateTag().remove("cords");
-                    context.getPlayer().sendSystemMessage(Component.literal(InfinityNexusMod.message).append(Component.translatable("tooltip.infinity_nexus.translocator_clear")));
-                }
+            Player player = context.getPlayer();
+            BlockPos pos = context.getClickedPos();
+            int[] newCord = {pos.getX(), pos.getY(), pos.getZ()};
 
+            if (blockEntity instanceof TranslocatorBlockEntity translocator) {
+                if (!Objects.requireNonNull(player).isShiftKeyDown()) {
+                    int[] cords = stack.getOrCreateTag().getIntArray("cords");
+                    translocator.setCords(cords, player);
+                } else {
+                    int[] existingCords = stack.getOrCreateTag().getIntArray("cords");
+
+                    boolean alreadyExists = false;
+                    for (int i = 0; i <= existingCords.length - 3; i += 3) {
+                        if (existingCords[i] == newCord[0] &&
+                                existingCords[i + 1] == newCord[1] &&
+                                existingCords[i + 2] == newCord[2]) {
+                            alreadyExists = true;
+                            break;
+                        }
+                    }
+
+                    if (alreadyExists) {
+                        player.sendSystemMessage(Component.literal(InfinityNexusMod.message)
+                                .append(Component.translatable("tooltip.infinity_nexus.translocator_duplicate")));
+                    } else if (existingCords.length >= 9 * 3) {
+                        player.sendSystemMessage(Component.literal(InfinityNexusMod.message)
+                                .append(Component.translatable("tooltip.infinity_nexus.translocator_full").append(Component.literal(" " + existingCords.length / 3))));
+                    } else {
+                        int[] updatedCords = Arrays.copyOf(existingCords, existingCords.length + 3);
+                        System.arraycopy(newCord, 0, updatedCords, existingCords.length, 3);
+
+                        stack.getOrCreateTag().putIntArray("cords", updatedCords);
+                        player.sendSystemMessage(Component.literal(InfinityNexusMod.message)
+                                .append(Component.translatable("tooltip.infinity_nexus.translocator_added",
+                                        newCord[0], newCord[1], newCord[2])));
+                    }
+                }
+            } else {
+                if (Objects.requireNonNull(player).isShiftKeyDown()) {
+                    int[] cords = stack.getOrCreateTag().getIntArray("cords");
+                    if (cords.length != 0) {
+                        stack.getOrCreateTag().remove("cords");
+                        player.sendSystemMessage(Component.literal(InfinityNexusMod.message)
+                                .append(Component.translatable("tooltip.infinity_nexus.translocator_clear")));
+                    }else{
+                        boolean multiples = stack.getOrCreateTag().getBoolean("multiples");
+                        stack.getOrCreateTag().putBoolean("multiples", !multiples);
+                        player.sendSystemMessage(Component.literal(InfinityNexusMod.message)
+                                .append(Component.translatable("tooltip.infinity_nexus.translocator_link_type")
+                                        .append(Component.literal(" " + (!multiples ? "Multiples" : "Single")))));
+                    }
+                }
             }
         }
         return super.onItemUseFirst(stack, context);
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        //if(!pLevel.isClientSide() && pPlayer.isShiftKeyDown()) {
-        //    pPlayer.getMainHandItem().getOrCreateTag().remove("cords");
-        //    pPlayer.sendSystemMessage(Component.literal("Coordenadas removidas"));
-        //}
-        return super.use(pLevel, pPlayer, pUsedHand);
     }
 }

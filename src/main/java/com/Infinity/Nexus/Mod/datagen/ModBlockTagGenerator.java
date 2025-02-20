@@ -73,6 +73,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
 
                 .add(ModBlocksAdditions.ASPHALT.get())
                 .add(ModBlocksAdditions.EXPLORAR_PORTAL_FRAME.get())
+                .add(ModBlocksAdditions.VOXEL_BLOCK.get())
 
                 .add(ModBlocksAdditions.MOB_CRUSHER.get())
                 .add(ModBlocksAdditions.CRUSHER.get())

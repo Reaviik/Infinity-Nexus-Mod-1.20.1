@@ -24,7 +24,6 @@ public class CommonUpgrades {
         boolean upgrade = stack.getItem() instanceof UpgradeItem;
         boolean solarUpgrade = stack.getItem() instanceof SolarUpgrade;
         if(pPlayer instanceof ServerPlayer ){
-    
             if (component) {
                 if (Objects.requireNonNull(entity) instanceof AssemblerBlockEntity be) { be.setMachineLevel(stack, pPlayer);
                 } else if (entity instanceof CrusherBlockEntity be) { be.setMachineLevel(stack, pPlayer);

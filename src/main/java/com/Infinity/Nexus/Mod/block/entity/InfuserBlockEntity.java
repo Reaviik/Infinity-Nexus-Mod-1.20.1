@@ -73,12 +73,12 @@ public class InfuserBlockEntity extends BlockEntity{
     }
     private final Map<Direction, LazyOptional<WrappedHandler>> directionWrappedHandlerMap =
             Map.of(
-                    Direction.UP, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.UP), (i, s) -> InfuserHandler.insert(i,s) && (itemHandler.getStackInSlot(i).isEmpty()))),
-                    Direction.DOWN, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.DOWN), (i, s) -> InfuserHandler.insert(i,s) && (itemHandler.getStackInSlot(i).isEmpty()))),
-                    Direction.NORTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.NORTH), (i, s) -> InfuserHandler.insert(i,s) && (itemHandler.getStackInSlot(i).isEmpty()))),
-                    Direction.SOUTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.SOUTH), (i, s) -> InfuserHandler.insert(i,s) && (itemHandler.getStackInSlot(i).isEmpty()))),
-                    Direction.EAST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.EAST), (i, s) -> InfuserHandler.insert(i,s) && (itemHandler.getStackInSlot(i).isEmpty()))),
-                    Direction.WEST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.WEST), (i, s) -> InfuserHandler.insert(i,s) && (itemHandler.getStackInSlot(i).isEmpty()))));
+                    Direction.UP, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.UP), InfuserHandler::insert)),
+                    Direction.DOWN, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.DOWN), InfuserHandler::insert)),
+                    Direction.NORTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.NORTH), InfuserHandler::insert)),
+                    Direction.SOUTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.SOUTH), InfuserHandler::insert)),
+                    Direction.EAST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.EAST), InfuserHandler::insert)),
+                    Direction.WEST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> InfuserHandler.extract(i, Direction.WEST), InfuserHandler::insert)));
 
 
     public InfuserBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -403,12 +403,14 @@ public class InfuserBlockEntity extends BlockEntity{
 
     public void removeStack(ItemStack copy, InfuserBlockEntity blockEntity, Player player, int slot) {
         level.addFreshEntity(new ItemEntity(level, player.getX(), player.getY(), player.getZ(), itemHandler.getStackInSlot(slot).copy()));
+        this.getLevel().setBlock(this.getBlockPos(), this.getBlockState().setValue(Infuser.LIT, 0), 3);
         this.itemHandler.setStackInSlot(slot, ItemStack.EMPTY);
     }
 
     public void addStack(ItemStack copy, InfuserBlockEntity blockEntity, Player player, int slot) {
         if(this.itemHandler.getStackInSlot(0).isEmpty()) {
             this.itemHandler.setStackInSlot(0, copy);
+            this.getLevel().setBlock(this.getBlockPos(), this.getBlockState().setValue(Infuser.LIT, 0), 3);
             player.getMainHandItem().setCount(0);
         }
     }
