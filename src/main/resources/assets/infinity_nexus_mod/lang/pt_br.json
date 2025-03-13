@@ -473,5 +473,6 @@
   "tooltip.infinity_nexus.translocator_filter_update": "Item filter Atualizado para:",
   "tooltip.infinity_nexus.translocator_duplicate": "Coordenada duplicada!",
   "tooltip.infinity_nexus.translocator_full": "Limite de coordenadas atingido:",
-  "tooltip.infinity_nexus.translocator_added": "Coordinada adicionada!"
+  "tooltip.infinity_nexus.translocator_added": "Coordinada adicionada!",
+  "tooltip.infinity_nexus.translocator_filter_exist": "Este item ja esta no filtros."
 }

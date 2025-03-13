@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CompactorRecipeCopy {
     public static InteractionResult copy(Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand) {
-        if (pLevel.isClientSide() && pPlayer.isCreative()) {
+        if (pLevel.isClientSide() && !pPlayer.isCreative()) {
             return InteractionResult.SUCCESS;
         }
         if (RecipeCopyUtils.getWand(pPlayer.getItemInHand(pHand).getItem())) {
@@ -76,13 +76,13 @@ public class CompactorRecipeCopy {
                         );
                 pPlayer.sendSystemMessage(message);
 
-                return InteractionResult.PASS;
+                return InteractionResult.CONSUME;
             } else {
                 pPlayer.sendSystemMessage(Component.literal(InfinityNexusMod.message + "Missing Catalyst!"));
-                return InteractionResult.PASS;
+                return InteractionResult.CONSUME;
             }
         }
-        return InteractionResult.PASS;
+        return InteractionResult.SUCCESS;
     }
 
 }

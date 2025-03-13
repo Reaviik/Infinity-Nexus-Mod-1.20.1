@@ -92,6 +92,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.FERMENTATION_BARREL.get())
                 .add(ModBlocksAdditions.DEPOT_STONE.get())
                 .add(ModBlocksAdditions.COMPACTOR.get())
+                .add(ModBlocksAdditions.TRANSLOCATOR.get())
 
                 .add(ModBlocksProgression.SILVER_MACHINE_CASING.get())
                 .add(ModBlocksProgression.TIN_MACHINE_CASING.get())
@@ -183,6 +184,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.CATWALK_17.get())
                 .add(ModBlocksAdditions.CATWALK_18.get())
 
+                .add(ModBlocksAdditions.TRANSLOCATOR.get())
                 .add(ModBlocksAdditions.TECH_PEDESTAL.get())
                 .add(ModBlocksAdditions.EXPLORATION_PEDESTAL.get())
                 .add(ModBlocksAdditions.RESOURCE_PEDESTAL.get())

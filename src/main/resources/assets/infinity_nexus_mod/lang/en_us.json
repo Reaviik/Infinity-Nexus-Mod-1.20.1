@@ -484,5 +484,6 @@
   "tooltip.infinity_nexus.translocator_filter_update": "Item filter Updated to:",
   "tooltip.infinity_nexus.translocator_duplicate": "Duplicated Coordinate",
   "tooltip.infinity_nexus.translocator_full": "Coordinate reach full:",
-  "tooltip.infinity_nexus.translocator_added": "Coordinate addition"
+  "tooltip.infinity_nexus.translocator_added": "Coordinate addition",
+  "tooltip.infinity_nexus.translocator_filter_exist": "This item already in filter."
 }

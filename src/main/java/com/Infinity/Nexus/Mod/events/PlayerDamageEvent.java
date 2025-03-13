@@ -49,9 +49,9 @@ public class PlayerDamageEvent {
                         int durability = player.getInventory().getArmor(i).getDamageValue();
                         if(durability >= 1){
                             ItemStack  part = player.getInventory().getArmor(i);
-                            System.out.println(part.getDamageValue());
+                            //System.out.println(part.getDamageValue());
                             part.hurt((int) hurtDamage, player.level().random, null);
-                            System.out.println(part.getDamageValue());
+                            //System.out.println(part.getDamageValue());
                         }
                     }
                     event.setAmount(damage/2);

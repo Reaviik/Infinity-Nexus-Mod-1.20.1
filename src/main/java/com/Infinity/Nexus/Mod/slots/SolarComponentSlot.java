@@ -16,6 +16,7 @@ public class SolarComponentSlot extends SlotItemHandler {
         return stack.getItem() instanceof SolarUpgrade;
     }
 
+
     @Override
     public int getMaxStackSize() {
         return 1;

@@ -98,11 +98,11 @@ public class ModEvents {
     }
 
     private static void checkArmorAndDisableFlight(final Player player) {
-        if (!hasFullSuitOfArmorOn(player)) {
-            player.getAbilities().flying = false;
-            player.getAbilities().mayfly = false;
-            player.onUpdateAbilities();
-        }
+        //if (!hasFullSuitOfArmorOn(player)) {
+        //    player.getAbilities().flying = false;
+        //    player.getAbilities().mayfly = false;
+        //    player.onUpdateAbilities();
+        //}
     }
     public static boolean hasFullSuitOfArmorOn(final Player player) {
         final Item boots = player.getInventory().getArmor(0).getItem();

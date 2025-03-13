@@ -1,0 +1,38 @@
+{
+  "type": "infinity_nexus_mod:compacting",
+  "ingredients": [
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "mekanism:ultimate_fluid_tank",
+      "nbt":"{mekData:{FluidTanks:[{Tank:0b,stored:{Amount:256000,FluidName:\"infinity_nexus_mod:experience_water_fluid\"}}]}}" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" },
+    { "item": "infinity_nexus_mod:voxel_cube" }
+  ],
+  "output": {
+    "count": 1,
+    "item": "mekanism:creative_fluid_tank",
+    "nbt":"{mekData:{FluidTanks:[{Tank:0b,stored:{Amount:2147483647,FluidName:\"infinity_nexus_mod:experience_water_fluid\"}}]}}"
+  }
+}

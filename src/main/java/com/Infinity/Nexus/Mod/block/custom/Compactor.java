@@ -61,8 +61,7 @@ public class Compactor extends BaseEntityBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        CompactorRecipeCopy.copy(pLevel, pPos, pPlayer, pHand);
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return CompactorRecipeCopy.copy(pLevel, pPos, pPlayer, pHand);
     }
 
 

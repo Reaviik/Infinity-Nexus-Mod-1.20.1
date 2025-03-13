@@ -23,7 +23,7 @@ public class RecipeCopyUtils {
             nbtString = offhandItemTag.toString().replace("\"", "\\\"");
             //Gson gson = new Gson();
             //nbtString = gson.toJson(nbtString);
-            System.out.println(nbtString);
+            //System.out.println(nbtString);
         }
        return ",\n    \"nbt\":"+ (nbtString.isEmpty() ? "null" : "\"" + nbtString + "\"");
     }

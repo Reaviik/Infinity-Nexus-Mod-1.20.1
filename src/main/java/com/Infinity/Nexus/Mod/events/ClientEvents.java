@@ -22,7 +22,7 @@ public class ClientEvents {
 
         if (event.getKey() == KeyBindings.FLIGHT_KEY.getKey().getValue() && event.getAction() == 1) {
             if (hasFullSuitOfArmorOn(player)) {
-                FlightManager.handleFlightActivation(player);
+                //FlightManager.handleFlightActivation(player);
             }
         }
     }

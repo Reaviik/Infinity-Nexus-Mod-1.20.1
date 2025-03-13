@@ -48,7 +48,7 @@ public class SolarBlockEntity extends BlockEntity implements MenuProvider {
 
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return super.isItemValid(slot, stack);
+            return stack.getItem() instanceof SolarUpgrade;
         }
     };
     private static final int COMPONENT_SLOT = 0;

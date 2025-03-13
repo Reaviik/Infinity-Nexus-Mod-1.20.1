@@ -15,7 +15,7 @@ item_ids:
 ## Info
 - The Translocator is a tool that can be used to transfer items between two points.
 - **Step 1:** Insert a Pusher Upgrade <ItemImage id="infinity_nexus_core:pusher_upgrade" /> into the Translocator using right-click to configure it to send items.
-- **Step 2:** Create a translocator link <ItemImage id="infinity_nexus_mod:translocator_link" /> and use it on a translocator while holding **Shift** to save the recipient's coordinates. Then use it in the sender Translocator without using the **Shift** key to paste the coordinates.
+- **Step 2:** Create a translocator link <ItemImage id="infinity_nexus_mod:translocator_link" /> and use it on a translocator while holding **Shift** to save the destination coordinates. Then use it in the sender Translocator without using the **Shift** key to paste the coordinates.
 - To change selection mod of Translocator Link you need click on ground holding **Shift** with the item in your hand. Selected Translators up to 9.
 
 ## Filter
