@@ -95,7 +95,6 @@ public class InfinityNexusMod
         modEventBus.addListener(this::setup);
 
         MinecraftForge.EVENT_BUS.register(this);
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC,"InfinityNexus/config.toml");
     }
 

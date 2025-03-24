@@ -1,7 +1,18 @@
-## <span style="color:#2DC26B;">` V: 4.1.0`</span>
+## <span style="color:#2DC26B;">` V: 4.1.1`</span>
 ### <span style="color:#3598DB;"> **Add**:</span>
 ### <span style="color:#F1C40F;"> **Fix**:</span>
 ### <span style="color:#E67E23;"> **Change**:</span>
+### <span style="color:#BA372A;"> **Removed**:</span>
+
+---
+
+## <span style="color:#2DC26B;">` V: 4.1.0`</span>
+### <span style="color:#3598DB;"> **Add**:</span>
+- Added tag Wither Immunity to Tinkers Construct Smelter blocks
+- Resourceful Orb now can extract underground ores to surface
+- Casts now have tinkers cast tag
+### <span style="color:#E67E23;"> **Change**:</span>
+- Mob Crusher no more kill named entities
 ### <span style="color:#BA372A;"> **Removed**:</span>
 
 ---

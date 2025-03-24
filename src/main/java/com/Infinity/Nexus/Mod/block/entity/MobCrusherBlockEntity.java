@@ -522,7 +522,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
                     this.data.set(4,1);
                     for (Mob entity : entities) {
                         if (entity != null) {
-                            if (entity.isAlive()) {
+                            if (!entity.hasCustomName() && entity.isAlive()) {
                                 execute(entity, pPos, machinelevel);
                             }
                         }

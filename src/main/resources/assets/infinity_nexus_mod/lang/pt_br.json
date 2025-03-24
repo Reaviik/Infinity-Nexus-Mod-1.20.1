@@ -474,5 +474,12 @@
   "tooltip.infinity_nexus.translocator_duplicate": "Coordenada duplicada!",
   "tooltip.infinity_nexus.translocator_full": "Limite de coordenadas atingido:",
   "tooltip.infinity_nexus.translocator_added": "Coordinada adicionada!",
-  "tooltip.infinity_nexus.translocator_filter_exist": "Este item ja esta no filtros."
+  "tooltip.infinity_nexus.translocator_filter_exist": "Este item ja esta no filtros.",
+  "tooltip.infinity_nexus.orb_range": "Area de Ação",
+  "tooltip.infinity_nexus.resource_orb_description": "Ao ser usada no chão enquanto segura Shift no mundo de exploração, esta orbe será consumida para trazer todos os minérios dentro do raio para a superfície.",
+  "message.infinity_nexus.start_extraction": "§6Iniciando a extração dos minérios...",
+  "message.infinity_nexus.extraction_complete": "§aExtração concluída!",
+  "message.infinity_nexus.no_ores_found": "§cNenhum minério encontrado na área.",
+  "message.infinity_nexus.extraction_failed": "§cExtração interrompida: blocos fora do carregamento!",
+  "message.infinity_nexus.not_in_explorar": "Esta orb só pode ser utilizada no mundo de exploração, crie um Bloco de Portal e clique com um Ativador de Portal para ir até a dimensão de exploração"
 }

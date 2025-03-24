@@ -78,7 +78,6 @@ public class ConfigUtils {
     public static int translocator_range_limit;
     public static int translocator_skip_progress;
 
-
     //public static ItemStack getStrengthUpgrade() {
     //    return new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(new ResourceLocation(AssemblerConfig.list_of_upgrades.get(1)))));
     //}

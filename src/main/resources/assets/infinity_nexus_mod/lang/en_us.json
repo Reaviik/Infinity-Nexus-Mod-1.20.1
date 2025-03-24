@@ -485,5 +485,13 @@
   "tooltip.infinity_nexus.translocator_duplicate": "Duplicated Coordinate",
   "tooltip.infinity_nexus.translocator_full": "Coordinate reach full:",
   "tooltip.infinity_nexus.translocator_added": "Coordinate addition",
-  "tooltip.infinity_nexus.translocator_filter_exist": "This item already in filter."
+  "tooltip.infinity_nexus.translocator_filter_exist": "This item already in filter.",
+  "tooltip.infinity_nexus.orb_range": "Action Range",
+  "tooltip.infinity_nexus.resource_orb_description": "When used on the ground while holding Shift in the exploration world, this orb will be consumed to bring all ores within range to the surface.",
+  "message.infinity_nexus.start_extraction": "§6Starting ore extraction...",
+  "message.infinity_nexus.extraction_complete": "§aExtraction complete!",
+  "message.infinity_nexus.no_ores_found": "§cNo ores found in the area.",
+  "message.infinity_nexus.extraction_failed": "§cExtraction interrupted: blocks out of loading range!",
+  "message.infinity_nexus.not_in_explorar": "This orb can only be used in the exploration world, create a Portal Block and click with a Portal Activator to go to the exploration dimension"
+
 }
