@@ -51,6 +51,7 @@ public class TranslocatorBlockEntityBase extends BlockEntity {
     protected int mode = 0;
     protected int step = 0;
     protected String[] filter;
+    protected int filterIndex;
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     protected final ItemStackHandler itemHandler = new ItemStackHandler(2) {
@@ -79,6 +80,7 @@ public class TranslocatorBlockEntityBase extends BlockEntity {
                     case 1 -> TranslocatorBlockEntityBase.this.maxProgress;
                     case 2 -> TranslocatorBlockEntityBase.this.mode;
                     case 3 -> TranslocatorBlockEntityBase.this.step;
+                    case 4 -> TranslocatorBlockEntityBase.this.filterIndex;
                     default -> 0;
                 };
             }
@@ -89,6 +91,7 @@ public class TranslocatorBlockEntityBase extends BlockEntity {
                     case 1 -> TranslocatorBlockEntityBase.this.maxProgress = pValue;
                     case 2 -> TranslocatorBlockEntityBase.this.mode = pValue;
                     case 3 -> TranslocatorBlockEntityBase.this.step = pValue;
+                    case 4 -> TranslocatorBlockEntityBase.this.filterIndex = pValue;
                 }
             }
 
@@ -135,6 +138,7 @@ public class TranslocatorBlockEntityBase extends BlockEntity {
         pTag.putInt("translocator.mode", mode);
         pTag.putInt("translocator.step", step);
         pTag.putString("translocator.filter", filter == null ? "" : String.join(";", filter));
+        pTag.putInt("translocator.filterIndex", filterIndex);
 
         super.saveAdditional(pTag);
     }
@@ -148,6 +152,7 @@ public class TranslocatorBlockEntityBase extends BlockEntity {
         mode = pTag.getInt("translocator.mode");
         step = pTag.getInt("translocator.step");
         filter = pTag.getString("translocator.filter").isEmpty() ? new String[0] : pTag.getString("translocator.filter").split(";");
+        filterIndex = pTag.getInt("translocator.filterIndex");
     }
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {

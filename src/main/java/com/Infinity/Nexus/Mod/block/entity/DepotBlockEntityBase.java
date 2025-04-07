@@ -1,5 +1,6 @@
 package com.Infinity.Nexus.Mod.block.entity;
 
+import com.Infinity.Nexus.Mod.InfinityNexusMod;
 import com.Infinity.Nexus.Mod.screen.placer.PlacerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -37,6 +38,7 @@ import java.util.List;
 public class DepotBlockEntityBase extends BlockEntity implements MenuProvider {
     int timer = 0;
     int maxTimer = 20;
+    int count = 1;
     final ItemStackHandler itemHandler = new ItemStackHandler(1) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -53,7 +55,7 @@ public class DepotBlockEntityBase extends BlockEntity implements MenuProvider {
         this.data = new ContainerData() {
             @Override
             public int get(int pIndex) {
-                return 0;
+                return count;
             }
 
             @Override
@@ -62,7 +64,7 @@ public class DepotBlockEntityBase extends BlockEntity implements MenuProvider {
 
             @Override
             public int getCount() {
-                return 0;
+                return count;
             }
         };
     }
@@ -108,6 +110,7 @@ public class DepotBlockEntityBase extends BlockEntity implements MenuProvider {
     }
     @Override
     protected void saveAdditional(CompoundTag pTag) {
+        pTag.putInt("count", this.count);
         pTag.put("inventory", itemHandler.serializeNBT());
 
         super.saveAdditional(pTag);
@@ -116,6 +119,7 @@ public class DepotBlockEntityBase extends BlockEntity implements MenuProvider {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
+        this.count = pTag.getInt("count");
         itemHandler.deserializeNBT(pTag.getCompound("inventory"));
     }
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
@@ -130,15 +134,16 @@ public class DepotBlockEntityBase extends BlockEntity implements MenuProvider {
 
     protected void place() {
         ItemStack stack = itemHandler.getStackInSlot(0);
+        int amount = Math.min(itemHandler.getStackInSlot(0).getCount(), count);
         if (!stack.isEmpty()) {
             ItemStack stack2 = stack.copy();
-            stack2.setCount(1);
+            stack2.setCount(amount);
             ItemEntity entity = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, stack2);
             entity.setDeltaMovement(Vec3.ZERO);
             entity.setUnlimitedLifetime();
             entity.setPickUpDelay(10);
             level.addFreshEntity(entity);
-            itemHandler.getStackInSlot(0).shrink(1);
+            itemHandler.getStackInSlot(0).shrink(amount);
         }
     }
 
@@ -186,5 +191,10 @@ public class DepotBlockEntityBase extends BlockEntity implements MenuProvider {
             this.itemHandler.setStackInSlot(0, itemStack.copy());
             player.getMainHandItem().shrink(player.getMainHandItem().getCount());
         }
+    }
+
+    public void setCount(Player player) {
+        this.count =  this.count < 64 ? (this.count + 1) : 1;
+        player.sendSystemMessage(Component.literal(InfinityNexusMod.message + "Quantidade alterada para: " + this.count));
     }
 }

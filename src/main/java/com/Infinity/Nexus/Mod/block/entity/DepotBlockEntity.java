@@ -11,6 +11,6 @@ public class DepotBlockEntity extends DepotBlockEntityBase{
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("block.infinity_nexus_mod.placer");
+        return Component.translatable("block.infinity_nexus_mod.depot");
     }
 }

@@ -57,6 +57,7 @@ public class Resource extends Orb {
         }
 
         player.sendSystemMessage(Component.translatable("message.infinity_nexus.start_extraction"));
+        player.getMainHandItem().shrink(1);
         processOres(oresQueue, serverLevel, player, (int) player.getY() + 2);
     }
 

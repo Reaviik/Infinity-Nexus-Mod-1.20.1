@@ -63,35 +63,85 @@ public class TranslocatorBlockEntity extends TranslocatorBlockEntityBase {
         if (entity == null) return;
 
         entity.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.UP).ifPresent(handler -> {
-            for (int i = 0; i < handler.getSlots(); i++) {
-                ItemStack stackInSlot = handler.getStackInSlot(i);
-                if (stackInSlot.isEmpty() || !isFiltered(stackInSlot)) continue;
+            if (filter != null && filter.length > 0) {
+                boolean itemPulled = false;
+                int startIdx = filterIndex;
 
-                int maxStackSize = Math.min(stackInSlot.getMaxStackSize(), this.itemHandler.getSlotLimit(INPUT_SLOT));
-                ItemStack currentStack = this.itemHandler.getStackInSlot(INPUT_SLOT);
+                for (int i = 0; i < filter.length; i++) {
+                    int currentIdx = (startIdx + i) % filter.length;
+                    String targetItem = filter[currentIdx];
 
-                if (currentStack.isEmpty()) {
-                    int amountToPull = Math.min(stackInSlot.getCount(), maxStackSize);
-                    ItemStack extracted = handler.extractItem(i, amountToPull, false);
+                    for (int slot = 0; slot < handler.getSlots(); slot++) {
+                        ItemStack stackInSlot = handler.getStackInSlot(slot);
+                        if (stackInSlot.isEmpty()) continue;
 
-                    if (!extracted.isEmpty()) {
-                        this.itemHandler.setStackInSlot(INPUT_SLOT, extracted);
-                        resetProgress();
+                        String itemName = stackInSlot.getItem().builtInRegistryHolder().key().location().toString();
+                        if (!itemName.equals(targetItem)) continue;
+
+                        ItemStack currentStack = this.itemHandler.getStackInSlot(INPUT_SLOT);
+                        int maxStackSize = Math.min(stackInSlot.getMaxStackSize(), this.itemHandler.getSlotLimit(INPUT_SLOT));
+
+                        if (currentStack.isEmpty()) {
+                            int amountToPull = Math.min(stackInSlot.getCount(), maxStackSize);
+                            ItemStack extracted = handler.extractItem(slot, amountToPull, false);
+                            if (!extracted.isEmpty()) {
+                                this.itemHandler.setStackInSlot(INPUT_SLOT, extracted);
+                                resetProgress();
+                                itemPulled = true;
+                                filterIndex = (currentIdx + 1) % filter.length; // Atualiza o índice para o próximo item
+                                setChanged();
+                                break;
+                            }
+                        } else if (ItemStack.isSameItemSameTags(currentStack, stackInSlot)) {
+                            int spaceAvailable = maxStackSize - currentStack.getCount();
+                            if (spaceAvailable > 0) {
+                                int amountToPull = Math.min(stackInSlot.getCount(), spaceAvailable);
+                                ItemStack extracted = handler.extractItem(slot, amountToPull, false);
+                                if (!extracted.isEmpty()) {
+                                    currentStack.grow(extracted.getCount());
+                                    this.itemHandler.setStackInSlot(INPUT_SLOT, currentStack);
+                                    resetProgress();
+                                    itemPulled = true;
+                                    filterIndex = (currentIdx + 1) % filter.length;
+                                    setChanged();
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (itemPulled) break;
                     }
-                    break;
-                } else if (ItemStack.isSameItemSameTags(currentStack, stackInSlot)) {
-                    int spaceAvailable = maxStackSize - currentStack.getCount();
-                    if (spaceAvailable > 0) {
-                        int amountToPull = Math.min(stackInSlot.getCount(), spaceAvailable);
-                        ItemStack extracted = handler.extractItem(i, amountToPull, false);
+                    if (itemPulled) break;
+                }
+            } else {
+                for (int slot = 0; slot < handler.getSlots(); slot++) {
+                    ItemStack stackInSlot = handler.getStackInSlot(slot);
+                    if (stackInSlot.isEmpty() || !isFiltered(stackInSlot)) continue;
 
+                    ItemStack currentStack = this.itemHandler.getStackInSlot(INPUT_SLOT);
+                    int maxStackSize = Math.min(stackInSlot.getMaxStackSize(), this.itemHandler.getSlotLimit(INPUT_SLOT));
+
+                    if (currentStack.isEmpty()) {
+                        int amountToPull = Math.min(stackInSlot.getCount(), maxStackSize);
+                        ItemStack extracted = handler.extractItem(slot, amountToPull, false);
                         if (!extracted.isEmpty()) {
-                            currentStack.grow(extracted.getCount());
-                            this.itemHandler.setStackInSlot(INPUT_SLOT, currentStack);
+                            this.itemHandler.setStackInSlot(INPUT_SLOT, extracted);
                             resetProgress();
+                            break;
+                        }
+                    } else if (ItemStack.isSameItemSameTags(currentStack, stackInSlot)) {
+                        int spaceAvailable = maxStackSize - currentStack.getCount();
+                        if (spaceAvailable > 0) {
+                            int amountToPull = Math.min(stackInSlot.getCount(), spaceAvailable);
+                            ItemStack extracted = handler.extractItem(slot, amountToPull, false);
+                            if (!extracted.isEmpty()) {
+                                currentStack.grow(extracted.getCount());
+                                this.itemHandler.setStackInSlot(INPUT_SLOT, currentStack);
+                                resetProgress();
+                                break;
+                            }
                         }
                     }
-                    break;
                 }
             }
         });
@@ -143,6 +193,7 @@ public class TranslocatorBlockEntity extends TranslocatorBlockEntityBase {
                     this.itemHandler.setStackInSlot(INPUT_SLOT, ItemStack.EMPTY);
                     ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(), ParticleTypes.ELECTRIC_SPARK, worldPosition, targetPos, 0.5D, 0.5D, 0.5D);
                 }else{
+                    depositItem(level, worldPosition);
                     progress = maxProgress - 5;
                 }
             }

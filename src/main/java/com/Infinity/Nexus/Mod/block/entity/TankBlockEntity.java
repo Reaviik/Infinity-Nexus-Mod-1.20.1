@@ -47,7 +47,6 @@ import java.util.Map;
 
 public class TankBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
-
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -82,6 +81,30 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
             @Override
             public boolean isFluidValid(FluidStack stack) {
                 return true;
+            }
+
+            @NotNull
+            @Override
+            public FluidStack drain(int maxDrain, FluidAction action) {
+                int maxAllowedDrain = Math.min(maxDrain, FLUID_STORAGE.getCapacity() / 2);
+                if (endless == 1) {
+                    maxAllowedDrain = Math.min(maxAllowedDrain, FLUID_STORAGE.getCapacity() / 2);
+                }
+
+                int drained = Math.min(fluid.getAmount(), maxAllowedDrain);
+                FluidStack stack = new FluidStack(fluid.getFluid(), drained);
+
+                if (action.execute() && drained > 0) {
+                    fluid.shrink(drained);
+                    onContentsChanged();
+
+                    if (endless == 1) {
+                        fluid.setAmount(FLUID_STORAGE.getCapacity());
+                        onContentsChanged();
+                    }
+                }
+
+                return stack;
             }
         };
     }
@@ -269,8 +292,16 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
 
 
     private void verifyEndless(BlockState pState, Level pLevel, BlockPos pPos) {
-        if (ConfigUtils.tank_can_endless) {
-            if(!FLUID_STORAGE.getFluid().isEmpty()) {
+        if (endless == 1 && !ConfigUtils.tank_can_endless) {
+            endless = 0;
+            if (pState.getValue(Tank.LIT) != 0) {
+                pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 0), 3);
+            }
+            return;
+        }
+
+        if (endless != 1 && ConfigUtils.tank_can_endless) {
+            if (FLUID_STORAGE.getFluid().getAmount() >= FLUID_STORAGE.getCapacity()) {
                 String fluidId = FLUID_STORAGE.getFluid().getFluid().builtInRegistryHolder().key().location().toString();
                 boolean isBlacklisted = ConfigUtils.blacklist_tank_fluids.contains(fluidId);
                 boolean shouldBeEndless = (ConfigUtils.blacklist_tank_fluids_toggle && isBlacklisted) ||
@@ -278,23 +309,25 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
 
                 if (shouldBeEndless) {
                     endless = 1;
-                } else {
-                    endless = 0;
-                    if (pState.getValue(Tank.LIT) != 0) {
-                        pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 0), 3);
-                    }
-                }
-
-                if (endless == 1) {
+                    FLUID_STORAGE.fill(new FluidStack(FLUID_STORAGE.getFluid().getFluid(), FLUID_STORAGE.getCapacity()),
+                            IFluidHandler.FluidAction.EXECUTE);
                     if (pState.getValue(Tank.LIT) != 1) {
                         pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 1), 3);
                     }
-                    FLUID_STORAGE.fill(new FluidStack(FLUID_STORAGE.getFluid().getFluid(), FLUID_STORAGE.getCapacity()), IFluidHandler.FluidAction.EXECUTE);
                 }
             }
         }
-    }
 
+        if (endless == 1) {
+            if (FLUID_STORAGE.getFluid().getAmount() < FLUID_STORAGE.getCapacity()) {
+                FLUID_STORAGE.fill(new FluidStack(FLUID_STORAGE.getFluid().getFluid(), FLUID_STORAGE.getCapacity()),
+                        IFluidHandler.FluidAction.EXECUTE);
+            }
+            if (pState.getValue(Tank.LIT) != 1) {
+                pLevel.setBlock(pPos, pState.setValue(Tank.LIT, 1), 3);
+            }
+        }
+    }
 
 
     private void fillUpOnFluid() {
@@ -306,15 +339,26 @@ public class TankBlockEntity extends BlockEntity implements MenuProvider {
         this.itemHandler.getStackInSlot(fluidInputSlot)
                 .getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
                 .ifPresent(iFluidHandlerItem -> {
+                    // Verifica se o tanque já está cheio
+                    if (this.FLUID_STORAGE.getSpace() <= 0) {
+                        return;
+                    }
 
                     boolean isBucket = iFluidHandlerItem.getContainer().getItem() instanceof BucketItem;
-                    int transferAmount = isBucket ? 1000 : Math.min(this.FLUID_STORAGE.getSpace(), 10);
+                    int transferAmount = isBucket ? 1000 : Math.min(this.FLUID_STORAGE.getSpace(), 1000);
 
-                    if (this.FLUID_STORAGE.getSpace() >= transferAmount) {
-                        FluidStack drained = iFluidHandlerItem.drain(transferAmount, IFluidHandler.FluidAction.EXECUTE);
+                    // Verifica se há fluido para transferir
+                    FluidStack simulatedDrain = iFluidHandlerItem.drain(transferAmount, IFluidHandler.FluidAction.SIMULATE);
+                    if (simulatedDrain.isEmpty() || simulatedDrain.getAmount() <= 0) {
+                        return;
+                    }
+
+                    // Realiza a transferência
+                    FluidStack drained = iFluidHandlerItem.drain(transferAmount, IFluidHandler.FluidAction.EXECUTE);
+                    if (!drained.isEmpty() && drained.getAmount() > 0) {
                         this.FLUID_STORAGE.fill(new FluidStack(drained.getFluid(), drained.getAmount()), IFluidHandler.FluidAction.EXECUTE);
 
-                        if (isBucket && FLUID_STORAGE.getFluid().getFluid().isSame(FLUID_STORAGE.getFluid().getFluid())) {
+                        if (isBucket) {
                             this.itemHandler.extractItem(FLUID_SLOT, 1, false);
                             this.itemHandler.setStackInSlot(FLUID_SLOT, Items.BUCKET.getDefaultInstance());
                         }

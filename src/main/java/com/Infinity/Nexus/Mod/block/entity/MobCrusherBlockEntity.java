@@ -30,6 +30,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -522,7 +523,7 @@ public class MobCrusherBlockEntity extends BlockEntity implements MenuProvider {
                     this.data.set(4,1);
                     for (Mob entity : entities) {
                         if (entity != null) {
-                            if (!entity.hasCustomName() && entity.isAlive()) {
+                            if (!(entity.hasCustomName() || EntityType.getKey(entity.getType()).getPath().equalsIgnoreCase("maid")) && entity.isAlive()) {
                                 execute(entity, pPos, machinelevel);
                             }
                         }

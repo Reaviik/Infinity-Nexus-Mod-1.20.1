@@ -1,5 +1,6 @@
 package com.Infinity.Nexus.Mod.block.entity;
 
+import com.Infinity.Nexus.Mod.InfinityNexusMod;
 import com.Infinity.Nexus.Mod.utils.ModUtilsMachines;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -45,7 +46,7 @@ public class DepotStoneBlockEntity extends DepotBlockEntityBase {
                     BlockPos targetPos = worldPosition.offset(dx, 0, dz);
                     if (canPlaceHere(targetPos) && targetPos != worldPosition) {
                         ItemStack stack2 = stack.copy();
-                        stack2.setCount(1);
+                        stack2.setCount(count);
 
                         ItemEntity entity = new ItemEntity(
                                 level,
@@ -60,7 +61,7 @@ public class DepotStoneBlockEntity extends DepotBlockEntityBase {
                         level.addFreshEntity(entity);
                         ModUtilsMachines.sendParticlePath((ServerLevel) this.getLevel(),ParticleTypes.SCRAPE, worldPosition, targetPos, 0.5D, 0.2D, 0.5D);
 
-                        this.itemHandler.getStackInSlot(0).shrink(1);
+                        this.itemHandler.getStackInSlot(0).shrink(count);
                         return;
                     }
                 }
@@ -82,7 +83,6 @@ public class DepotStoneBlockEntity extends DepotBlockEntityBase {
         }
         return entities.size() < 8;
     }
-
 
     @Override
     protected boolean canPlace(BlockPos pPos) {

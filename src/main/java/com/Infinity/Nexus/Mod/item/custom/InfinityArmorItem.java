@@ -60,10 +60,10 @@ public class InfinityArmorItem extends ArmorItem implements GeoItem {
             return;
         }
 
-        boolean hasFullSet = hasFullSuitOfArmorOn(player);
-        if (hasFullSet && player.getAbilities().mayfly) {
-            renderParticles(player, pLevel);
-        }
+        //boolean hasFullSet = hasFullSuitOfArmorOn(player);
+        //if (hasFullSet && player.getAbilities().mayfly) {
+        //    renderParticles(player, pLevel);
+        //}
     }
     private void renderParticles(Player player, Level level) {
         boolean isCurrentlyFlying = player.getAbilities().flying;

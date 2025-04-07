@@ -1,8 +1,22 @@
-## <span style="color:#2DC26B;">` V: 4.1.1`</span>
+## <span style="color:#2DC26B;">` V: 4.1.2`</span>
 ### <span style="color:#3598DB;"> **Add**:</span>
 ### <span style="color:#F1C40F;"> **Fix**:</span>
 ### <span style="color:#E67E23;"> **Change**:</span>
 ### <span style="color:#BA372A;"> **Removed**:</span>
+
+---
+
+## <span style="color:#2DC26B;">` V: 4.1.1`</span>
+### <span style="color:#3598DB;"> **Add**:</span>
+- Rotational items in the Translocator to sand one type of item at time 
+### <span style="color:#F1C40F;"> **Fix**:</span>
+- Tank endless on place any fluid
+### <span style="color:#E67E23;"> **Change**:</span>
+- Mob Crusher no more kill maids
+- You can now configure the amount of items in the Depot and Stone Depot using Translocation Link
+- Change orb modes to 2d style
+### <span style="color:#BA372A;"> **Removed**:</span>
+- Infinity armor particles on touch ground
 
 ---
 

@@ -3,6 +3,7 @@ package com.Infinity.Nexus.Mod.block.custom;
 import com.Infinity.Nexus.Mod.block.entity.DepotBlockEntity;
 import com.Infinity.Nexus.Mod.block.entity.DepotStoneBlockEntity;
 import com.Infinity.Nexus.Mod.block.entity.ModBlockEntities;
+import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -52,7 +53,11 @@ public class Depot_Stone extends Depot {
     @Override
     public @NotNull InteractionResult use(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHit) {
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof DepotStoneBlockEntity depot) {
+        if (blockEntity instanceof DepotStoneBlockEntity depot && !pLevel.isClientSide()) {
+            if(pPlayer.getMainHandItem().is(ModItemsAdditions.TRANSLOCATOR_LINK.get())){
+                depot.setCount(pPlayer);
+                return InteractionResult.sidedSuccess(pLevel.isClientSide());
+            }
             depot.setStack(pPlayer.getItemInHand(pHand).copy(), pPlayer);
         }
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
