@@ -492,6 +492,6 @@
   "message.infinity_nexus.extraction_complete": "§aExtraction complete!",
   "message.infinity_nexus.no_ores_found": "§cNo ores found in the area.",
   "message.infinity_nexus.extraction_failed": "§cExtraction interrupted: blocks out of loading range!",
-  "message.infinity_nexus.not_in_explorar": "This orb can only be used in the exploration world, create a Portal Block and click with a Portal Activator to go to the exploration dimension"
+  "message.infinity_nexus.not_in_explorar": "This orb can only be used in the Exploration World, Nether and End, create a Portal Block and click with a Portal Activator to go to the exploration dimension"
 
 }

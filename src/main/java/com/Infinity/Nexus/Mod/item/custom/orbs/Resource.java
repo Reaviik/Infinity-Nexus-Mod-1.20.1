@@ -1,12 +1,15 @@
 package com.Infinity.Nexus.Mod.item.custom.orbs;
 
+import com.Infinity.Nexus.Mod.item.ModItemsAdditions;
 import com.Infinity.Nexus.Mod.item.custom.Orb;
 import com.Infinity.Nexus.Mod.worldgen.dimension.ModDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -15,13 +18,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.List;
 
 public class Resource extends Orb {
     private final int range;
+    List<ResourceKey<Level>> dimensions = List.of(
+            ModDimensions.EXPLORAR_LEVEL_KEY,
+            Level.NETHER,
+            Level.END
+    );
 
     public Resource(Properties pProperties, int stage, int range) {
         super(pProperties, stage);
@@ -36,7 +44,7 @@ public class Resource extends Orb {
             return super.onItemUseFirst(stack, context);
         }
 
-        if (!(level instanceof ServerLevel serverLevel && serverLevel.dimension() == ModDimensions.EXPLORAR_LEVEL_KEY)) {
+        if (!(level instanceof ServerLevel serverLevel && dimensions.contains(serverLevel.dimension()))) {
             player.sendSystemMessage(Component.translatable("message.infinity_nexus.not_in_explorar"));
             return super.onItemUseFirst(stack, context);
         }
@@ -67,14 +75,24 @@ public class Resource extends Orb {
             if (!serverLevel.isLoaded(orePos)) continue;
 
             BlockPos surfacePos = findSurfacePosAbovePlayer(orePos, startY, serverLevel);
-            if (surfacePos != null) {
-                BlockState oreState = serverLevel.getBlockState(orePos);
-                if (!oreState.isAir()) {
-                    serverLevel.setBlock(surfacePos, oreState, 3);
-                    BlockState replace  = orePos.getY() >= 0 ? Blocks.STONE.defaultBlockState() : Blocks.DEEPSLATE.defaultBlockState();
-                    serverLevel.setBlock(orePos, replace, 3);
-                }
+            if (surfacePos == null) {
+                return;
             }
+
+            BlockState oreState = serverLevel.getBlockState(orePos);
+            if (oreState.isAir()) {
+                return;
+            }
+            if(player.getOffhandItem().is(ModItemsAdditions.IMPERIAL_INFINITY_PAXEL.get())){
+                ItemEntity oreItem = new ItemEntity(serverLevel, player.getX(), player.getY(), player.getZ(), new ItemStack(oreState.getBlock()));
+                BlockState replace  = orePos.getY() >= 0 ? Blocks.STONE.defaultBlockState() : Blocks.DEEPSLATE.defaultBlockState();
+                serverLevel.setBlock(orePos, replace, 3);
+                serverLevel.addFreshEntity(oreItem);
+                continue;
+            }
+            serverLevel.setBlock(surfacePos, oreState, 3);
+            BlockState replace  = orePos.getY() >= 0 ? Blocks.STONE.defaultBlockState() : Blocks.DEEPSLATE.defaultBlockState();
+            serverLevel.setBlock(orePos, replace, 3);
         }
         player.sendSystemMessage(Component.translatable("message.infinity_nexus.extraction_complete"));
     }

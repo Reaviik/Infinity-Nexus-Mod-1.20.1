@@ -1,6 +1,17 @@
-## <span style="color:#2DC26B;">` V: 4.1.2`</span>
+## <span style="color:#2DC26B;">` V: 4.1.3`</span>
 ### <span style="color:#3598DB;"> **Add**:</span>
 ### <span style="color:#F1C40F;"> **Fix**:</span>
+### <span style="color:#E67E23;"> **Change**:</span>
+### <span style="color:#BA372A;"> **Removed**:</span>
+
+---
+
+## <span style="color:#2DC26B;">` V: 4.1.2`</span>
+### <span style="color:#3598DB;"> **Add**:</span>
+- While hold Imperial Infinity Paxel on you offhand and mining using Resource Orb now you get ores mined with silk touch.
+- Entity Display now heal entities
+### <span style="color:#F1C40F;"> **Fix**:</span>
+- Drop for Entity Display and Entity Centralizer
 ### <span style="color:#E67E23;"> **Change**:</span>
 ### <span style="color:#BA372A;"> **Removed**:</span>
 

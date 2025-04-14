@@ -134,7 +134,8 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.DECOR_PEDESTAL.get());
 
         this.tag(BlockTags.MINEABLE_WITH_AXE)
-                .add(ModBlocksAdditions.DEPOT.get());
+                .add(ModBlocksAdditions.DEPOT.get())
+                .add(ModBlocksAdditions.ENTITY_DISPLAY.get());
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
 
@@ -151,6 +152,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocksAdditions.FERMENTATION_BARREL.get())
                 .add(ModBlocksAdditions.DEPOT.get())
                 .add(ModBlocksAdditions.DEPOT_STONE.get())
+                .add(ModBlocksAdditions.ENTITY_DISPLAY.get())
 
                 .add(ModBlocksProgression.SILVER_MACHINE_CASING.get())
                 .add(ModBlocksProgression.TIN_MACHINE_CASING.get())

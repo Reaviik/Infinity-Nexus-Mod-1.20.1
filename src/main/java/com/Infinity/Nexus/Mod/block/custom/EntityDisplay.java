@@ -6,7 +6,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -76,7 +75,7 @@ public class EntityDisplay extends Block {
     public void entityInside(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Entity pEntity) {
         if(pEntity instanceof Mob mob) {
             try {
-                if(!mob.isNoAi() && pState.getValue(LIT) == 0 && !(mob instanceof EnderDragon) && !(mob instanceof WitherBoss)) {
+                if(!(mob instanceof EnderDragon)) {
                     switch (pState.getValue(FACING)) {
                         case EAST:
                             mob.yHeadRot = -90;
@@ -101,15 +100,17 @@ public class EntityDisplay extends Block {
                     }
                     mob.teleportTo(pPos.getX() + 0.5, pPos.getY(), pPos.getZ() + 0.5);
                     mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 10));
+                    mob.setHealth(mob.getMaxHealth());
                     mob.setSpeed(0.0F);
                     mob.setNoAi(true);
                     mob.noCulling = true;
                     pLevel.setBlock(pPos, pState.setValue(LIT, 1), 3);
                 }
-            }catch (Exception ignored) {
+            } catch (Exception ignored) {
             }
         }
     }
+
 
     @Override
     public StateDefinition<Block, BlockState> getStateDefinition() {
@@ -118,6 +119,6 @@ public class EntityDisplay extends Block {
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return Block.box(0, 0, 0, 16, 2, 16);
+        return Block.box(0, 0, 0, 16, 32, 16);
     }
 }
