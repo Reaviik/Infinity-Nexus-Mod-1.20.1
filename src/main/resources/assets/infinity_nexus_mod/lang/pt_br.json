@@ -481,5 +481,7 @@
   "message.infinity_nexus.extraction_complete": "§aExtração concluída!",
   "message.infinity_nexus.no_ores_found": "§cNenhum minério encontrado na área.",
   "message.infinity_nexus.extraction_failed": "§cExtração interrompida: blocos fora do carregamento!",
-  "message.infinity_nexus.not_in_explorar": "Esta orb só pode ser utilizada no Mundo de Exploração, Nether e End, crie um Bloco de Portal e clique com um Ativador de Portal para ir até a dimensão de exploração"
+  "message.infinity_nexus.not_in_explorar": "Esta orb só pode ser utilizada no Mundo de Exploração, Nether e End, crie um Bloco de Portal e clique com um Ativador de Portal para ir até a dimensão de exploração",
+
+  "item.infinity_nexus_mod.fractal": "Fractal"
 }

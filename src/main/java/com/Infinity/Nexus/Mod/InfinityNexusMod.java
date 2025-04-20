@@ -128,7 +128,6 @@ public class InfinityNexusMod
             MenuScreens.register(ModMenuTypes.TANK_MENU.get(), TankScreen::new);
 
 
-
             ItemBlockRenderTypes.setRenderLayer(ModFluids.LUBRICANT_SOURCE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.LUBRICANT_FLOWING.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.ETHANOL_SOURCE.get(), RenderType.translucent());
@@ -173,6 +172,10 @@ public class InfinityNexusMod
 
             EntityRenderers.register(ModEntities.ASGREON.get(), AsgreonRenderer::new);
             EntityRenderers.register(ModEntities.FLARON.get(), FlaronRenderer::new);
+
+            EntityRenderers.register(ModEntities.FLARON.get(), FlaronRenderer::new);
+
+
 
         }
         @SubscribeEvent

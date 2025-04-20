@@ -230,6 +230,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItemsAdditions.HAMMER_RANGE_UPGRADE);
         simpleItem(ModItemsAdditions.STAR_FRAGMENT);
 
+        simpleItem(ModItemsAdditions.FRACTAL);
+
+
         withExistingParent(ModItemsAdditions.ASGREON_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
         withExistingParent(ModItemsAdditions.FLARON_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
 

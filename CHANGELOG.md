@@ -1,8 +1,15 @@
-## <span style="color:#2DC26B;">` V: 4.1.3`</span>
+## <span style="color:#2DC26B;">` V: 4.1.4`</span>
 ### <span style="color:#3598DB;"> **Add**:</span>
+- Fractal Chest plate
 ### <span style="color:#F1C40F;"> **Fix**:</span>
 ### <span style="color:#E67E23;"> **Change**:</span>
 ### <span style="color:#BA372A;"> **Removed**:</span>
+
+---
+
+## <span style="color:#2DC26B;">` V: 4.1.3`</span>
+### <span style="color:#3598DB;"> **Add**:</span>
+- Fractal Chest plate
 
 ---
 
